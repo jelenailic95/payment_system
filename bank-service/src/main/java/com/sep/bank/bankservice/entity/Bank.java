@@ -1,11 +1,28 @@
 package com.sep.bank.bankservice.entity;
 
+import javax.persistence.*;
+
+@Entity
 public class Bank {
 
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String name;
+    @Column
     private String address;
+    @Column
     private String email;
+    @Column
     private String accountNumber;
+    @Column
+    private String phoneNumber;
+
+    public Bank() {
+    }
 
     public String getName() {
         return name;
@@ -37,5 +54,21 @@ public class Bank {
 
     public void setAccountNumber(String accountNumber) {
         this.accountNumber = accountNumber;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
+
+    public void setPhoneNumber(String phoneNumber) {
+        this.phoneNumber = phoneNumber;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 }
