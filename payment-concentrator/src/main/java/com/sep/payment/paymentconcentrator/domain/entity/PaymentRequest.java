@@ -1,10 +1,10 @@
-package com.sep.payment.paymentconcentrator.entity;
+package com.sep.payment.paymentconcentrator.domain.entity;
 
-import javax.validation.Valid;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.Date;
+
 
 public class PaymentRequest {
 
