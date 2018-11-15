@@ -1,33 +1,65 @@
 package com.sep.payment.paymentconcentrator.domain.entity;
 
+import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
 import javax.validation.constraints.Size;
 import java.util.Date;
 
 
+@Entity
 public class PaymentRequest {
 
-    @Size(max = 30, min=30)
-    private String merchantId;
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
 
-    @Size(max = 100, min=100)
-    private String merchantPassword;
-
+    @Column//10,2
     private double amount;
 
-    @Max(10)
-    @Min(10)
+//    @Size(max = 30, min = 30)
+    @Column
+    private String merchantId;
+
+//    @Size(max = 100, min = 100)
+    @Column
+    private String merchantPassword;
+
+//    @Max(10)
+//    @Min(10)
+    @Column
     private double merchantOrderId;
 
-    private Date merchandTimestamp;
+    @Column
+    private Date merchantTimestamp;
 
+    @Column
     private String successUrl;
+
+    @Column
     private String faildUrl;
+
+    @Column
     private String errorUrl;
 
 
     public PaymentRequest() {
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
+    }
+
+    public Date getMerchantTimestamp() {
+        return merchantTimestamp;
+    }
+
+    public void setMerchantTimestamp(Date merchantTimestamp) {
+        this.merchantTimestamp = merchantTimestamp;
     }
 
     public String getMerchantId() {
@@ -63,11 +95,11 @@ public class PaymentRequest {
     }
 
     public Date getMerchandTimestamp() {
-        return merchandTimestamp;
+        return merchantTimestamp;
     }
 
     public void setMerchandTimestamp(Date merchandTimestamp) {
-        this.merchandTimestamp = merchandTimestamp;
+        this.merchantTimestamp = merchandTimestamp;
     }
 
     public String getSuccessUrl() {
