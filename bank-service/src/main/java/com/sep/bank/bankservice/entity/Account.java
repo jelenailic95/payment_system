@@ -20,9 +20,6 @@ public class Account {
     @Column
     private double ammount;
 
-    @OneToMany
-    private Set<Card> cards;
-
     @OneToOne
     private User cardHolder;
 
@@ -59,14 +56,6 @@ public class Account {
 
     public void setAmmount(double ammount) {
         this.ammount = ammount;
-    }
-
-    public Set<Card> getCards() {
-        return cards;
-    }
-
-    public void setCards(Set<Card> cards) {
-        this.cards = cards;
     }
 
     public User getCardHolder() {

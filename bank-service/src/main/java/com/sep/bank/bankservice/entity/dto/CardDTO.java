@@ -8,6 +8,9 @@ public class CardDTO {
     private int securityCode;
     private String hardHolderName;
     private Date expirationDate;
+    private double ammount;
+    private int merchantOrderId;
+    private String paymentId;
 
     public CardDTO() {
     }
@@ -42,5 +45,29 @@ public class CardDTO {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public double getAmmount() {
+        return ammount;
+    }
+
+    public void setAmmount(double ammount) {
+        this.ammount = ammount;
+    }
+
+    public int getMerchantOrderId() {
+        return merchantOrderId;
+    }
+
+    public void setMerchantOrderId(int merchantOrderId) {
+        this.merchantOrderId = merchantOrderId;
+    }
+
+    public String getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(String paymentId) {
+        this.paymentId = paymentId;
     }
 }

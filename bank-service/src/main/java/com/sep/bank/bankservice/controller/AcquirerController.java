@@ -24,7 +24,7 @@ public class AcquirerController {
     }
 
     @PostMapping("/pay-by-card")
-    public ResponseEntity<?> getPaymentUrl(@RequestBody CardDTO request) {
+    public ResponseEntity<?> payByCard(@RequestBody CardDTO request) {
         bankService.checkBankForCard(request);
         return ResponseEntity.ok("");
     }
