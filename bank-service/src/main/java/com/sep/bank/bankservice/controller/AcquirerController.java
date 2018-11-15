@@ -17,7 +17,7 @@ public class AcquirerController {
     @Autowired
     private BankService bankService;
 
-    @GetMapping("/get-payment-url")
+    @PostMapping("/get-payment-url")
     public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody PaymentRequestDTO request) {
         PaymentDataDTO paymentData = bankService.getPaymentUrl(request);
         return ResponseEntity.ok(paymentData);

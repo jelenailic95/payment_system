@@ -15,8 +15,8 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -37,6 +37,8 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public PaymentDataDTO getPaymentUrl(PaymentRequestDTO requestDTO) {
+//        if(requestDTO.getMerchantTimestamp().after(new Date()))
+//            return null;
         Account account = accountService.checkMerchantData(requestDTO.getMerchantId(), requestDTO.getMerchantPassword());
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
         if(account != null){

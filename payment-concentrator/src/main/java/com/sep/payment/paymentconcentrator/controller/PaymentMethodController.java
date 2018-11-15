@@ -1,5 +1,6 @@
 package com.sep.payment.paymentconcentrator.controller;
 
+import com.sep.payment.paymentconcentrator.domain.dto.PaymentDataDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.RequestDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentMethod;
 import com.sep.payment.paymentconcentrator.domain.dto.ClientDTO;
@@ -40,10 +41,10 @@ public class PaymentMethodController {
     }
 
     @PostMapping(value = "/pay-by-bank-card")
-    public String createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) {
+    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) {
         PaymentRequest paymentRequest = paymentMethodService.createPaymentRequest(requestDTO.getClientId(), requestDTO.getAmount());
 
-        return restTemplate.postForObject("http://localhost:8762/bank/get-payment-url",
-                paymentRequest, String.class);
+        return ResponseEntity.ok(restTemplate.postForObject("http://localhost:8762/bank/get-payment-url",
+                paymentRequest, PaymentDataDTO.class));
     }
 }
