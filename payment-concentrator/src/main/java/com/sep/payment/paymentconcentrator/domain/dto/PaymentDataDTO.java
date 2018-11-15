@@ -4,6 +4,8 @@ public class PaymentDataDTO {
 
     private String paymentUrl;
     private String paymentId;
+    private double amount;
+    private int merchantOrderId;
 
     public PaymentDataDTO() {
     }
@@ -27,5 +29,21 @@ public class PaymentDataDTO {
 
     public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public int getMerchantOrderId() {
+        return merchantOrderId;
+    }
+
+    public void setMerchantOrderId(int merchantOrderId) {
+        this.merchantOrderId = merchantOrderId;
     }
 }
