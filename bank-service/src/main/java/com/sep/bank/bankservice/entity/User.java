@@ -13,9 +13,14 @@ public class User {
     private String fullName;
 
     @Column
-    private String jmbg;
+    private String email;
 
     public User() {
+    }
+
+    public User(String fullName, String email) {
+        this.fullName = fullName;
+        this.email = email;
     }
 
     public Long getId() {
@@ -34,11 +39,11 @@ public class User {
         this.fullName = fullName;
     }
 
-    public String getJmbg() {
-        return jmbg;
+    public String getEmail() {
+        return email;
     }
 
-    public void setJmbg(String jmbg) {
-        this.jmbg = jmbg;
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

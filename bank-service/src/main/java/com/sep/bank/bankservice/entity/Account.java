@@ -1,6 +1,10 @@
 package com.sep.bank.bankservice.entity;
 
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
+import javax.validation.constraints.Size;
 import java.util.Set;
 
 @Entity
@@ -20,7 +24,15 @@ public class Account {
     private Set<Card> cards;
 
     @OneToOne
-    private User user;
+    private User cardHolder;
+
+    @Column
+    @Size(max = 100)
+    private String merchantId;
+
+    @Column
+    @Size(max = 30)
+    private String merchantPassword;
 
     public Account() {
     }
@@ -57,11 +69,27 @@ public class Account {
         this.cards = cards;
     }
 
-    public User getUser() {
-        return user;
+    public User getCardHolder() {
+        return cardHolder;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setCardHolder(User cardHolder) {
+        this.cardHolder = cardHolder;
+    }
+
+    public String getMerchantId() {
+        return merchantId;
+    }
+
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public String getMerchantPassword() {
+        return merchantPassword;
+    }
+
+    public void setMerchantPassword(String merchantPassword) {
+        this.merchantPassword = merchantPassword;
     }
 }

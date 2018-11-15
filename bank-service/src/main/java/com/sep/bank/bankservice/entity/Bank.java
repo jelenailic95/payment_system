@@ -1,6 +1,8 @@
 package com.sep.bank.bankservice.entity;
 
 import javax.persistence.*;
+import javax.validation.constraints.Size;
+import java.util.Set;
 
 @Entity
 public class Bank {
@@ -10,16 +12,28 @@ public class Bank {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column
+    @Column(unique = true)
     private String name;
+
     @Column
     private String address;
-    @Column
+
+    @Column(unique = true)
     private String email;
-    @Column
+
+    @Column(unique = true)
+    @Size(min=10, max = 10)
     private String accountNumber;
+
+    @Column(unique = true)
+    @Size(min=3, max =3)
+    private String uniqueBankNumber;
+
     @Column
     private String phoneNumber;
+
+    @OneToMany
+    private Set<Account> accounts;
 
     public Bank() {
     }
@@ -71,4 +85,21 @@ public class Bank {
     public void setId(Long id) {
         this.id = id;
     }
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void setAccounts(Set<Account> accounts) {
+        this.accounts = accounts;
+    }
+
+    public String getUniqueBankNumber() {
+        return uniqueBankNumber;
+    }
+
+    public void setUniqueBankNumber(String uniqueBankNumber) {
+        this.uniqueBankNumber = uniqueBankNumber;
+    }
 }
+
