@@ -68,7 +68,7 @@ public class BankServiceImpl implements BankService {
                 transactionDTO.setStatus("SUCCESS");
             }else
                 transactionDTO.setStatus("FAILED");
-            restTemplate.postForEntity("http://localhost:8443/pc/finisth-transaction", transactionDTO, String.class);
+            restTemplate.postForEntity("http://localhost:8443/pc/finish-transaction", transactionDTO, String.class);
         }else{
             forwardToPcc(foundCard, transactionDTO);
         }

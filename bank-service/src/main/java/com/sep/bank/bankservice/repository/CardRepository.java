@@ -9,6 +9,7 @@ import java.util.Date;
 public interface CardRepository extends JpaRepository<Card, Long> {
 
     Card findByPanAndSecurityCodeAndCardHolderNameAndExpirationDate(String pan, int securityCode, String cardHolder, Date expiration);
-    A
+    Card findByPanAndSecurityCodeAndCardHolderName(String pan, int securityCode, String cardHolder);
+
 
 }

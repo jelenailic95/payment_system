@@ -16,6 +16,6 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Card findCard(String pan, int securityCode, String cardHolder, Date expiration) {
-        return cardRepository.findByPanAndSecurityCodeAndCardHolderNameAndExpirationDate(pan,securityCode,cardHolder,expiration);
+        return cardRepository.findByPanAndSecurityCodeAndCardHolderName(pan,securityCode,cardHolder);
     }
 }
