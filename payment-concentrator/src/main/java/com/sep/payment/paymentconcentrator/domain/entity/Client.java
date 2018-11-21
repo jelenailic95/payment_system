@@ -13,6 +13,9 @@ public class Client implements Serializable {
     private Long id;
 
     @Column
+    private String journal;
+
+    @Column
     private Long clientId;    // seller's token(id) from scientific centre
 
     @Column
@@ -25,6 +28,14 @@ public class Client implements Serializable {
     private Set<PaymentMethod> paymentMethods;
 
     public Client() {
+    }
+
+    public String getJournal() {
+        return journal;
+    }
+
+    public void setJournal(String journal) {
+        this.journal = journal;
     }
 
     public Long getId() {

@@ -1,5 +1,6 @@
-INSERT INTO client (client_id, merchant_id, merchant_password) VALUES (1, 'PoniLcvSpfCFawRwYiAXXdEeqndZKzzqwHUHqayhJKVlgUbMcYRDnUgboTUGrXWP', 'pgVIBbgQuRjgvvlP');
-INSERT INTO client (client_id, merchant_id, merchant_password) VALUES (2, 'merch2', 'pass2');
+INSERT INTO client (client_id, merchant_id, merchant_password, journal) VALUES (1,
+'PoniLcvSpfCFawRwYiAXXdEeqndZKzzqwHUHqayhJKVlgUbMcYRDnUgboTUGrXWP', 'pgVIBbgQuRjgvvlP', 'Laguna');
+INSERT INTO client (client_id, merchant_id, merchant_password, journal) VALUES (2, 'merch2', 'pass2', 'National Geography');
 
 INSERT INTO payment_method (name) VALUES ('paypal');
 INSERT INTO payment_method (name) VALUES ('bank');
