@@ -1,8 +1,6 @@
-package com.sep.paypal;
+package com.sep.paypal.config;
 
 import static com.google.common.collect.Lists.newArrayList;
-
-import java.util.Collections;
 
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
