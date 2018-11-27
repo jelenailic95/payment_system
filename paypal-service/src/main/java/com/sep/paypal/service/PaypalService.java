@@ -2,8 +2,9 @@ package com.sep.paypal.service;
 
 import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
-import com.sep.paypal.model.PaymentIntent;
-import com.sep.paypal.model.PaymentMethod;
+import com.sep.paypal.model.RequestCreatePlan;
+import com.sep.paypal.model.enumeration.PaymentIntent;
+import com.sep.paypal.model.enumeration.PaymentMethod;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -15,4 +16,7 @@ public interface PaypalService {
     Payment executePayment(String paymentId, String payerId) throws PayPalRESTException;
 
 
+    Boolean isValidAccount(String email);
+
+    void createPlanForSubscription(RequestCreatePlan requestCreatePlan);
 }

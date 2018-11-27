@@ -1,5 +1,7 @@
 package com.sep.paypal.model;
 
+import com.sep.paypal.model.enumeration.PaymentIntent;
+import com.sep.paypal.model.enumeration.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
