@@ -13,19 +13,20 @@ import java.util.Random;
 
 @Service
 public class PaymentRequestServiceImpl implements PaymentRequestService {
-    @Autowired
-    private ClientRepository clientRepository;
 
     @Autowired
     private PaymentRequestRepository paymentRequestRepository;
 
+    @Autowired
+    private ClientRepository clientRepository;
+
     @Override
-    public PaymentRequest createPaymentRequest(Long clientID, double amount) {
-        Client client = clientRepository.getOne(clientID);
+    public PaymentRequest createPaymentRequest(String client, double amount, String bankName) {
+        Client foundClient = clientRepository.findByClientAndPaymentMethodName(client, bankName);
 
         PaymentRequest paymentRequest = new PaymentRequest();
-        paymentRequest.setMerchantId(client.getMerchantId());
-        paymentRequest.setMerchantPassword(client.getMerchantPassword());
+        paymentRequest.setMerchantId(foundClient.getClientId());
+        paymentRequest.setMerchantPassword(foundClient.getClientPassword());
 
         Random random = new Random();
         paymentRequest.setMerchantOrderId(random.nextInt());

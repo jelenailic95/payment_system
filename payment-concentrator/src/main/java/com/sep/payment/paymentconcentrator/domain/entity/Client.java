@@ -3,7 +3,6 @@ package com.sep.payment.paymentconcentrator.domain.entity;
 
 import javax.persistence.*;
 import java.io.Serializable;
-import java.util.Set;
 
 @Entity
 public class Client implements Serializable {
@@ -13,29 +12,37 @@ public class Client implements Serializable {
     private Long id;
 
     @Column
+    private String client;    // seller's token(id) from scientific centre
+
+    @Column
     private String journal;
 
     @Column
-    private Long clientId;    // seller's token(id) from scientific centre
+    private String clientId;
 
     @Column
-    private String merchantId;
+    private String clientPassword;
 
-    @Column
-    private String merchantPassword;
-
-    @ManyToMany
-    private Set<PaymentMethod> paymentMethods;
+    @ManyToOne
+    private PaymentMethod paymentMethod;
 
     public Client() {
     }
 
-    public String getJournal() {
-        return journal;
+    public Client(String client, String journal, String clientId, String clientPassword, PaymentMethod paymentMethod) {
+        this.client = client;
+        this.journal = journal;
+        this.clientId = clientId;
+        this.clientPassword = clientPassword;
+        this.paymentMethod = paymentMethod;
     }
 
-    public void setJournal(String journal) {
-        this.journal = journal;
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public Long getId() {
@@ -46,35 +53,35 @@ public class Client implements Serializable {
         this.id = id;
     }
 
-    public Long getClientId() {
-        return clientId;
+    public String getJournal() {
+        return journal;
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public void setJournal(String journal) {
+        this.journal = journal;
     }
 
-    public String getMerchantId() {
-        return merchantId;
+    public String getClient() {
+        return client;
     }
 
-    public void setMerchantId(String merchantId) {
-        this.merchantId = merchantId;
+    public void setClient(String client) {
+        this.client = client;
     }
 
-    public String getMerchantPassword() {
-        return merchantPassword;
+    public String getClientPassword() {
+        return clientPassword;
     }
 
-    public void setMerchantPassword(String merchantPassword) {
-        this.merchantPassword = merchantPassword;
+    public void setClientPassword(String clientPassword) {
+        this.clientPassword = clientPassword;
     }
 
-    public Set<PaymentMethod> getPaymentMethods() {
-        return paymentMethods;
+    public PaymentMethod getPaymentMethod() {
+        return paymentMethod;
     }
 
-    public void setPaymentMethods(Set<PaymentMethod> paymentMethods) {
-        this.paymentMethods = paymentMethods;
+    public void setPaymentMethod(PaymentMethod paymentMethod) {
+        this.paymentMethod = paymentMethod;
     }
 }

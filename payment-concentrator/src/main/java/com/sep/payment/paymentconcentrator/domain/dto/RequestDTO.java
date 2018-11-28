@@ -1,16 +1,27 @@
 package com.sep.payment.paymentconcentrator.domain.dto;
 
 public class RequestDTO {
-    private String token;
-    private Long clientId;
+    private String client;
+    private String bankName;
     private double amount;
 
-    public Long getClientId() {
-        return clientId;
+    public RequestDTO() {
     }
 
-    public void setClientId(Long clientId) {
-        this.clientId = clientId;
+    public String getClient() {
+        return client;
+    }
+
+    public void setClient(String client) {
+        this.client = client;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 
     public double getAmount() {
@@ -19,13 +30,5 @@ public class RequestDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }
