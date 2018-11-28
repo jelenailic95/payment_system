@@ -1,24 +1,21 @@
 package com.sep.bank.bankservice.service.serviceImpl;
 
-import com.sep.bank.bankservice.entity.Account;
-import com.sep.bank.bankservice.entity.Bank;
-import com.sep.bank.bankservice.entity.Card;
-import com.sep.bank.bankservice.entity.User;
+import com.sep.bank.bankservice.entity.*;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.BankRepository;
+import com.sep.bank.bankservice.repository.TransactionRepository;
 import com.sep.bank.bankservice.service.AccountService;
 import com.sep.bank.bankservice.service.BankService;
 import com.sep.bank.bankservice.service.CardService;
 import com.sep.bank.bankservice.service.UserService;
 import org.apache.commons.lang.RandomStringUtils;
-import org.bouncycastle.util.test.TestRandomData;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.Date;
-import java.util.List;
-import java.util.Random;
+import java.util.*;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -38,6 +35,11 @@ public class BankServiceImpl implements BankService {
     @Autowired
     private RestTemplate restTemplate;
 
+    @Autowired
+    private TransactionRepository transactionRepository;
+
+    private ModelMapper modelMapper;
+
     @Override
     public List<Bank> getAll() {
         return bankRepository.findAll();
@@ -48,7 +50,7 @@ public class BankServiceImpl implements BankService {
 
         Account account = accountService.checkMerchantData(requestDTO.getMerchantId(), requestDTO.getMerchantPassword());
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
-        if(account != null){
+        if (account != null) {
             paymentDataDTO = new PaymentDataDTO(
                     RandomStringUtils.randomAlphabetic(16),
                     RandomStringUtils.randomAlphabetic(16),
@@ -59,37 +61,71 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public String checkBankForCard(CardDTO card) {
-        Card foundCard = cardService.findCard(card.getPan(),card.getSecurityCode(), card.getHardHolderName(), card.getExpirationDate());
-        TransactionDTO transactionDTO = new TransactionDTO(card.getMerchantOrderId(), card.getPaymentId(),0,null);
+    public String checkCard(AcquirerDataDTO acquirerDataDTO) {
+        CardDTO card = acquirerDataDTO.getCard();
+        Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(), card.getExpirationDate());
 
-        if(foundCard != null){
-            if(checkAmmountOnAccount(foundCard, card.getAmmount())){
-                transactionDTO.setStatus("SUCCESS");
-            }else
-                transactionDTO.setStatus("FAILED");
-            restTemplate.postForEntity("http://localhost:8443/pc/finish-transaction", transactionDTO, String.class);
-        }else{
-            forwardToPcc(foundCard, transactionDTO);
+        if (foundCard != null) {
+            if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
+                return "SUCCESS";
+            } else
+                return "FAILED";
         }
-        return null;
+        return null;  // ne pronalazi karticu u banci, neki error baciti
     }
 
-    private void forwardToPcc(Card foundCard, TransactionDTO transactionDTO) {
+    @Override
+    public Transaction checkBankForCard(CardAmountDTO card) {
+        Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
+                card.getExpirationDate());
+        Transaction transaction = new Transaction();
+        transaction.setMerchantOrderId(card.getMerchantOrderId());
+        transaction.setPaymentId(card.getPaymentId());
+        transaction.setAmount(card.getAmount());
+
+        if (foundCard != null) {
+            if (checkAmountOnAccount(foundCard, card.getAmount())) {
+                transaction.setStatus("SUCCESS");
+            } else
+                transaction.setStatus("FAILED");
+        } else {
+            // banks are different
+            transaction = forwardToPcc(card, transaction);
+        }
+        transactionRepository.save(transaction);
+        return transaction;
+    }
+
+    private Transaction forwardToPcc(CardAmountDTO cardAmountDTO, Transaction transaction) {
         Random random = new Random();
-        AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextInt(), new Date(), foundCard);
-        restTemplate.postForEntity("http://localhost:8444/forward-to-bank", acquirerDataDTO, String.class);
+        CardDTO cardDTO = new CardDTO(cardAmountDTO.getPan(), cardAmountDTO.getSecurityCode(),
+                cardAmountDTO.getCardHolderName(), cardAmountDTO.getExpirationDate());
 
+        AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO, transaction.getAmount());
+        transaction.setAcquirerTimestamp(acquirerDataDTO.getAcquirerTimestamp());
+        transaction.setAcquirerOrderId(acquirerDataDTO.getAcquirerOrderId());
+
+        // poziva PCC koji prosledjuje podatke banci kupca i vraca status
+        PaymentResultDTO paymentResultDTO = restTemplate.postForObject("http://localhost:8444/forward-to-bank",
+                acquirerDataDTO, PaymentResultDTO.class);
+
+        if (paymentResultDTO != null) {
+            transaction.setStatus(paymentResultDTO.getStatus());
+        }
+        return transaction;
     }
 
-    private boolean checkAmmountOnAccount(Card foundCard, double ammount) {
-        if(ammount < foundCard.getAccount().getAmmount())
+    private boolean checkAmountOnAccount(Card foundCard, double amount) {
+        if (amount <= foundCard.getAccount().getAmount()) {
+            foundCard.getAccount().setAmount(foundCard.getAccount().getAmount() - amount);
+            accountService.saveAccount(foundCard.getAccount());
             return true;
+        }
         return false;
     }
 
     @Override
-    public Account registerNewAccount(String name, String email, String bankName){
+    public Account registerNewAccount(String name, String email, String bankName) {
         Bank bank = bankRepository.findByName(bankName);
         User user = userService.create(new User(name, email));
 
@@ -100,7 +136,13 @@ public class BankServiceImpl implements BankService {
         newAccount.setAccountNumber(RandomStringUtils.randomAlphabetic(16));
         Account createdAccount = accountService.create(newAccount);
 
-        bank.getAccounts().add(createdAccount);
+        if (bank.getAccounts() == null) {
+            HashSet accounts = new HashSet();
+            accounts.add(createdAccount);
+            bank.setAccounts(accounts);
+        } else {
+            bank.getAccounts().add(createdAccount);
+        }
         bankRepository.save(bank);
 
         return createdAccount;

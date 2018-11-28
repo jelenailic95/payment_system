@@ -3,26 +3,42 @@ package com.sep.payment.paymentconcentrator.domain.dto;
 import java.util.Date;
 
 public class TransactionResultDTO {
-
-    private int merchantOrderId;
-    private double acquirerOrderId;
-    private Date acquirerTimestamp;
-    private String paymentId;
+    private Long merchantOrderId;
+    private Long paymentId;
     private String status;
+    private Long acquirerOrderId;
+    private Date acquirerTimestamp;
+    private double amount;
 
-    public int getMerchantOrderId() {
+    public Long getMerchantOrderId() {
         return merchantOrderId;
     }
 
-    public void setMerchantOrderId(int merchantOrderId) {
+    public void setMerchantOrderId(Long merchantOrderId) {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public double getAcquirerOrderId() {
+    public Long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public Long getAcquirerOrderId() {
         return acquirerOrderId;
     }
 
-    public void setAcquirerOrderId(double acquirerOrderId) {
+    public void setAcquirerOrderId(Long acquirerOrderId) {
         this.acquirerOrderId = acquirerOrderId;
     }
 
@@ -34,19 +50,11 @@ public class TransactionResultDTO {
         this.acquirerTimestamp = acquirerTimestamp;
     }
 
-    public String getPaymentId() {
-        return paymentId;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setPaymentId(String paymentId) {
-        this.paymentId = paymentId;
-    }
-
-    public String getStatus() {
-        return status;
-    }
-
-    public void setStatus(String status) {
-        this.status = status;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }

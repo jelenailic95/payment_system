@@ -1,29 +1,21 @@
 package com.sep.bank.bankservice.entity.dto;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sep.bank.bankservice.entity.Account;
-
 import java.util.Date;
 
-public class CardDTO {
+public class CardAmountDTO {
 
     private String pan;
     private int securityCode;
     private String cardHolderName;
     private Date expirationDate;
+    private double amount;
+    private Long merchantOrderId;
+    private Long paymentId;
 
-    public CardDTO() {
-    }
-
-    public CardDTO(String pan, int securityCode, String cardHolderName, Date expirationDate) {
-        this.pan = pan;
-        this.securityCode = securityCode;
-        this.cardHolderName = cardHolderName;
-        this.expirationDate = expirationDate;
+    public CardAmountDTO() {
     }
 
     public String getPan() {
-
         return pan;
     }
 
@@ -43,8 +35,8 @@ public class CardDTO {
         return cardHolderName;
     }
 
-    public void setCardColderName(String cardHolderName) {
-        this.cardHolderName = cardHolderName;
+    public void setCardHolderName(String hardHolderName) {
+        this.cardHolderName = hardHolderName;
     }
 
     public Date getExpirationDate() {
@@ -53,5 +45,29 @@ public class CardDTO {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public Long getMerchantOrderId() {
+        return merchantOrderId;
+    }
+
+    public void setMerchantOrderId(Long merchantOrderId) {
+        this.merchantOrderId = merchantOrderId;
+    }
+
+    public Long getPaymentId() {
+        return paymentId;
+    }
+
+    public void setPaymentId(Long paymentId) {
+        this.paymentId = paymentId;
     }
 }

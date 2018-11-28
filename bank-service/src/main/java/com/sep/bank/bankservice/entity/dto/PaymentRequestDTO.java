@@ -7,7 +7,7 @@ public class PaymentRequestDTO {
     private String merchantId;
     private String merchantPassword;
     private double amount;
-    private int merchantOrderId;
+    private Long merchantOrderId;
     private Date merchantTimestamp;
     private String successUrl;
     private String failedUrl;
@@ -41,14 +41,13 @@ public class PaymentRequestDTO {
         this.amount = amount;
     }
 
-    public int getMerchantOrderId() {
+    public Long getMerchantOrderId() {
         return merchantOrderId;
     }
 
-    public void setMerchantOrderId(int merchantOrderId) {
+    public void setMerchantOrderId(Long merchantOrderId) {
         this.merchantOrderId = merchantOrderId;
     }
-
 
     public String getSuccessUrl() {
         return successUrl;

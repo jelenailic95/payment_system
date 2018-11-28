@@ -23,4 +23,10 @@ public class AccountServiceImpl implements AccountService {
         return accountRepository.findByMerchantIdAndMerchantPassword(merchantId, merchantPassword);
     }
 
+    @Override
+    public void saveAccount(Account account){
+        accountRepository.save(account);
+    }
+
+
 }

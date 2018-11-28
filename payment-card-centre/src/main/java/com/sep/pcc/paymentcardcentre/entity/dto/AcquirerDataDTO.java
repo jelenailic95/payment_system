@@ -1,5 +1,4 @@
-package com.sep.bank.bankservice.entity.dto;
-
+package com.sep.pcc.paymentcardcentre.entity.dto;
 
 
 import java.util.Date;

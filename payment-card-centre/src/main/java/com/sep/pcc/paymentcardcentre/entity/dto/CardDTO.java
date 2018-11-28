@@ -1,7 +1,4 @@
-package com.sep.bank.bankservice.entity.dto;
-
-import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sep.bank.bankservice.entity.Account;
+package com.sep.pcc.paymentcardcentre.entity.dto;
 
 import java.util.Date;
 
@@ -15,15 +12,7 @@ public class CardDTO {
     public CardDTO() {
     }
 
-    public CardDTO(String pan, int securityCode, String cardHolderName, Date expirationDate) {
-        this.pan = pan;
-        this.securityCode = securityCode;
-        this.cardHolderName = cardHolderName;
-        this.expirationDate = expirationDate;
-    }
-
     public String getPan() {
-
         return pan;
     }
 
@@ -43,8 +32,8 @@ public class CardDTO {
         return cardHolderName;
     }
 
-    public void setCardColderName(String cardHolderName) {
-        this.cardHolderName = cardHolderName;
+    public void setCardHolderName(String hardHolderName) {
+        this.cardHolderName = hardHolderName;
     }
 
     public Date getExpirationDate() {
