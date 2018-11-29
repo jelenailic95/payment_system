@@ -28,6 +28,9 @@ public class Transaction {
     @Column
     private double amount;
 
+    @Column
+    private String resultUrl;
+
     public Transaction() {
     }
 
@@ -96,5 +99,13 @@ public class Transaction {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getResultUrl() {
+        return resultUrl;
+    }
+
+    public void setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
     }
 }

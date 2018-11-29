@@ -13,6 +13,8 @@ public class TransactionDTO {
     private Long acquirerOrderId;
     private Date acquirerTimestamp;
     private double amount;
+    private String resultUrl;
+
 
     public TransactionDTO(Long merchantOrderId, Long paymentId, Long acquierOrderId, Date acquirerTimestamp, double ammount) {
         this.merchantOrderId = merchantOrderId;
@@ -79,6 +81,14 @@ public class TransactionDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getResultUrl() {
+        return resultUrl;
+    }
+
+    public void setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
     }
 }
 

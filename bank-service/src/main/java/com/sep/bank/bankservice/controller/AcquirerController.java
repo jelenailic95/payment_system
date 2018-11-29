@@ -32,14 +32,13 @@ public class AcquirerController {
     }
 
     @PostMapping("/pay-by-card")
-    public ResponseEntity<?> payByCard(@RequestBody CardAmountDTO cardAmountDTO) {
+    public void payByCard(@RequestBody CardAmountDTO cardAmountDTO) {
         Transaction transaction = bankService.checkBankForCard(cardAmountDTO);
 
         TransactionDTO transactionDTO = modelMapper.map(transaction, TransactionDTO.class);
 
         // final step - send transaction information to the payment concentrator
-        restTemplate.postForEntity("http://localhost:8443/pc/finish-transaction", transactionDTO, String.class);
+        restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO, TransactionDTO.class);
 
-        return ResponseEntity.ok("");
     }
 }

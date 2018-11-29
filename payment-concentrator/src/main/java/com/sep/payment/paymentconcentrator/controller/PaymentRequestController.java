@@ -40,12 +40,14 @@ public class PaymentRequestController {
         String client = Utility.readToken(requestDTO.getClient());
         PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getBankName());
         System.out.println(client);
-        return ResponseEntity.ok(restTemplate.postForObject("http://localhost:8762/"+requestDTO.getBankName()+"/get-payment-url",
-                paymentRequest, PaymentDataDTO.class));
+        PaymentDataDTO paymentDataDTO =restTemplate.postForObject("http://localhost:8762/"+requestDTO.getBankName()+"/get-payment-url",
+                paymentRequest, PaymentDataDTO.class);
+
+        return ResponseEntity.ok(paymentDataDTO);
     }
 
     @GetMapping(value = "/get-token")
-    public ResponseEntity<String> createPaymentRequest() throws UnsupportedEncodingException {
+    public ResponseEntity<String> getToken() throws UnsupportedEncodingException {
         Algorithm algorithm = Algorithm.HMAC256(Constants.TOKEN_SECRET);
         String token = JWT.create()
                 .withClaim("client", "Laguna")
