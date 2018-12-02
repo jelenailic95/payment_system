@@ -13,6 +13,7 @@ import com.sep.payment.paymentconcentrator.utility.Utility;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -45,6 +46,7 @@ public class PaymentRequestController {
     }
 
     @GetMapping(value = "/get-token")
+    @PreAuthorize("#oauth2.hasScope('custom_mod')")
     public ResponseEntity<String> createPaymentRequest() throws UnsupportedEncodingException {
         Algorithm algorithm = Algorithm.HMAC256(Constants.TOKEN_SECRET);
         String token = JWT.create()
