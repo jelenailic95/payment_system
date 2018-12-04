@@ -13,12 +13,12 @@ zuul:
   host:
     connect-timeout-millis: 10000
     socket-timeout-millis: 60000
-  routes:
-    paypal:
-      path: "/paypal/**"
-      service-id : "paypal-service"
-  ignored-services: "*"
-
+#  routes:
+#    paypal:
+#      path: "/paypal/**"
+#      service-id : "paypal-service"
+#  ignored-services: "*"
+  retryable: true
 
 hystrix:
   command:
