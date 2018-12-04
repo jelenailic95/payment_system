@@ -1,5 +1,6 @@
 package com.sep.paypal.service.impl;
 
+import com.paypal.api.payments.Currency;
 import com.paypal.api.payments.*;
 import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
@@ -9,31 +10,38 @@ import com.paypal.svcs.types.aa.GetVerifiedStatusRequest;
 import com.paypal.svcs.types.aa.GetVerifiedStatusResponse;
 import com.paypal.svcs.types.common.RequestEnvelope;
 import com.sep.paypal.config.AdaptiveConfiguration;
+import com.sep.paypal.model.JournalPlan;
 import com.sep.paypal.model.RequestCreatePlan;
 import com.sep.paypal.model.enumeration.PaymentIntent;
 import com.sep.paypal.model.enumeration.PaymentMethod;
+import com.sep.paypal.repository.JournalPlanRepository;
 import com.sep.paypal.service.PaypalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.io.UnsupportedEncodingException;
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.*;
 
 @Service
 public class PaypalServiceImpl implements PaypalService {
 
     private Logger logger = LoggerFactory.getLogger(PaypalService.class);
+
     private final APIContext apiContext;
 
-    @Autowired
-    PaypalServiceImpl(APIContext apiContext) {
-        this.apiContext = apiContext;
-    }
+    private final JournalPlanRepository journalPlanRepository;
 
+    @Autowired
+    public PaypalServiceImpl(APIContext apiContext, JournalPlanRepository journalPlanRepository) {
+        this.apiContext = apiContext;
+        this.journalPlanRepository = journalPlanRepository;
+    }
 
     @Override
     public Payment createPayment(Double total, String currency, PaymentMethod method, PaymentIntent intent, String description, String cancelUrl, String successUrl) throws PayPalRESTException {
@@ -89,10 +97,7 @@ public class PaypalServiceImpl implements PaypalService {
         } catch (Exception e) {
             logger.error(e.getMessage());
         }
-        if (resp.getAccountStatus() != null) {
-            return true;
-        }
-        return false;
+        return resp.getAccountStatus() != null;
     }
 
     @Override
@@ -121,20 +126,20 @@ public class PaypalServiceImpl implements PaypalService {
         MerchantPreferences merchantPreferences = new MerchantPreferences();
         merchantPreferences.setSetupFee(currency);
         merchantPreferences.setCancelUrl("https://example.com/cancel");
-        merchantPreferences.setReturnUrl("https://example.com/return");
+        merchantPreferences.setReturnUrl("http://localhost:8762/paypal/plan/finishSubscription");
         merchantPreferences.setMaxFailAttempts("0");
         merchantPreferences.setAutoBillAmount("YES");
         merchantPreferences.setInitialFailAmountAction("CONTINUE");
         plan.setMerchantPreferences(merchantPreferences);
 
-        activatePlan(plan);
+        activatePlan(plan, request.getNameOfJournal());
     }
 
-    private void activatePlan(Plan plan) {
+    private void activatePlan(Plan plan, String nameOfJournal) {
         try {
             Plan createdPlan = plan.create(apiContext);
-            System.out.println("Created plan with id = " + createdPlan.getId());
-            System.out.println("Plan state = " + createdPlan.getState());
+            logger.info("Created plan with id = {}", createdPlan.getId());
+            logger.info("Plan state = {}", createdPlan.getState());
             // Set up plan activate PATCH request
             List<Patch> patchRequestList = new ArrayList<>();
             Map<String, String> value = new HashMap<>();
@@ -149,9 +154,58 @@ public class PaypalServiceImpl implements PaypalService {
 
             // Activate plan
             createdPlan.update(apiContext, patchRequestList);
-            System.out.println(Plan.get(apiContext, createdPlan.getId()));
-            //P-2P106772NG1773014K4FZ5NY
+            JournalPlan journalPlan;
+            journalPlan = JournalPlan.builder().journal(nameOfJournal).planId(createdPlan.getId()).build();
+            journalPlanRepository.save(journalPlan);
 
+        } catch (PayPalRESTException e) {
+            logger.error(e.getDetails().getMessage());
+        }
+    }
+
+    @Override
+    public URL subscribeToPlan(String nameOfJournal) {
+        Agreement agreement = new Agreement();
+        agreement.setName(String.format("Subscription for %s", nameOfJournal));
+        agreement.setDescription("Basic Agreement");
+        DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
+
+        // Add 30 seconds to make sure Paypal accept the agreement date
+        Date rightNow = new Date(new Date().getTime() + 30000);
+        agreement.setStartDate(df.format(rightNow));
+
+        Plan plan = new Plan();
+        plan.setId(journalPlanRepository.findJournalPlanByJournal(nameOfJournal).getPlanId());
+        agreement.setPlan(plan);
+
+        Payer payer = new Payer();
+        payer.setPaymentMethod("paypal");
+        agreement.setPayer(payer);
+
+        try {
+            agreement = agreement.create(apiContext);
+
+            for (Links links : agreement.getLinks()) {
+                if ("approval_url".equals(links.getRel())) {
+                    return new URL(links.getHref());
+                    //REDIRECT USER TO url
+                }
+            }
+        } catch (UnsupportedEncodingException | PayPalRESTException | MalformedURLException e) {
+            logger.error(e.getMessage());
+        }
+        return null;
+    }
+
+
+    @Override
+    public void finishSubscription(String token) {
+        Agreement agreement = new Agreement();
+        agreement.setToken(token);
+
+        try {
+            Agreement activeAgreement = agreement.execute(apiContext, agreement.getToken());
+            logger.info("Agreement created with ID {}", activeAgreement.getId());
         } catch (PayPalRESTException e) {
             logger.error(e.getDetails().getMessage());
         }

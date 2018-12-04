@@ -7,6 +7,8 @@ import com.sep.paypal.model.enumeration.PaymentIntent;
 import com.sep.paypal.model.enumeration.PaymentMethod;
 import org.springframework.stereotype.Service;
 
+import java.net.URL;
+
 @Service
 public interface PaypalService {
 
@@ -19,4 +21,8 @@ public interface PaypalService {
     Boolean isValidAccount(String email);
 
     void createPlanForSubscription(RequestCreatePlan requestCreatePlan);
+
+    URL subscribeToPlan(String nameOfJournal);
+
+    void finishSubscription(String token);
 }

@@ -5,6 +5,7 @@ import com.paypal.api.payments.Payment;
 import com.paypal.base.rest.PayPalRESTException;
 import com.sep.paypal.model.RequestCreatePlan;
 import com.sep.paypal.model.RequestPayment;
+import com.sep.paypal.model.SubscribeDto;
 import com.sep.paypal.service.PaypalService;
 import io.swagger.annotations.Api;
 import org.slf4j.Logger;
@@ -13,6 +14,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.net.URL;
 
 @RestController
 @RequestMapping
@@ -24,8 +27,8 @@ public class PaypalController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
-    public static final String PAYPAL_SUCCESS_URL = "pay/success";
-    public static final String PAYPAL_CANCEL_URL = "pay/cancel";
+    private static final String PAYPAL_SUCCESS_URL = "pay/success";
+    private static final String PAYPAL_CANCEL_URL = "pay/cancel";
 
     @Autowired
     public PaypalController(PaypalService paypalService) {
@@ -34,8 +37,8 @@ public class PaypalController {
 
     @PostMapping(value = "pay")
     public String pay(@RequestBody RequestPayment request) {
-        String cancelUrl = null;
-        String successUrl = null;
+        String cancelUrl = "";
+        String successUrl = "";
             cancelUrl = "http://localhost:8762/paypal/" + PAYPAL_CANCEL_URL;
             successUrl = "http://localhost:8762/paypal/" + PAYPAL_SUCCESS_URL;
         try {
@@ -85,10 +88,25 @@ public class PaypalController {
         return ResponseEntity.ok(email);
     }
 
-    @PostMapping(value = "createPlan")
+    @PostMapping(value = "plan/createPlan")
     public ResponseEntity createPlanForSubscription(@RequestBody RequestCreatePlan requestCreatePlan) {
         paypalService.createPlanForSubscription(requestCreatePlan);
         return ResponseEntity.ok().build();
     }
+
+    @PostMapping(value = "plan/subscribe")
+    public ResponseEntity subscribeToPlan(@RequestBody SubscribeDto subscribeDto) {
+        URL url = paypalService.subscribeToPlan(subscribeDto.getNameOfJournal());
+        return ResponseEntity.ok(url);
+    }
+
+    @GetMapping(value = "plan/finishSubscription")
+    public ResponseEntity finishSubscription(@RequestParam("token") String token){
+        paypalService.finishSubscription(token);
+        return ResponseEntity.ok("Subscription finished");
+    }
+
+
+
 
 }
