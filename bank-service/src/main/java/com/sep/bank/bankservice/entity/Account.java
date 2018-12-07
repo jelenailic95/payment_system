@@ -1,7 +1,8 @@
 package com.sep.bank.bankservice.entity;
 
+
 import javax.persistence.*;
-import java.util.Set;
+import javax.validation.constraints.Size;
 
 @Entity
 public class Account {
@@ -11,16 +12,21 @@ public class Account {
     private Long id;
 
     @Column
-    private String accountNumber;
+    private String accountNumber;  // prva tri broja govore koja je banka u pitanjua
 
     @Column
-    private double ammount;
-
-    @OneToMany
-    private Set<Card> cards;
+    private double amount;
 
     @OneToOne
-    private User user;
+    private User cardHolder;
+
+    @Column
+    @Size(max = 100)
+    private String merchantId;
+
+    @Column
+    @Size(max = 30)
+    private String merchantPassword;
 
     public Account() {
     }
@@ -41,27 +47,35 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public double getAmmount() {
-        return ammount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmmount(double ammount) {
-        this.ammount = ammount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
-    public Set<Card> getCards() {
-        return cards;
+    public User getCardHolder() {
+        return cardHolder;
     }
 
-    public void setCards(Set<Card> cards) {
-        this.cards = cards;
+    public void setCardHolder(User cardHolder) {
+        this.cardHolder = cardHolder;
     }
 
-    public User getUser() {
-        return user;
+    public String getMerchantId() {
+        return merchantId;
     }
 
-    public void setUser(User user) {
-        this.user = user;
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId;
+    }
+
+    public String getMerchantPassword() {
+        return merchantPassword;
+    }
+
+    public void setMerchantPassword(String merchantPassword) {
+        this.merchantPassword = merchantPassword;
     }
 }

@@ -22,6 +22,9 @@ public class Card {
     @Column
     private Date expirationDate;
 
+    @ManyToOne
+    private Account account;
+
     public Card() {
     }
 
@@ -63,5 +66,13 @@ public class Card {
 
     public void setExpirationDate(Date expirationDate) {
         this.expirationDate = expirationDate;
+    }
+
+    public Account getAccount() {
+        return account;
+    }
+
+    public void setAccount(Account account) {
+        this.account = account;
     }
 }
