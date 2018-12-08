@@ -12,26 +12,36 @@ public class Bank {
     private Long id;
 
     @Column
-    private int bankIdNumber;
+    private int bankNumber;
+
     @Column
-    private String name;
+    private String bankName;
+
 
     public Bank() {
     }
 
-    public int getBankIdNumber() {
-        return bankIdNumber;
+    public Long getId() {
+        return id;
     }
 
-    public void setBankIdNumber(int bankIdNumber) {
-        this.bankIdNumber = bankIdNumber;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public int getBankNumber() {
+        return bankNumber;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setBankNumber(int bankNumber) {
+        this.bankNumber = bankNumber;
+    }
+
+    public String getBankName() {
+        return bankName;
+    }
+
+    public void setBankName(String bankName) {
+        this.bankName = bankName;
     }
 }

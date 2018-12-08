@@ -3,34 +3,45 @@ package com.sep.payment.paymentconcentrator.domain.dto;
 import java.util.Date;
 
 public class TransactionResultCustomerDTO {
-    private double merchantOrderId;
-    private double acquirerOrderId;
+    private Long merchantOrderId;
+    private Long acquirerOrderId;
     private Date acquirerTimestamp;
-    private String paymentId;
+    private Long paymentId;
     private String resultUrl;
+    private double amount;
+    private String status;
 
-    public TransactionResultCustomerDTO(double merchantOrderId, double acquirerOrderId, Date acquirerTimestamp,
-                                        String paymentId, String resultUrl) {
+    public TransactionResultCustomerDTO(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, String resultUrl, double amount, String status) {
         this.merchantOrderId = merchantOrderId;
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
         this.paymentId = paymentId;
         this.resultUrl = resultUrl;
+        this.amount = amount;
+        this.status = status;
     }
 
-    public double getMerchantOrderId() {
+    public String getResultUrl() {
+        return resultUrl;
+    }
+
+    public void setResultUrl(String resultUrl) {
+        this.resultUrl = resultUrl;
+    }
+
+    public Long getMerchantOrderId() {
         return merchantOrderId;
     }
 
-    public void setMerchantOrderId(double merchantOrderId) {
+    public void setMerchantOrderId(Long merchantOrderId) {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public double getAcquirerOrderId() {
+    public Long getAcquirerOrderId() {
         return acquirerOrderId;
     }
 
-    public void setAcquirerOrderId(double acquirerOrderId) {
+    public void setAcquirerOrderId(Long acquirerOrderId) {
         this.acquirerOrderId = acquirerOrderId;
     }
 
@@ -42,19 +53,27 @@ public class TransactionResultCustomerDTO {
         this.acquirerTimestamp = acquirerTimestamp;
     }
 
-    public String getPaymentId() {
+    public Long getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(String paymentId) {
+    public void setPaymentId(Long paymentId) {
         this.paymentId = paymentId;
     }
 
-    public String getResultUrl() {
-        return resultUrl;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setResultUrl(String resultUrl) {
-        this.resultUrl = resultUrl;
+    public void setAmount(double amount) {
+        this.amount = amount;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
+    public void setStatus(String status) {
+        this.status = status;
     }
 }

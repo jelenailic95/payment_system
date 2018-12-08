@@ -28,7 +28,7 @@ public class PaymentRequest {
 //    @Max(10)
 //    @Min(10)
     @Column
-    private Integer merchantOrderId;
+    private Long merchantOrderId;
 
     @Column
     private Date merchantTimestamp;
@@ -86,12 +86,20 @@ public class PaymentRequest {
         this.amount = amount;
     }
 
-    public Integer getMerchantOrderId() {
+    public Long getMerchantOrderId() {
         return merchantOrderId;
     }
 
-    public void setMerchantOrderId(Integer merchantOrderId) {
+    public void setMerchantOrderId(Long merchantOrderId) {
         this.merchantOrderId = merchantOrderId;
+    }
+
+    public String getFailedUrl() {
+        return failedUrl;
+    }
+
+    public void setFailedUrl(String failedUrl) {
+        this.failedUrl = failedUrl;
     }
 
     public Date getMerchandTimestamp() {

@@ -1,29 +1,31 @@
 package com.sep.bank.bankservice.entity.dto;
 
-import com.sep.bank.bankservice.entity.Card;
+
 
 import java.util.Date;
 
 public class AcquirerDataDTO {
 
-    private int acquirerOrderId;
+    private Long acquirerOrderId;
     private Date acquirerTimestamp;
-    private Card card;
+    private double amount;
+    private CardDTO cardDTO;
 
     public AcquirerDataDTO() {
     }
 
-    public AcquirerDataDTO(int acquirerOrderId, Date acquirerTimestamp, Card card) {
+    public AcquirerDataDTO(Long acquirerOrderId, Date acquirerTimestamp, CardDTO card, double amount) {
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
-        this.card = card;
+        this.cardDTO = card;
+        this.amount = amount;
     }
 
-    public int getAcquirerOrderId() {
+    public Long getAcquirerOrderId() {
         return acquirerOrderId;
     }
 
-    public void setAcquirerOrderId(int acquirerOrderId) {
+    public void setAcquirerOrderId(Long acquirerOrderId) {
         this.acquirerOrderId = acquirerOrderId;
     }
 
@@ -35,11 +37,19 @@ public class AcquirerDataDTO {
         this.acquirerTimestamp = acquirerTimestamp;
     }
 
-    public Card getCard() {
-        return card;
+    public CardDTO getCard() {
+        return cardDTO;
     }
 
-    public void setCard(Card card) {
-        this.card = card;
+    public void setCard(CardDTO card) {
+        this.cardDTO = card;
+    }
+
+    public double getAmount() {
+        return amount;
+    }
+
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 }

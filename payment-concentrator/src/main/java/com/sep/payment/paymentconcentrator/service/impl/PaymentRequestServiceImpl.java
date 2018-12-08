@@ -29,7 +29,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         paymentRequest.setMerchantPassword(foundClient.getClientPassword());
 
         Random random = new Random();
-        paymentRequest.setMerchantOrderId(random.nextInt());
+        paymentRequest.setMerchantOrderId(random.nextLong());
         paymentRequest.setAmount(amount);
         paymentRequest.setMerchandTimestamp(new Date());
 
@@ -39,7 +39,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
-    public PaymentRequest getPaymentRequest(int merchantOrderId){
+    public PaymentRequest getPaymentRequest(Long merchantOrderId){
         return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
     }
 

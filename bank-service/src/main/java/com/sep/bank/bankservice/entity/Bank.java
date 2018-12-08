@@ -26,7 +26,7 @@ public class Bank {
     private String accountNumber;
 
     @Column(unique = true)
-    @Size(min=3, max =3)
+    @Size(min=6, max =6)
     private String uniqueBankNumber;
 
     @Column

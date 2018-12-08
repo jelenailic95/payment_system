@@ -47,7 +47,7 @@ public class PaymentRequestController {
 
     @GetMapping(value = "/get-token")
     @PreAuthorize("#oauth2.hasScope('custom_mod')")
-    public ResponseEntity<String> createPaymentRequest() throws UnsupportedEncodingException {
+    public ResponseEntity<String> getToken() throws UnsupportedEncodingException {
         Algorithm algorithm = Algorithm.HMAC256(Constants.TOKEN_SECRET);
         String token = JWT.create()
                 .withClaim("client", "Laguna")

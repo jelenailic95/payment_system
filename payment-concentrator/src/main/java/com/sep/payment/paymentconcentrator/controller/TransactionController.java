@@ -28,7 +28,11 @@ public class TransactionController {
 
         TransactionResultCustomerDTO transactionCustomer = new TransactionResultCustomerDTO(transaction.getMerchantOrderId(),
                 transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(),
-                transaction.getPaymentId(), resultUrl);
+                transaction.getPaymentId(), resultUrl, transaction.getAmount(), transaction.getStatus());
+
+        System.out.println(transactionCustomer.getResultUrl());
+        System.out.println(transactionCustomer.getAcquirerOrderId());
+        System.out.println(transactionCustomer.getAmount());
 
         return ResponseEntity.ok().body(transactionCustomer);
     }

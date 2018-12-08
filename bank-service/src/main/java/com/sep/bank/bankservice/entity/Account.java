@@ -1,11 +1,8 @@
 package com.sep.bank.bankservice.entity;
 
-import org.hibernate.annotations.Generated;
-import org.hibernate.annotations.GenerationTime;
 
 import javax.persistence.*;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Entity
 public class Account {
@@ -15,10 +12,10 @@ public class Account {
     private Long id;
 
     @Column
-    private String accountNumber;
+    private String accountNumber;  // prva tri broja govore koja je banka u pitanjua
 
     @Column
-    private double ammount;
+    private double amount;
 
     @OneToOne
     private User cardHolder;
@@ -50,12 +47,12 @@ public class Account {
         this.accountNumber = accountNumber;
     }
 
-    public double getAmmount() {
-        return ammount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmmount(double ammount) {
-        this.ammount = ammount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public User getCardHolder() {

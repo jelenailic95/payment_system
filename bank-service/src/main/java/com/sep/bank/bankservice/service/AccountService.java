@@ -8,5 +8,6 @@ public interface AccountService {
 
     Account create(Account account);
     Account checkMerchantData(String merchantId, String merchantPassword);
+    void saveAccount(Account account);
 
 }
