@@ -9,8 +9,8 @@ VALUES ('Science Mag', 'sciencemag@gmail.com');
 INSERT INTO user (full_name, email)
 VALUES ('Marija Kovacevic', 'marija@gmail.com');
 
-INSERT INTO account (amount, card_holder_id, merchant_id, merchant_password) VALUES (5000, 1, "PoniLcvSpfCFawRwYiAXXdEeqndZKzzqwHUHqayhJKVlgUbMcYRDnUgboTUGrXWP",
-"pgVIBbgQuRjgvvlP");
+INSERT INTO account (amount, card_holder_id, merchant_id, merchant_password) VALUES (5000, 1, 'PoniLcvSpfCFawRwYiAXXdEeqndZKzzqwHUHqayhJKVlgUbMcYRDnUgboTUGrXWP',
+'pgVIBbgQuRjgvvlP');
 
 INSERT INTO bank_accounts (bank_id, accounts_id) VALUES (1, 1);
 

@@ -11,4 +11,5 @@ public interface ClientService {
     List<Client> getAllMethods(String client);
 
     Client addNewMethod(String clientName, String clientId, String clientPassword, String method);
+    Client findByClientMethod(String client, String method);
 }

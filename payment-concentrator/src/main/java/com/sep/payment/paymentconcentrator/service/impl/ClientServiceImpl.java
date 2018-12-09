@@ -30,4 +30,9 @@ public class ClientServiceImpl implements ClientService {
         Client newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
         return clientRepository.save(newClient);
     }
+
+    @Override
+    public Client findByClientMethod(String client, String method) {
+        return null;
+    }
 }
