@@ -61,17 +61,29 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public String checkCard(AcquirerDataDTO acquirerDataDTO) {
+    public Transaction checkCard(AcquirerDataDTO acquirerDataDTO) {
         CardDTO card = acquirerDataDTO.getCard();
         Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(), card.getExpirationDate());
 
         if (foundCard != null) {
             if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
-                return "SUCCESS";
+                return createTransaction(acquirerDataDTO, TransactionStatus.PAID);
             } else
-                return "FAILED";
+                return createTransaction(acquirerDataDTO, TransactionStatus.REFUSED);
         }
-        return null;  // ne pronalazi karticu u banci, neki error baciti
+        return createTransaction(acquirerDataDTO, TransactionStatus.FAILED);  // ne pronalazi karticu u banci, neki error baciti
+    }
+
+    private Transaction createTransaction(AcquirerDataDTO acquirerDataDTO, TransactionStatus status) {
+        Transaction transaction = new Transaction();
+        transaction.setAcquirerOrderId(acquirerDataDTO.getAcquirerOrderId());
+        transaction.setAcquirerTimestamp(acquirerDataDTO.getAcquirerTimestamp());
+        transaction.setAmount(acquirerDataDTO.getAmount());
+        transaction.setStatus(status);
+        transaction.setMerchantOrderId(acquirerDataDTO.getMerchantOrderId());
+        transaction.setPaymentId(acquirerDataDTO.getPaymentId());
+        transactionRepository.save(transaction);
+        return transaction;
     }
 
     @Override
@@ -85,12 +97,13 @@ public class BankServiceImpl implements BankService {
 
         if (foundCard != null) {
             if (checkAmountOnAccount(foundCard, card.getAmount())) {
-                transaction.setStatus("SUCCESS");
+                transaction.setStatus(TransactionStatus.PAID);
             } else
-                transaction.setStatus("FAILED");
+                transaction.setStatus(TransactionStatus.REFUSED);
         } else {
             // banks are different
             transaction = forwardToPcc(card, transaction);
+            return transaction;
         }
         transactionRepository.save(transaction);
         return transaction;
@@ -101,7 +114,9 @@ public class BankServiceImpl implements BankService {
         CardDTO cardDTO = new CardDTO(cardAmountDTO.getPan(), cardAmountDTO.getSecurityCode(),
                 cardAmountDTO.getCardHolderName(), cardAmountDTO.getExpirationDate());
 
-        AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO, transaction.getAmount());
+        AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO,
+                transaction.getAmount(), transaction.getMerchantOrderId(), transaction.getPaymentId());
+
         transaction.setAcquirerTimestamp(acquirerDataDTO.getAcquirerTimestamp());
         transaction.setAcquirerOrderId(acquirerDataDTO.getAcquirerOrderId());
 

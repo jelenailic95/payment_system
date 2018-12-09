@@ -23,7 +23,7 @@ public class Transaction {
     private Long paymentId;
 
     @Column
-    private String status;
+    private TransactionStatus status;
 
     @Column
     private double amount;
@@ -39,7 +39,7 @@ public class Transaction {
         return id;
     }
 
-    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, String status, double ammount) {
+    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, TransactionStatus status, double ammount) {
         this.merchantOrderId = merchantOrderId;
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
@@ -85,11 +85,11 @@ public class Transaction {
         this.paymentId = paymentId;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 

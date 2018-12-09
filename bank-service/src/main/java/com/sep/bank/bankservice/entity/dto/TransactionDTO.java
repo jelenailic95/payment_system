@@ -1,6 +1,8 @@
 package com.sep.bank.bankservice.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.sep.bank.bankservice.entity.Transaction;
+import com.sep.bank.bankservice.entity.TransactionStatus;
 
 import java.util.Date;
 
@@ -9,7 +11,7 @@ public class TransactionDTO {
     private Long id;
     private Long merchantOrderId;
     private Long paymentId;
-    private String status;
+    private TransactionStatus status;
     private Long acquirerOrderId;
     private Date acquirerTimestamp;
     private double amount;
@@ -51,11 +53,11 @@ public class TransactionDTO {
         this.paymentId = paymentId;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 

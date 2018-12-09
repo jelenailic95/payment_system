@@ -15,5 +15,5 @@ public interface BankService {
     List<Bank> getAll();
     PaymentDataDTO getPaymentUrl(PaymentRequestDTO requestDTO);
     Transaction checkBankForCard(CardAmountDTO card);
-    String checkCard(AcquirerDataDTO acquirerDataDTO);
+    Transaction checkCard(AcquirerDataDTO acquirerDataDTO);
 }

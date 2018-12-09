@@ -1,5 +1,6 @@
 package com.sep.payment.paymentconcentrator.service.impl;
 
+import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.domain.entity.Transaction;
 import com.sep.payment.paymentconcentrator.repository.TransactionRepository;
@@ -21,13 +22,13 @@ public class TransactionServiceImpl implements TransactionService {
     public String finishTransaction(Transaction transaction) {
         transactionRepository.save(transaction);
         PaymentRequest paymentRequest = paymentRequestService.getPaymentRequest(transaction.getMerchantOrderId());
-        String status = transaction.getStatus();
+        TransactionStatus status = transaction.getStatus();
         String url;
         switch (status) {
-            case "SUCCESS":
+            case PAID:
                 url = paymentRequest.getSuccessUrl();
                 break;
-            case "FAILED":
+            case FAILED:
                 url = paymentRequest.getFaildUrl();
                 break;
             default:
