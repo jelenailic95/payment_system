@@ -1,5 +1,6 @@
 package com.sep.cryptoservice.domain;
 
+import com.sep.cryptoservice.domain.dto.ResponseOrderDTO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -12,12 +13,15 @@ public class GetOrderTask extends TimerTask {
 
 
     private RestTemplate restTemplate;
-    private String orderId = "";
+    private String orderId;
+    private String clientId;
 
-    public GetOrderTask(RestTemplate restTemplate, String order){
+    public GetOrderTask(RestTemplate restTemplate, String orderId, String clientId) {
         this.restTemplate = restTemplate;
-        this.orderId = order;
+        this.orderId = orderId;
+        this.clientId = clientId;
     }
+
     public GetOrderTask(String order) {
         orderId = order;
     }
@@ -27,10 +31,10 @@ public class GetOrderTask extends TimerTask {
     public void run() {
 
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + "kcepNwZbZD4bQegiCmuwyAg4RKzrDPn1z1V4LkGy");
-        HttpEntity<String> entity = new HttpEntity<>("",headers);
+        headers.add("Authorization", "Bearer " + clientId);
+        HttpEntity<String> entity = new HttpEntity<>("", headers);
 
-        ResponseEntity<ResponseOrderDTO> o = restTemplate.exchange("https://api-sandbox.coingate.com/v2/orders/"+orderId, HttpMethod.GET,
+        ResponseEntity<ResponseOrderDTO> o = restTemplate.exchange("https://api-sandbox.coingate.com/v2/orders/" + orderId, HttpMethod.GET,
                 entity, ResponseOrderDTO.class);
         System.out.println(o.getBody().getPayment_url());
         System.out.println(o.getBody().getStatus());

@@ -5,6 +5,8 @@ import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.payment.paymentconcentrator.domain.dto.PaymentDataDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.RequestDTO;
+import com.sep.payment.paymentconcentrator.domain.dto.ResponseOrderDTO;
+import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.domain.entity.Constants;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.service.ClientService;
@@ -12,6 +14,8 @@ import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
 import com.sep.payment.paymentconcentrator.utility.Utility;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -38,20 +42,21 @@ public class PaymentRequestController {
     public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
 
         String client = Utility.readToken(requestDTO.getClient());
-        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getBankName());
+        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
         System.out.println(client);
-        return ResponseEntity.ok(restTemplate.postForObject("http://localhost:8762/"+requestDTO.getBankName()+"/get-payment-url",
+        return ResponseEntity.ok(restTemplate.postForObject("http://localhost:8762/" + requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class));
     }
 
     @PostMapping(value = "/pay-by-bitcoin")
-    public ResponseEntity<PaymentDataDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
 
         String client = Utility.readToken(requestDTO.getClient());
-        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getBankName());
-        System.out.println(client);
-        return ResponseEntity.ok(restTemplate.postForObject("http://localhost:8762/"+requestDTO.getBankName()+"/get-payment-url",
-                paymentRequest, PaymentDataDTO.class));
+        Client foundClient = clientService.findByClientMethod(client, "crypto");
+        RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
+
+        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("http://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
+        return ResponseEntity.ok(o.getBody());
     }
 
     @GetMapping(value = "/get-token")

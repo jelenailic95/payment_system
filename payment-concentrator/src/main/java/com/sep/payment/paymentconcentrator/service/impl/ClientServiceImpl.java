@@ -33,6 +33,6 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client findByClientMethod(String client, String method) {
-        return null;
+        return clientRepository.findByClientAndPaymentMethodName(client, method);
     }
 }
