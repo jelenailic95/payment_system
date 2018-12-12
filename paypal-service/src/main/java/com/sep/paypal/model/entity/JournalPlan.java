@@ -1,4 +1,4 @@
-package com.sep.paypal.model;
+package com.sep.paypal.model.entity;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -22,6 +22,9 @@ public class JournalPlan implements Serializable {
 
     @Column
     private String journal;
+
+    @Column
+    private String payee;
 
     @Column
     private String planId;

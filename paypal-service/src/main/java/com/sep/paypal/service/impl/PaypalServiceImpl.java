@@ -10,11 +10,16 @@ import com.paypal.svcs.types.aa.GetVerifiedStatusRequest;
 import com.paypal.svcs.types.aa.GetVerifiedStatusResponse;
 import com.paypal.svcs.types.common.RequestEnvelope;
 import com.sep.paypal.config.AdaptiveConfiguration;
-import com.sep.paypal.model.JournalPlan;
-import com.sep.paypal.model.RequestCreatePlan;
-import com.sep.paypal.model.enumeration.PaymentIntent;
-import com.sep.paypal.model.enumeration.PaymentMethod;
+import com.sep.paypal.exception.NotFoundException;
+import com.sep.paypal.model.entity.JournalPlan;
+import com.sep.paypal.model.dto.PlanInfo;
+import com.sep.paypal.model.dto.RequestCreatePlan;
+import com.sep.paypal.model.entity.Seller;
+import com.sep.paypal.model.entity.TransactionPayment;
+import com.sep.paypal.model.enumeration.*;
 import com.sep.paypal.repository.JournalPlanRepository;
+import com.sep.paypal.repository.SellerRepository;
+import com.sep.paypal.repository.TransactionRepository;
 import com.sep.paypal.service.PaypalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +31,7 @@ import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
+import java.time.LocalDateTime;
 import java.util.*;
 
 @Service
@@ -37,38 +43,67 @@ public class PaypalServiceImpl implements PaypalService {
 
     private final JournalPlanRepository journalPlanRepository;
 
+    private final TransactionRepository transactionRepository;
+
+    private final SellerRepository sellerRepository;
+
     @Autowired
-    public PaypalServiceImpl(APIContext apiContext, JournalPlanRepository journalPlanRepository) {
+    public PaypalServiceImpl(APIContext apiContext, JournalPlanRepository journalPlanRepository, TransactionRepository transactionRepository, SellerRepository sellerRepository) {
         this.apiContext = apiContext;
         this.journalPlanRepository = journalPlanRepository;
+        this.transactionRepository = transactionRepository;
+        this.sellerRepository = sellerRepository;
     }
 
     @Override
-    public Payment createPayment(Double total, String currency, PaymentMethod method, PaymentIntent intent, String description, String cancelUrl, String successUrl) throws PayPalRESTException {
+    public Payment createPayment(Double total, String currency, PaymentMethod method, PaymentIntent intent, String description, String emailPayee, String journalName, String cancelUrl, String successUrl) throws PayPalRESTException {
+        Details details = new Details();
+        details.setShipping("0");
+
         Amount amount = new Amount();
         amount.setCurrency(currency);
         amount.setTotal(String.valueOf(total));
+        amount.setDetails(details);
 
-        Transaction transaction = new Transaction();
-        transaction.setDescription(description);
-        transaction.setAmount(amount);
+        Seller seller = this.sellerRepository.findSellerByJournalMail(emailPayee);
+        if (seller == null) {
+            throw new NotFoundException("mail", emailPayee);
+        } else {
+            Payee payee = new Payee();
+            payee.setEmail(emailPayee);
 
-        List<Transaction> transactions = new ArrayList<>();
-        transactions.add(transaction);
+            Transaction transaction = new Transaction();
+            transaction.setDescription(description);
+            transaction.setAmount(amount);
+            transaction.setPayee(payee);
 
-        Payer payer = new Payer();
-        payer.setPaymentMethod(method.toString());
-        Payment payment = new Payment();
-        payment.setIntent(intent.toString());
-        payment.setPayer(payer);
-        payment.setTransactions(transactions);
+            Item item = new Item();
+            item.setName(journalName).setQuantity("1").setCurrency(currency).setPrice(String.valueOf(total));
+            ItemList itemList = new ItemList();
+            List<Item> items = new ArrayList<>();
+            items.add(item);
+            itemList.setItems(items);
+            transaction.setItemList(itemList);
 
-        RedirectUrls redirectUrls = new RedirectUrls();
-        redirectUrls.setCancelUrl(cancelUrl);
-        redirectUrls.setReturnUrl(successUrl);
-        payment.setRedirectUrls(redirectUrls);
 
-        return payment.create(apiContext);
+            List<Transaction> transactions = new ArrayList<>();
+            transactions.add(transaction);
+
+            Payer payer = new Payer();
+            payer.setPaymentMethod(method.toString());
+
+            Payment payment = new Payment();
+            payment.setIntent(intent.toString());
+            payment.setPayer(payer);
+            payment.setTransactions(transactions);
+
+            RedirectUrls redirectUrls = new RedirectUrls();
+            redirectUrls.setCancelUrl(cancelUrl);
+            redirectUrls.setReturnUrl(successUrl);
+            payment.setRedirectUrls(redirectUrls);
+
+            return payment.create(apiContext);
+        }
     }
 
     @Override
@@ -77,7 +112,9 @@ public class PaypalServiceImpl implements PaypalService {
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();
         paymentExecute.setPayerId(payerId);
-        return payment.execute(apiContext, paymentExecute);
+        Payment result = payment.execute(apiContext, paymentExecute);
+        this.storeTransactionToDatabase(result, null);
+        return result;
     }
 
     @Override
@@ -103,9 +140,15 @@ public class PaypalServiceImpl implements PaypalService {
     @Override
     public void createPlanForSubscription(RequestCreatePlan request) {
         Plan plan = new Plan();
+        Seller seller = this.sellerRepository.findSellerByJournalNameAndJournalMail(
+                request.getNameOfJournal(), request.getPayee());
+        if(seller == null) {
+            throw new NotFoundException("name and email", request.getNameOfJournal() + ", " + request.getPayee());
+        }
         plan.setName(request.getNameOfJournal());
         plan.setDescription(request.getDescription());
         plan.setType("INFINITE");
+
 
         PaymentDefinition paymentDefinition = new PaymentDefinition();
         paymentDefinition.setName(String.format("%s payments", request.getTypeOfPlan().name()));
@@ -126,18 +169,18 @@ public class PaypalServiceImpl implements PaypalService {
         MerchantPreferences merchantPreferences = new MerchantPreferences();
         merchantPreferences.setSetupFee(currency);
         merchantPreferences.setCancelUrl("https://example.com/cancel");
-        merchantPreferences.setReturnUrl("http://localhost:8762/paypal/plan/finishSubscription");
+        merchantPreferences.setReturnUrl("http://localhost:8762/paypal-service/plan/finish-subscription");
         merchantPreferences.setMaxFailAttempts("0");
         merchantPreferences.setAutoBillAmount("YES");
         merchantPreferences.setInitialFailAmountAction("CONTINUE");
         plan.setMerchantPreferences(merchantPreferences);
-
-        activatePlan(plan, request.getNameOfJournal());
+        activatePlan(plan, request.getNameOfJournal(), request.getPayee());
     }
 
-    private void activatePlan(Plan plan, String nameOfJournal) {
+    private void activatePlan(Plan plan, String nameOfJournal, String payee) {
         try {
             Plan createdPlan = plan.create(apiContext);
+
             logger.info("Created plan with id = {}", createdPlan.getId());
             logger.info("Plan state = {}", createdPlan.getState());
             // Set up plan activate PATCH request
@@ -155,7 +198,9 @@ public class PaypalServiceImpl implements PaypalService {
             // Activate plan
             createdPlan.update(apiContext, patchRequestList);
             JournalPlan journalPlan;
-            journalPlan = JournalPlan.builder().journal(nameOfJournal).planId(createdPlan.getId()).build();
+            journalPlan = JournalPlan.builder().journal(nameOfJournal)
+                    .planId(createdPlan.getId())
+                    .payee(payee).build();
             journalPlanRepository.save(journalPlan);
 
         } catch (PayPalRESTException e) {
@@ -167,7 +212,7 @@ public class PaypalServiceImpl implements PaypalService {
     public URL subscribeToPlan(String nameOfJournal) {
         Agreement agreement = new Agreement();
         agreement.setName(String.format("Subscription for %s", nameOfJournal));
-        agreement.setDescription("Basic Agreement");
+        agreement.setDescription(nameOfJournal);
         DateFormat df = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ssZ");
 
         // Add 30 seconds to make sure Paypal accept the agreement date
@@ -175,7 +220,11 @@ public class PaypalServiceImpl implements PaypalService {
         agreement.setStartDate(df.format(rightNow));
 
         Plan plan = new Plan();
-        plan.setId(journalPlanRepository.findJournalPlanByJournal(nameOfJournal).getPlanId());
+        JournalPlan journalPlan = journalPlanRepository.findJournalPlanByJournal(nameOfJournal);
+        if(journalPlan == null){
+            throw new NotFoundException("name", nameOfJournal);
+        }
+        plan.setId(journalPlan.getPlanId());
         agreement.setPlan(plan);
 
         Payer payer = new Payer();
@@ -205,9 +254,126 @@ public class PaypalServiceImpl implements PaypalService {
 
         try {
             Agreement activeAgreement = agreement.execute(apiContext, agreement.getToken());
+            activeAgreement.setState("ACTIVE");
+            JournalPlan journalPlan = this.journalPlanRepository.findJournalPlanByJournal(activeAgreement.getDescription());
+            transferToPayee(activeAgreement, journalPlan.getPayee());
+            AgreementWithPayee agreementWithPayee = new AgreementWithPayee();
+            agreementWithPayee.setAgreement(activeAgreement);
+            agreementWithPayee.setPayee(journalPlan.getPayee());
+            storeTransactionToDatabase(null, agreementWithPayee);
+
             logger.info("Agreement created with ID {}", activeAgreement.getId());
         } catch (PayPalRESTException e) {
             logger.error(e.getDetails().getMessage());
+        }
+    }
+
+    private void transferToPayee(Agreement agreement, String payee) {
+        Payout payout = new Payout();
+        PayoutSenderBatchHeader senderBatchHeader = new PayoutSenderBatchHeader();
+        senderBatchHeader.setSenderBatchId(
+                Double.toString(new Random().nextDouble()))
+                .setEmailSubject(String.format("Subscription from '%s'," +
+                                " for journal '%s'", agreement.getPayer().getPayerInfo().getEmail(),
+                        agreement.getDescription())
+                );
+        Currency existingCurrency = agreement.getPlan().getPaymentDefinitions().get(0).getAmount();
+        Currency amount = new Currency();
+        amount.setValue(existingCurrency.getValue()).setCurrency("USD");
+        PayoutItem senderItem = new PayoutItem();
+        senderItem.setRecipientType("Email")
+                .setNote(String.format("Subscription from '%s'," +
+                                " for journal '%s'", agreement.getPayer().getPayerInfo().getEmail(),
+                        agreement.getPlan().getName()))
+                .setReceiver(payee)
+                .setSenderItemId(String.valueOf(new Random().nextDouble())).setAmount(amount);
+        List<PayoutItem> items = new ArrayList<>();
+        items.add(senderItem);
+
+        payout.setSenderBatchHeader(senderBatchHeader).setItems(items);
+
+        PayoutBatch batch = null;
+        try {
+            // ###Create Payout Synchronous
+            Map<String, String> parameters = new HashMap<>();
+            parameters.put("sync_mode", "false");
+            batch = payout.create(apiContext, parameters);
+            logger.info("Payout Batch With ID: {}"
+                    , batch.getBatchHeader().getPayoutBatchId());
+
+        } catch (PayPalRESTException e) {
+            logger.error(e.getMessage());
+        }
+    }
+
+    @Override
+    public void storeTransactionToDatabase(Payment payment, AgreementWithPayee agreementWithPayee) {
+        TransactionPayment transactionPayment = null;
+        if (agreementWithPayee == null) {
+            Transaction transaction = payment.getTransactions().get(0);
+            transactionPayment = TransactionPayment.builder()
+                    .amount(String.valueOf(transaction.getAmount().getTotal()))
+                    .currency(transaction.getAmount().getCurrency())
+                    .createTime(payment.getCreateTime())
+                    .updateTime(payment.getUpdateTime())
+                    .failureReason(payment.getFailureReason())
+                    .state(payment.getState())
+                    .payerEmail(payment.getPayer().getPayerInfo().getEmail())
+                    .payeeEmail(transaction.getPayee().getEmail())
+                    .paymentId(payment.getId())
+                    .paymentItem(transaction.getItemList().getItems().get(0).getName())
+                    .typeOfPay(TypeOfPay.PAYMENT)
+                    .build();
+        } else {
+            Agreement agreement = agreementWithPayee.getAgreement();
+            transactionPayment = TransactionPayment.builder()
+                    .amount(agreement.getPlan().getPaymentDefinitions().get(0).getAmount().getValue())
+                    .currency(agreement.getPlan().getPaymentDefinitions().get(0).getAmount().getCurrency())
+                    .createTime(LocalDateTime.now().toString())
+                    .state(agreement.getState())
+                    .payerEmail(agreement.getPayer().getPayerInfo().getEmail())
+                    .payeeEmail(agreementWithPayee.getPayee())
+                    .paymentId(agreement.getId())
+                    .paymentItem(agreement.getPlan().getName())
+                    .typeOfPay(TypeOfPay.SUBSCRIPTION)
+                    .build();
+        }
+
+        this.transactionRepository.save(transactionPayment);
+    }
+
+    @Override
+    public PlanInfo getPlanByName(String name) {
+        String id = "";
+        try {
+            id = this.journalPlanRepository.findJournalPlanByJournal(name).getPlanId();
+        } catch (NullPointerException e) {
+            return null;
+        }
+        PlanInfo planInfo = null;
+        try {
+            Plan plan = Plan.get(apiContext, id);
+            Currency amount = plan.getPaymentDefinitions().get(0).getAmount();
+            String freq = plan.getPaymentDefinitions().get(0).getFrequency();
+            String interval = plan.getPaymentDefinitions().get(0).getFrequencyInterval();
+
+            planInfo = PlanInfo.builder().amount(amount.getValue())
+                    .currency(amount.getCurrency())
+                    .description(plan.getDescription())
+                    .name(plan.getName())
+                    .frequency(FrequencyPayment.valueOf(freq.toUpperCase()))
+                    .frequencyInterval(interval).build();
+        } catch (PayPalRESTException e) {
+            logger.error(e.getMessage());
+        }
+        return planInfo;
+    }
+
+    @Override
+    public void addNewSeller(Seller seller) {
+        if (this.sellerRepository.findSellerByJournalNameOrJournalMail(
+                seller.getJournalName(), seller.getJournalMail()) == null) {
+            this.sellerRepository.save(seller);
         }
     }
 }
