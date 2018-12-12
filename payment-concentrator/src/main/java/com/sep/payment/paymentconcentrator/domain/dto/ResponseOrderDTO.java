@@ -1,6 +1,4 @@
-package com.sep.cryptoservice.domain;
-
-import java.util.Date;
+package com.sep.payment.paymentconcentrator.domain.dto;
 
 public class ResponseOrderDTO {
     private String id;
