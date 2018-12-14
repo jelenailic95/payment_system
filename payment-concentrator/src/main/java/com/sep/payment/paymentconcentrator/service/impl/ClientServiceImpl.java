@@ -13,11 +13,14 @@ import java.util.List;
 @Service
 public class ClientServiceImpl implements ClientService {
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
-    @Autowired
-    private PaymentMethodRepository paymentMethodRepository;
+    private final PaymentMethodRepository paymentMethodRepository;
+
+    public ClientServiceImpl(ClientRepository clientRepository, PaymentMethodRepository paymentMethodRepository) {
+        this.clientRepository = clientRepository;
+        this.paymentMethodRepository = paymentMethodRepository;
+    }
 
     @Override
     public List<Client> getAllMethods(String client) {
