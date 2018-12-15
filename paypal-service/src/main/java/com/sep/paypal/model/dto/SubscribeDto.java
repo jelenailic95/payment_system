@@ -1,4 +1,4 @@
-package com.sep.paypal.model;
+package com.sep.paypal.model.dto;
 
 import lombok.*;
 
@@ -11,6 +11,5 @@ import java.io.Serializable;
 public class SubscribeDto implements Serializable {
 
     private String nameOfJournal;
-    private String payer;
 
 }
