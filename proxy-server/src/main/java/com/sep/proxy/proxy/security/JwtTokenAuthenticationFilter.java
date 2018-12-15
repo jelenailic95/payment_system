@@ -29,12 +29,10 @@ public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain chain)
             throws ServletException, IOException {
 
-        // 1. get the authentication header. Tokens are supposed to be passed in the authentication header
         String header = request.getHeader(jwtConfig.getHeader());
 
-        // 2. validate the header and check the prefix
         if(header == null || !header.startsWith(jwtConfig.getPrefix())) {
-            chain.doFilter(request, response);  		// If not valid, go to the next filter.
+            chain.doFilter(request, response);
             return;
         }
 
@@ -57,7 +55,7 @@ public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
 
             String username = claims.getSubject();
             if(username != null) {
-                @SuppressWarnings("unchecked")
+
                 List<String> authorities = (List<String>) claims.get("authorities");
 
                 // 5. Create auth object
@@ -72,11 +70,9 @@ public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
             }
 
         } catch (Exception e) {
-            // In case of failure. Make sure it's clear; so guarantee user won't be authenticated
             SecurityContextHolder.clearContext();
         }
 
-        // go to the next filter in the filter chain
         chain.doFilter(request, response);
     }
 
