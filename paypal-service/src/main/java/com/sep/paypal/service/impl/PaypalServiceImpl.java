@@ -254,7 +254,7 @@ public class PaypalServiceImpl implements PaypalService {
 
         try {
             Agreement activeAgreement = agreement.execute(apiContext, agreement.getToken());
-            activeAgreement.setState("ACTIVE");
+            activeAgreement.setState("active");
             JournalPlan journalPlan = this.journalPlanRepository.findJournalPlanByJournal(activeAgreement.getDescription());
             transferToPayee(activeAgreement, journalPlan.getPayee());
             AgreementWithPayee agreementWithPayee = new AgreementWithPayee();
@@ -328,13 +328,13 @@ public class PaypalServiceImpl implements PaypalService {
             Agreement agreement = agreementWithPayee.getAgreement();
             transactionPayment = TransactionPayment.builder()
                     .amount(agreement.getPlan().getPaymentDefinitions().get(0).getAmount().getValue())
-                    .currency(agreement.getPlan().getPaymentDefinitions().get(0).getAmount().getCurrency())
+                    .currency("USD")
                     .createTime(LocalDateTime.now().toString())
                     .state(agreement.getState())
                     .payerEmail(agreement.getPayer().getPayerInfo().getEmail())
                     .payeeEmail(agreementWithPayee.getPayee())
                     .paymentId(agreement.getId())
-                    .paymentItem(agreement.getPlan().getName())
+                    .paymentItem(agreement.getDescription())
                     .typeOfPay(TypeOfPay.SUBSCRIPTION)
                     .build();
         }
