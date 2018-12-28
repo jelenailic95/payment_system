@@ -1,10 +1,9 @@
 package com.sep.bank.bankservice.controller;
 
 import com.sep.bank.bankservice.entity.Transaction;
-import com.sep.bank.bankservice.entity.dto.CardAmountDTO;
-import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
-import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
-import com.sep.bank.bankservice.entity.dto.TransactionDTO;
+import com.sep.bank.bankservice.entity.dto.*;
+import com.sep.bank.bankservice.repository.CardRepository;
+import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.BankService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,11 +19,17 @@ public class AcquirerController {
     @Autowired
     private BankService bankService;
 
+    @Autowired
+    private CardRepository cardRepository;
+
     private ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
+    private AES aes;
+    @Autowired
     private RestTemplate restTemplate;
 
+    // todo: merchPass hash
     @PostMapping("/get-payment-url")
     public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody PaymentRequestDTO request) {
         PaymentDataDTO paymentData = bankService.getPaymentUrl(request);
@@ -39,6 +44,5 @@ public class AcquirerController {
 
         // final step - send transaction information to the payment concentrator
         restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO, TransactionDTO.class);
-
     }
 }

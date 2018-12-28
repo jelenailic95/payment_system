@@ -8,5 +8,5 @@ import java.util.Date;
 @Service
 public interface CardService {
 
-    Card findCard(String pan, int securityCode, String cardHolder, Date expiration);
+    Card findCard(String pan, String securityCode, String cardHolder, String expiration);
 }

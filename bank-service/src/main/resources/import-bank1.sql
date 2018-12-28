@@ -9,12 +9,12 @@ VALUES ('Laguna', 'laguna@gmail.com');
 INSERT INTO user (full_name, email)
 VALUES ('Jelena Ilic', 'jelena@gmail.com');
 
+
 INSERT INTO account (amount, card_holder_id, merchant_id, merchant_password) VALUES (5000, 1, 'PoniLcvSpfCFawRwYiAXXdEeqndZKzzqwHUHqayhJKVlgUbMcYRDnUgboTUGrXWP',
 'pgVIBbgQuRjgvvlP');
 
 INSERT INTO bank_accounts (bank_id, accounts_id) VALUES (1, 1);
 
 INSERT INTO card (pan, security_code, expiration_date, card_holder_name, account_id)
-VALUES ('1234567891234567', '1234', '2018-12-15', 'Jelena Ilic', 1);
-
-
+VALUES ('kYJdoCxypPpcxKkMc5iZfr7R5L0hTRu40iqvvFbjaLA=', 'FFRkYnZ8piG7nLeMtGoD0w==', 'AntAgufeghsKS/y8hI1g0Q==',
+'NQJJhf5KYBQnVc1D8DGAew==', 1);

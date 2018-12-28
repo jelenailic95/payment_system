@@ -4,6 +4,7 @@ import com.sep.bank.bankservice.entity.*;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.BankRepository;
 import com.sep.bank.bankservice.repository.TransactionRepository;
+import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.AccountService;
 import com.sep.bank.bankservice.service.BankService;
 import com.sep.bank.bankservice.service.CardService;
@@ -38,6 +39,9 @@ public class BankServiceImpl implements BankService {
     @Autowired
     private TransactionRepository transactionRepository;
 
+    @Autowired
+    private AES aes;
+
     private ModelMapper modelMapper;
 
     @Override
@@ -47,7 +51,6 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public PaymentDataDTO getPaymentUrl(PaymentRequestDTO requestDTO) {
-
         Account account = accountService.checkMerchantData(requestDTO.getMerchantId(), requestDTO.getMerchantPassword());
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
         if (account != null) {
@@ -63,7 +66,9 @@ public class BankServiceImpl implements BankService {
     @Override
     public Transaction checkCard(AcquirerDataDTO acquirerDataDTO) {
         CardDTO card = acquirerDataDTO.getCard();
-        Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(), card.getExpirationDate());
+        Card foundCard = cardService.findCard(aes.encrypt(card.getPan()),
+                aes.encrypt(card.getSecurityCode()),
+                aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
 
         if (foundCard != null) {
             if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
@@ -88,8 +93,10 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public Transaction checkBankForCard(CardAmountDTO card) {
-        Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
-                card.getExpirationDate());
+        Card foundCard = cardService.findCard(aes.encrypt(card.getPan()),
+                aes.encrypt(Integer.toString(card.getSecurityCode())),
+                aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
+
         Transaction transaction = new Transaction();
         transaction.setMerchantOrderId(card.getMerchantOrderId());
         transaction.setPaymentId(card.getPaymentId());
@@ -111,7 +118,10 @@ public class BankServiceImpl implements BankService {
 
     private Transaction forwardToPcc(CardAmountDTO cardAmountDTO, Transaction transaction) {
         Random random = new Random();
-        CardDTO cardDTO = new CardDTO(cardAmountDTO.getPan(), cardAmountDTO.getSecurityCode(),
+
+        // dok salje na pcc barem ta dva podatka da su enkriptovana
+        CardDTO cardDTO = new CardDTO(aes.encrypt(cardAmountDTO.getPan()),
+                aes.encrypt(Integer.toString(cardAmountDTO.getSecurityCode())),
                 cardAmountDTO.getCardHolderName(), cardAmountDTO.getExpirationDate());
 
         AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO,
