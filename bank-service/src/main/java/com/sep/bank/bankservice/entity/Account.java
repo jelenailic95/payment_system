@@ -12,7 +12,7 @@ public class Account {
     private Long id;
 
     @Column
-    private String accountNumber;  // prva tri broja govore koja je banka u pitanjua
+    private String accountNumber;
 
     @Column
     private double amount;

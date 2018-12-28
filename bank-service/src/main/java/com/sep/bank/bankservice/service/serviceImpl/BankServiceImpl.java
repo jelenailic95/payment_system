@@ -13,6 +13,8 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -157,12 +159,13 @@ public class BankServiceImpl implements BankService {
         Account newAccount = new Account();
         newAccount.setCardHolder(user);
         newAccount.setMerchantId(RandomStringUtils.randomAlphabetic(64));
-        newAccount.setMerchantPassword(RandomStringUtils.randomAlphabetic(16));
+        newAccount.setMerchantPassword(generateNewMerchantPassword(name, newAccount.getMerchantId()));
         newAccount.setAccountNumber(RandomStringUtils.randomAlphabetic(16));
+
         Account createdAccount = accountService.create(newAccount);
 
         if (bank.getAccounts() == null) {
-            HashSet accounts = new HashSet();
+            HashSet<Account> accounts = new HashSet<>();
             accounts.add(createdAccount);
             bank.setAccounts(accounts);
         } else {
@@ -173,5 +176,12 @@ public class BankServiceImpl implements BankService {
         return createdAccount;
     }
 
+    private String generateNewMerchantPassword(String name, String merchantID){
+        String merchantPassword = name + merchantID + RandomStringUtils.randomAlphabetic(8);
+
+        // Hash merchant password
+        String hashedMerchantPassword = new BCryptPasswordEncoder().encode(merchantPassword);
+        return hashedMerchantPassword.substring(0, 30);
+    }
 
 }

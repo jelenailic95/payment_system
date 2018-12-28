@@ -6,6 +6,7 @@ import com.sep.payment.paymentconcentrator.repository.ClientRepository;
 import com.sep.payment.paymentconcentrator.repository.PaymentMethodRepository;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -27,7 +28,10 @@ public class ClientServiceImpl implements ClientService {
     @Override
     public Client addNewMethod(String clientName, String clientId, String clientPassword, String method) {
         PaymentMethod paymentMethod = paymentMethodRepository.findByName(method);
-        Client newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
+
+        // hashed client password
+        String hashedPassword = new BCryptPasswordEncoder().encode(clientPassword);
+        Client newClient = new Client(clientName, clientName, clientId, hashedPassword, paymentMethod);
         return clientRepository.save(newClient);
     }
 
