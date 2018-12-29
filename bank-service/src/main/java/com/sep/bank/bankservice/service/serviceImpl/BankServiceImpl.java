@@ -11,9 +11,10 @@ import com.sep.bank.bankservice.service.CardService;
 import com.sep.bank.bankservice.service.UserService;
 import org.apache.commons.lang.RandomStringUtils;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 
-import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
@@ -46,6 +47,8 @@ public class BankServiceImpl implements BankService {
 
     private ModelMapper modelMapper;
 
+    private Logger logger = LoggerFactory.getLogger(BankServiceImpl.class);
+
     @Override
     public List<Bank> getAll() {
         return bankRepository.findAll();
@@ -56,6 +59,7 @@ public class BankServiceImpl implements BankService {
         Account account = accountService.checkMerchantData(requestDTO.getMerchantId(), requestDTO.getMerchantPassword());
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
         if (account != null) {
+            logger.info("This client exists in the system. Merchant id: {}", account.getMerchantId());
             paymentDataDTO = new PaymentDataDTO(
                     RandomStringUtils.randomAlphabetic(16),
                     RandomStringUtils.randomAlphabetic(16),
@@ -73,11 +77,16 @@ public class BankServiceImpl implements BankService {
                 aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
 
         if (foundCard != null) {
+            logger.info("This credit card exists in the bank system. Card holder name: {}", foundCard.getCardHolderName());
             if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
+                logger.info("This client has enough money on the card. Transaction status: PAID.");
                 return createTransaction(acquirerDataDTO, TransactionStatus.PAID);
-            } else
+            } else {
+                logger.info("This client doesn't have enough money on the card. Status: REFUSED.");
                 return createTransaction(acquirerDataDTO, TransactionStatus.REFUSED);
+            }
         }
+        logger.info("This credit card doesn't exist in the bank system. Transaction status: FAILED");
         return createTransaction(acquirerDataDTO, TransactionStatus.FAILED);  // ne pronalazi karticu u banci, neki error baciti
     }
 
@@ -90,6 +99,7 @@ public class BankServiceImpl implements BankService {
         transaction.setMerchantOrderId(acquirerDataDTO.getMerchantOrderId());
         transaction.setPaymentId(acquirerDataDTO.getPaymentId());
         transactionRepository.save(transaction);
+        logger.info("New transaction is successfully created and saved.");
         return transaction;
     }
 
@@ -105,38 +115,45 @@ public class BankServiceImpl implements BankService {
         transaction.setAmount(card.getAmount());
 
         if (foundCard != null) {
+            logger.info("This credit card exists in the bank system. Card holder name: {}", foundCard.getCardHolderName());
             if (checkAmountOnAccount(foundCard, card.getAmount())) {
+                logger.info("This client has enough money on the card. Transaction status: PAID.");
                 transaction.setStatus(TransactionStatus.PAID);
             } else
-                transaction.setStatus(TransactionStatus.REFUSED);
+                logger.info("This client doesn't have enough money on the card. Status: REFUSED.");
+            transaction.setStatus(TransactionStatus.REFUSED);
         } else {
             // banks are different
+            logger.info("This credit card doesn't exist in the bank system. Transaction request is forwarded to the PCC.");
             transaction = forwardToPcc(card, transaction);
             return transaction;
         }
-        transactionRepository.save(transaction);
+        Transaction transactionSaved = transactionRepository.save(transaction);
+        logger.info("Transaction is successfully saved. Transaction: {}", transactionSaved.getId());
         return transaction;
     }
 
     private Transaction forwardToPcc(CardAmountDTO cardAmountDTO, Transaction transaction) {
         Random random = new Random();
 
-        // dok salje na pcc barem ta dva podatka da su enkriptovana
         CardDTO cardDTO = new CardDTO(aes.encrypt(cardAmountDTO.getPan()),
                 aes.encrypt(Integer.toString(cardAmountDTO.getSecurityCode())),
-                cardAmountDTO.getCardHolderName(), cardAmountDTO.getExpirationDate());
+                aes.encrypt(cardAmountDTO.getCardHolderName()), aes.encrypt(cardAmountDTO.getExpirationDate()));
 
         AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO,
                 transaction.getAmount(), transaction.getMerchantOrderId(), transaction.getPaymentId());
 
         transaction.setAcquirerTimestamp(acquirerDataDTO.getAcquirerTimestamp());
         transaction.setAcquirerOrderId(acquirerDataDTO.getAcquirerOrderId());
+        logger.info("Transaction acquirer timestamp: {}", transaction.getAcquirerTimestamp());
 
         // poziva PCC koji prosledjuje podatke banci kupca i vraca status
         PaymentResultDTO paymentResultDTO = restTemplate.postForObject("http://localhost:8444/forward-to-bank",
                 acquirerDataDTO, PaymentResultDTO.class);
 
         if (paymentResultDTO != null) {
+            logger.info("Transaction result is returned from the client's bank. Transaction status: {}",
+                    transaction.getStatus());
             transaction.setStatus(paymentResultDTO.getStatus());
         }
         return transaction;
@@ -144,10 +161,12 @@ public class BankServiceImpl implements BankService {
 
     private boolean checkAmountOnAccount(Card foundCard, double amount) {
         if (amount <= foundCard.getAccount().getAmount()) {
+            logger.info("There is enough money on the credit card.");
             foundCard.getAccount().setAmount(foundCard.getAccount().getAmount() - amount);
             accountService.saveAccount(foundCard.getAccount());
             return true;
         }
+        logger.info("There is no enough money on the credit card.");
         return false;
     }
 
@@ -163,20 +182,23 @@ public class BankServiceImpl implements BankService {
         newAccount.setAccountNumber(RandomStringUtils.randomAlphabetic(16));
 
         Account createdAccount = accountService.create(newAccount);
+        logger.info("New registered account is successfully created and saved.");
 
         if (bank.getAccounts() == null) {
+            logger.info("This bank doesn't have bank accounts. New registered account is the first one being added.");
             HashSet<Account> accounts = new HashSet<>();
             accounts.add(createdAccount);
             bank.setAccounts(accounts);
         } else {
             bank.getAccounts().add(createdAccount);
+            logger.info("New registered account is added into bank.");
         }
         bankRepository.save(bank);
 
         return createdAccount;
     }
 
-    private String generateNewMerchantPassword(String name, String merchantID){
+    private String generateNewMerchantPassword(String name, String merchantID) {
         String merchantPassword = name + merchantID + RandomStringUtils.randomAlphabetic(8);
 
         // Hash merchant password

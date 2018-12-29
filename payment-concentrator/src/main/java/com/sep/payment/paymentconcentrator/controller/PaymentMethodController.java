@@ -43,7 +43,7 @@ public class PaymentMethodController {
     }
 
     @PostMapping(value = "/new-method")
-    public ResponseEntity<Client> addPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO) {
+    public ResponseEntity<Client> enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO) {
         Client client = clientService.addNewMethod(newMethodDTO.getClientName(), newMethodDTO.getClientId(), newMethodDTO.getClientPassword(),
                 newMethodDTO.getMethod());
         return ResponseEntity.ok().body(client);
