@@ -77,7 +77,7 @@ public class BankServiceImpl implements BankService {
                 aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
 
         if (foundCard != null) {
-            logger.info("This credit card exists in the bank system. Card holder name: {}", foundCard.getCardHolderName());
+            logger.info("This credit card exists in the bank system. Card holder name: {}", aes.decrypt(foundCard.getCardHolderName()));
             if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
                 return createTransaction(acquirerDataDTO, TransactionStatus.PAID);
@@ -106,7 +106,7 @@ public class BankServiceImpl implements BankService {
     @Override
     public Transaction checkBankForCard(CardAmountDTO card) {
         Card foundCard = cardService.findCard(aes.encrypt(card.getPan()),
-                aes.encrypt(Integer.toString(card.getSecurityCode())),
+                aes.encrypt(card.getSecurityCode()),
                 aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
 
         Transaction transaction = new Transaction();
@@ -115,13 +115,14 @@ public class BankServiceImpl implements BankService {
         transaction.setAmount(card.getAmount());
 
         if (foundCard != null) {
-            logger.info("This credit card exists in the bank system. Card holder name: {}", foundCard.getCardHolderName());
+            logger.info("This credit card exists in the bank system. Card holder name: {}", aes.decrypt(foundCard.getCardHolderName()));
             if (checkAmountOnAccount(foundCard, card.getAmount())) {
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
                 transaction.setStatus(TransactionStatus.PAID);
-            } else
+            } else {
                 logger.info("This client doesn't have enough money on the card. Status: REFUSED.");
-            transaction.setStatus(TransactionStatus.REFUSED);
+                transaction.setStatus(TransactionStatus.REFUSED);
+            }
         } else {
             // banks are different
             logger.info("This credit card doesn't exist in the bank system. Transaction request is forwarded to the PCC.");
@@ -137,7 +138,7 @@ public class BankServiceImpl implements BankService {
         Random random = new Random();
 
         CardDTO cardDTO = new CardDTO(aes.encrypt(cardAmountDTO.getPan()),
-                aes.encrypt(Integer.toString(cardAmountDTO.getSecurityCode())),
+                aes.encrypt(cardAmountDTO.getSecurityCode()),
                 aes.encrypt(cardAmountDTO.getCardHolderName()), aes.encrypt(cardAmountDTO.getExpirationDate()));
 
         AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO,

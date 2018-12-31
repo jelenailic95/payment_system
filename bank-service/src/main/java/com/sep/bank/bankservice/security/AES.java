@@ -20,6 +20,8 @@ public class AES {
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
             cipher.init(Cipher.ENCRYPT_MODE, secretKey, iv);
             byte[] encrypted = cipher.doFinal(strToEncrypt.getBytes());
+            System.out.println("encrypted string: "
+                    + Base64.encodeBase64String(encrypted));
             return Base64.encodeBase64String(encrypted);
         } catch (Exception e) {
             e.printStackTrace();

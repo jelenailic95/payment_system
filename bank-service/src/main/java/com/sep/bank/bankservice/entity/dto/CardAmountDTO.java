@@ -4,7 +4,7 @@ package com.sep.bank.bankservice.entity.dto;
 public class CardAmountDTO {
 
     private String pan;
-    private int securityCode;
+    private String securityCode;
     private String cardHolderName;
     private String expirationDate;
     private double amount;
@@ -22,11 +22,11 @@ public class CardAmountDTO {
         this.pan = pan;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 

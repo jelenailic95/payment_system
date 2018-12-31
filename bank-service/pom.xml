@@ -73,12 +73,6 @@
             <artifactId>java-jwt</artifactId>
             <version>3.2.0</version>
         </dependency>
-        <dependency>
-            <groupId>uns.ftn</groupId>
-            <artifactId>regression-testing</artifactId>
-            <type>jar</type>
-            <version>0.0.1-SNAPSHOT</version>
-        </dependency>
     </dependencies>
 
     <dependencyManagement>

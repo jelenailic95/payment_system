@@ -1,15 +1,18 @@
 package com.sep.bank.bankservice.controller;
 
+import com.sep.bank.bankservice.entity.Card;
 import com.sep.bank.bankservice.entity.Transaction;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.CardRepository;
 import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.BankService;
+import com.sep.bank.bankservice.service.CardService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -26,6 +29,8 @@ public class AcquirerController {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    @Autowired
+    CardService cardService;
     @Autowired
     private AES aes;
 
@@ -53,11 +58,8 @@ public class AcquirerController {
 
         // final step - send transaction information to the payment concentrator
         logger.info("Transaction object is forwarded to the payment concentrator.");
+        // todo: setovati header
         restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO, TransactionDTO.class);
     }
 
-    @PostMapping("/ajde")
-    public void a(@RequestBody String nesto){
-        logger.info("Usla sam tu: {}", nesto);
-    }
 }

@@ -19,7 +19,9 @@ public class PccServiceImpl implements PccService {
     @Override
     public Bank findBank(String pan) {
         String panDecrypted = aes.decrypt(pan);
+
         int bankNumber = Integer.parseInt(panDecrypted.substring(0,6));
+
         return pccRepository.findByBankNumber(bankNumber);
     }
 }

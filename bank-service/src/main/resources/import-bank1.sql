@@ -16,5 +16,5 @@ INSERT INTO account (amount, account_number, card_holder_id, merchant_id, mercha
 INSERT INTO bank_accounts (bank_id, accounts_id) VALUES (1, 1);
 
 INSERT INTO card (pan, security_code, expiration_date, card_holder_name, account_id)
-VALUES ('kYJdoCxypPpcxKkMc5iZfr7R5L0hTRu40iqvvFbjaLA=', 'FFRkYnZ8piG7nLeMtGoD0w==', 'AntAgufeghsKS/y8hI1g0Q==',
-'NQJJhf5KYBQnVc1D8DGAew==', 1);
+VALUES ('lIJERUR1/L15zu5f1AcjZC1gnKhZY1JiuEP5EZeBqUM=', 'PWD34VGvqJP/iK77+C6q0Q==', 'KsgGjD0FxJQHrqxo59IFIw==',
+'XsMhWT/pXjdmFneaSw49hg==', 1);

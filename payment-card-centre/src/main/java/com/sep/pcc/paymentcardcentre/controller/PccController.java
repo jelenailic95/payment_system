@@ -33,6 +33,7 @@ public class PccController {
         String bankUrl = HOST + PORT + bank.getBankName() + PATH;
 
         // vraca banci prodavca acqOrderId acqTimestamp, issuerOrderId, issuerTimestap i status transakcije
+        // todo: setovati header zbog autorizacije
         return restTemplate.postForObject(bankUrl, acquirerDataDTO, PaymentResultDTO.class);
     }
 }

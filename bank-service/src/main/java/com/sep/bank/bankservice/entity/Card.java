@@ -1,5 +1,6 @@
 package com.sep.bank.bankservice.entity;
 
+
 import com.sep.bank.bankservice.security.CardListener;
 
 import javax.persistence.*;
