@@ -1,11 +1,10 @@
 package com.sep.bank.bankservice.controller;
 
 import com.sep.bank.bankservice.entity.Transaction;
-import com.sep.bank.bankservice.entity.TransactionStatus;
 import com.sep.bank.bankservice.entity.dto.AcquirerDataDTO;
 import com.sep.bank.bankservice.entity.dto.PaymentResultDTO;
-import org.modelmapper.ModelMapper;
 import com.sep.bank.bankservice.service.BankService;
+import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;

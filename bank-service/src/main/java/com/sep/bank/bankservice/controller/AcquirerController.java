@@ -1,8 +1,10 @@
 package com.sep.bank.bankservice.controller;
 
-import com.sep.bank.bankservice.entity.Card;
 import com.sep.bank.bankservice.entity.Transaction;
-import com.sep.bank.bankservice.entity.dto.*;
+import com.sep.bank.bankservice.entity.dto.CardAmountDTO;
+import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
+import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
+import com.sep.bank.bankservice.entity.dto.TransactionDTO;
 import com.sep.bank.bankservice.repository.CardRepository;
 import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.BankService;
@@ -12,7 +14,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;

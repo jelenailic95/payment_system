@@ -1,7 +1,6 @@
 package com.sep.bank.bankservice.entity.dto;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.sep.bank.bankservice.entity.Transaction;
 import com.sep.bank.bankservice.entity.TransactionStatus;
 
 import java.util.Date;

@@ -6,8 +6,6 @@ import com.sep.bank.bankservice.service.CardService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-
 @Service
 public class CardServiceImpl implements CardService {
 
