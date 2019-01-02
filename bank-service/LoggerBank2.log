@@ -1,0 +1,64 @@
+2019-01-02 12:34:00.457  INFO 10588 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank2
+2019-01-02 12:34:06.226  INFO 10588 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-01-02 12:34:06.596  INFO 10588 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 347ms. Found 5 repository interfaces.
+2019-01-02 12:34:08.617  INFO 10588 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=7453ab88-8b5f-3338-b880-e373833d4e9d
+2019-01-02 12:34:09.424  INFO 10588 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$7215a7ea] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-02 12:34:09.480  INFO 10588 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$f195f51c] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-02 12:34:09.550  INFO 10588 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$8e2faae7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-02 12:34:14.372  INFO 10588 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8202 (http)
+2019-01-02 12:34:14.477  INFO 10588 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-01-02 12:34:14.558  INFO 10588 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-01-02 12:34:14.750  INFO 10588 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\bin;D:\Python\;D:\Python\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Apache\maven\bin;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\Lenovo\AppData\Local\Programs\Git\cmd;C:\ProgramData\ComposerSetup\bin;D:\wamp64\bin\php\php7.1.9;C:\Program Files\PuTTY\;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;D:\programi\bin;C:\Program Files\Haskell Platform\8.4.3\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\PHP;C:\Program Files\Java\jre1.8.0_131\bin;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\;C:\Users\Lenovo\AppData\Roaming\local\bin;C:\Users\Lenovo\AppData\Roaming\cabal\bin;C:\Users\Lenovo\Anaconda2;C:\Users\Lenovo\Anaconda2\Library\mingw-w64\bin;C:\Users\Lenovo\Anaconda2\Library\usr\bin;C:\Users\Lenovo\Anaconda2\Library\bin;C:\Users\Lenovo\Anaconda2\Scripts;C:\Users\Lenovo\AppData\Roaming\npm;D:\Scripts\;C:\Program Files\Haskell Platform\8.4.3\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\lib\ghc-8.4.3;D:\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Heroku\bin;C:\Users\Lenovo\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;;.]
+2019-01-02 12:34:16.251  INFO 10588 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-01-02 12:34:16.252  INFO 10588 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 15762 ms
+2019-01-02 12:34:19.206  INFO 10588 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-01-02 12:34:19.209  INFO 10588 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-01-02 12:34:19.218  INFO 10588 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-02 12:34:19.219  INFO 10588 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-02 12:34:19.219  INFO 10588 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-01-02 12:34:19.219  INFO 10588 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-02 12:34:20.741  INFO 10588 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-01-02 12:34:21.261  INFO 10588 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-01-02 12:34:21.739  INFO 10588 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-02 12:34:22.391  INFO 10588 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-01-02 12:34:22.398  INFO 10588 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-01-02 12:34:24.187  INFO 10588 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-01-02 12:34:25.768  INFO 10588 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-01-02 12:34:28.745  INFO 10588 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@29646b6'
+2019-01-02 12:34:28.749  INFO 10588 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-02 12:34:28.847  WARN 10588 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-01-02 12:34:32.220  WARN 10588 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-01-02 12:34:32.221  INFO 10588 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-01-02 12:34:32.237  WARN 10588 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-01-02 12:34:32.237  INFO 10588 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-01-02 12:34:32.918  INFO 10588 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-01-02 12:34:33.090  WARN 10588 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-01-02 12:34:37.503  INFO 10588 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2019-01-02 12:34:37.763  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2019-01-02 12:34:38.664  INFO 10588 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2019-01-02 12:34:38.664  INFO 10588 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2019-01-02 12:34:39.053  INFO 10588 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2019-01-02 12:34:39.053  INFO 10588 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2019-01-02 12:34:39.570  INFO 10588 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-01-02 12:34:40.151  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2019-01-02 12:34:40.151  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2019-01-02 12:34:40.151  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2019-01-02 12:34:40.151  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2019-01-02 12:34:40.151  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2019-01-02 12:34:40.151  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2019-01-02 12:34:40.152  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2019-01-02 12:34:40.664  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2019-01-02 12:34:40.673  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 30
+2019-01-02 12:34:40.680  INFO 10588 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2019-01-02 12:34:40.689  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1546428880686 with initial instances count: 2
+2019-01-02 12:34:41.437  INFO 10588 --- [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application bank2-service with eureka with status UP
+2019-01-02 12:34:41.439  INFO 10588 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1546428881439, current=UP, previous=STARTING]
+2019-01-02 12:34:41.445  INFO 10588 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BANK2-SERVICE/DESKTOP-1E1AJAA:bank2-service:8202: registering service...
+2019-01-02 12:34:41.685  INFO 10588 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8202 (http) with context path ''
+2019-01-02 12:34:41.691  INFO 10588 --- [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8202
+2019-01-02 12:34:41.692  INFO 10588 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_BANK2-SERVICE/DESKTOP-1E1AJAA:bank2-service:8202 - registration status: 204
+2019-01-02 12:34:41.699  INFO 10588 --- [restartedMain] c.s.b.b.BankServiceApplication           : Started BankServiceApplication in 53.658 seconds (JVM running for 58.546)
+2019-01-02 12:39:40.157  INFO 10588 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-01-02 12:44:40.160  INFO 10588 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

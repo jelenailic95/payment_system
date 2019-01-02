@@ -33,6 +33,7 @@ public class IssuerController {
                 acquirerDataDTO.getAcquirerOrderId());
 
         Transaction transaction = bankService.checkCard(acquirerDataDTO);
+
         logger.info("Transaction is done. Transaction status: {}", transaction.getStatus());
         logger.info("Transaction result is returned to the seller's bank.");
 
