@@ -1,13 +1,12 @@
 package com.sep.bank.bankservice.entity.dto;
 
-import java.util.Date;
 
 public class CardAmountDTO {
 
     private String pan;
-    private int securityCode;
+    private String securityCode;
     private String cardHolderName;
-    private Date expirationDate;
+    private String expirationDate;
     private double amount;
     private Long merchantOrderId;
     private Long paymentId;
@@ -23,11 +22,11 @@ public class CardAmountDTO {
         this.pan = pan;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
@@ -39,11 +38,11 @@ public class CardAmountDTO {
         this.cardHolderName = hardHolderName;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 

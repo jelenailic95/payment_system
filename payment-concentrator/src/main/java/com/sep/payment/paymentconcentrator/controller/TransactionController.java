@@ -5,6 +5,8 @@ import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.Transaction;
 import com.sep.payment.paymentconcentrator.service.TransactionService;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -21,10 +23,15 @@ public class TransactionController {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    private Logger logger = LoggerFactory.getLogger(TransactionController.class);
+
     @PostMapping(value = "/finish-transaction")
     public ResponseEntity<TransactionResultCustomerDTO> finishTransaction(@RequestBody TransactionResultDTO transactionDTO) {
+        logger.info("Request - finish transaction. Transaction status: {}", transactionDTO.getStatus());
         Transaction transaction = modelMapper.map(transactionDTO, Transaction.class);
         String resultUrl = transactionService.finishTransaction(transaction);
+
+        logger.info("Result url is: {}", resultUrl);
 
         TransactionResultCustomerDTO transactionCustomer = new TransactionResultCustomerDTO(transaction.getMerchantOrderId(),
                 transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(),

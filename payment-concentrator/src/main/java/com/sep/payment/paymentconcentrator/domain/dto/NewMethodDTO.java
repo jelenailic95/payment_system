@@ -2,10 +2,10 @@ package com.sep.payment.paymentconcentrator.domain.dto;
 
 public class NewMethodDTO {
 
-    String clientName;
-    String clientId;
-    String clientPassword;
-    String method;
+    private String clientName;
+    private String clientId;
+    private String clientPassword;
+    private String method;
 
     public NewMethodDTO() {
     }

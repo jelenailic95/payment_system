@@ -16,11 +16,13 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
-
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 @RestController
@@ -32,6 +34,8 @@ public class PaymentMethodController {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    private Logger logger = LoggerFactory.getLogger(PaymentMethodController.class);
+
     public PaymentMethodController(ClientService clientService, RestTemplate restTemplate) {
         this.clientService = clientService;
         this.restTemplate = restTemplate;
@@ -39,9 +43,14 @@ public class PaymentMethodController {
 
     @PostMapping(value = "/payment-methods")
     public ResponseEntity<Set<PaymentMethodDTO>> checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO) throws UnsupportedEncodingException {
-        String clientName = Utility.readToken(clientDTO.getClientId());
+        logger.info("Request - return all possible payment methods.");
+
+        String clientName = Utility.readToken(clientDTO.getId());
         List<Client> clients = clientService.getAllMethods(clientName);
+
         if (clients == null) {
+            logger.info("This client doesn't have any registered payment methods.");
+            // todo: return here
             ResponseEntity.notFound();
         }
         Set<PaymentMethodDTO> paymentMethodDTOS = new HashSet<>();
@@ -50,12 +59,23 @@ public class PaymentMethodController {
         HttpHeaders headers = new HttpHeaders();
         headers.add(RequestContext.REQUEST_HEADER_NAME, "Bearer " + res.getHeaders());
         return new ResponseEntity<Set<PaymentMethodDTO>>(paymentMethodDTOS, headers, HttpStatus.OK);
+        Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(), PaymentMethodDTO.class)));
+
+        logger.info("This client has registered payment methods.");
+
+        //kreirati token koji ce dalje biti za autentifikaciju
+        return ResponseEntity.ok().body(paymentMethodDTOS);
     }
 
     @PostMapping(value = "/new-method")
-    public ResponseEntity<Client> addPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO) {
+    public ResponseEntity<Client> enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO) {
+        logger.info("Request - enable new payment method, that exists in the system.");
+
         Client client = clientService.addNewMethod(newMethodDTO.getClientName(), newMethodDTO.getClientId(), newMethodDTO.getClientPassword(),
                 newMethodDTO.getMethod());
+
+        logger.info("Payment method is successfully enabled.");
+
         return ResponseEntity.ok().body(client);
     }
 }
