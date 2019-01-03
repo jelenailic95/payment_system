@@ -70,7 +70,7 @@ public class JwtTokenAuthenticationFilter extends  OncePerRequestFilter {
         } catch (Exception e) {
             SecurityContextHolder.clearContext();
         }
-
+        RequestContext.getContext().setToken(token);
         chain.doFilter(request, response);
     }
 

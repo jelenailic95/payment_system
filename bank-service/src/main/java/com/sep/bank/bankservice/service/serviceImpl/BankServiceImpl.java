@@ -26,30 +26,34 @@ import java.util.Random;
 @Service
 public class BankServiceImpl implements BankService {
 
-    @Autowired
-    private BankRepository bankRepository;
+    private final BankRepository bankRepository;
 
-    @Autowired
-    private AccountService accountService;
+    private final AccountService accountService;
 
-    @Autowired
-    private UserService userService;
+    private final UserService userService;
 
-    @Autowired
-    private CardService cardService;
+    private final CardService cardService;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
-    @Autowired
-    private TransactionRepository transactionRepository;
+    private final TransactionRepository transactionRepository;
 
-    @Autowired
-    private AES aes;
+    private final AES aes;
 
     private ModelMapper modelMapper;
 
     private Logger logger = LoggerFactory.getLogger(BankServiceImpl.class);
+
+    @Autowired
+    public BankServiceImpl(BankRepository bankRepository, AccountService accountService, UserService userService, CardService cardService, RestTemplate restTemplate, TransactionRepository transactionRepository, AES aes) {
+        this.bankRepository = bankRepository;
+        this.accountService = accountService;
+        this.userService = userService;
+        this.cardService = cardService;
+        this.restTemplate = restTemplate;
+        this.transactionRepository = transactionRepository;
+        this.aes = aes;
+    }
 
     @Override
     public List<Bank> getAll() {
@@ -112,6 +116,7 @@ public class BankServiceImpl implements BankService {
                 aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
 
         Transaction transaction = new Transaction();
+        transaction.setMerchantOrderId(card.getMerchantOrderId());
         transaction.setMerchantOrderId(card.getMerchantOrderId());
         transaction.setPaymentId(card.getPaymentId());
         transaction.setAmount(card.getAmount());

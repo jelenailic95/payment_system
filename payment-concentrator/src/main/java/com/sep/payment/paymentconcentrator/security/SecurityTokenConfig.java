@@ -27,6 +27,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
                 .antMatchers(HttpMethod.POST, "/pc/payment-methods").permitAll()
+                .antMatchers(HttpMethod.GET, "/pc/get-token").permitAll()
                 .anyRequest().authenticated();
     }
 
