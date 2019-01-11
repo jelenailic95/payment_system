@@ -3,25 +3,24 @@ package com.sep.bank.bankservice.service.serviceImpl;
 import com.sep.bank.bankservice.entity.*;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.BankRepository;
+import com.sep.bank.bankservice.repository.GeneralSequenceRepository;
 import com.sep.bank.bankservice.repository.TransactionRepository;
 import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.AccountService;
 import com.sep.bank.bankservice.service.BankService;
 import com.sep.bank.bankservice.service.CardService;
 import com.sep.bank.bankservice.service.UserService;
+import com.sep.bank.bankservice.util.FieldsGenerator;
 import org.apache.commons.lang.RandomStringUtils;
-import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
-import java.util.Random;
 
 @Service
 public class BankServiceImpl implements BankService {
@@ -40,12 +39,17 @@ public class BankServiceImpl implements BankService {
 
     private final AES aes;
 
-    private ModelMapper modelMapper;
+    private final GeneralSequenceRepository gsr;
+
+    private FieldsGenerator fieldsGenerator;
 
     private Logger logger = LoggerFactory.getLogger(BankServiceImpl.class);
 
     @Autowired
-    public BankServiceImpl(BankRepository bankRepository, AccountService accountService, UserService userService, CardService cardService, RestTemplate restTemplate, TransactionRepository transactionRepository, AES aes) {
+    public BankServiceImpl(BankRepository bankRepository, AccountService accountService, UserService userService,
+                           CardService cardService, RestTemplate restTemplate,
+                           TransactionRepository transactionRepository, AES aes, FieldsGenerator fieldsGenerator,
+                           GeneralSequenceRepository gsr) {
         this.bankRepository = bankRepository;
         this.accountService = accountService;
         this.userService = userService;
@@ -53,6 +57,8 @@ public class BankServiceImpl implements BankService {
         this.restTemplate = restTemplate;
         this.transactionRepository = transactionRepository;
         this.aes = aes;
+        this.fieldsGenerator = fieldsGenerator;
+        this.gsr = gsr;
     }
 
     @Override
@@ -66,9 +72,18 @@ public class BankServiceImpl implements BankService {
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
         if (account != null) {
             logger.info("This client exists in the system. Merchant id: {}", account.getMerchantId());
+
+            // todo izbaciti slesh
+            String paymentUrl = fieldsGenerator.generateField(Long.toString(requestDTO.getMerchantOrderId()), 256);
+
+            GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
+            gsn.setPaymentCounter(gsn.getPaymentCounter() + 1L);    // increment payment counter
+            gsr.save(gsn);
+
+            // return generated payment url & payment id
             paymentDataDTO = new PaymentDataDTO(
-                    RandomStringUtils.randomAlphabetic(16),
-                    RandomStringUtils.randomAlphabetic(16),
+                    paymentUrl,
+                    gsn.getPaymentCounter(),
                     requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
         }
@@ -122,7 +137,8 @@ public class BankServiceImpl implements BankService {
         transaction.setAmount(card.getAmount());
 
         if (foundCard != null) {
-            logger.info("This credit card exists in the bank system. Card holder name: {}", aes.decrypt(foundCard.getCardHolderName()));
+            logger.info("This credit card exists in the bank system. Card holder name: {}",
+                    aes.decrypt(foundCard.getCardHolderName()));
             if (checkAmountOnAccount(foundCard, card.getAmount())) {
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
                 transaction.setStatus(TransactionStatus.PAID);
@@ -142,13 +158,17 @@ public class BankServiceImpl implements BankService {
     }
 
     private Transaction forwardToPcc(CardAmountDTO cardAmountDTO, Transaction transaction) {
-        Random random = new Random();
-
         CardDTO cardDTO = new CardDTO(aes.encrypt(cardAmountDTO.getPan()),
                 aes.encrypt(cardAmountDTO.getSecurityCode()),
                 aes.encrypt(cardAmountDTO.getCardHolderName()), aes.encrypt(cardAmountDTO.getExpirationDate()));
 
-        AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(random.nextLong(), new Date(), cardDTO,
+        GeneralSequenceNumber gsn = gsr.getOne(1L);           // get acquirer counter
+        gsn.setAcquirerCounter(gsn.getAcquirerCounter() + 1L);    // increment acquirer counter
+        gsr.save(gsn);
+
+        Long acquirerOrderId = gsn.getAcquirerCounter();
+
+        AcquirerDataDTO acquirerDataDTO = new AcquirerDataDTO(acquirerOrderId, new Date(), cardDTO,
                 transaction.getAmount(), transaction.getMerchantOrderId(), transaction.getPaymentId());
 
         transaction.setAcquirerTimestamp(acquirerDataDTO.getAcquirerTimestamp());
@@ -179,39 +199,43 @@ public class BankServiceImpl implements BankService {
     }
 
     @Override
-    public Account registerNewAccount(String name, String email, String bankName) {
+    public Account registerNewAccount(String clientFullName, String email, String bankName) {
         Bank bank = bankRepository.findByName(bankName);
-        User user = userService.create(new User(name, email));
+        User user = userService.create(new User(clientFullName, email));
 
         Account newAccount = new Account();
         newAccount.setCardHolder(user);
-        newAccount.setMerchantId(RandomStringUtils.randomAlphabetic(64));
-        newAccount.setMerchantPassword(generateNewMerchantPassword(name, newAccount.getMerchantId()));
+
+        // generate merchant id
+        newAccount.setMerchantId(fieldsGenerator.generateField(email, 30));
+
+        // generate merchant password
+        newAccount.setMerchantPassword(fieldsGenerator.generateField(newAccount.getMerchantId(), 100));
+
         newAccount.setAccountNumber(RandomStringUtils.randomAlphabetic(16));
 
         Account createdAccount = accountService.create(newAccount);
-        logger.info("New registered account is successfully created and saved.");
+        logger.info("New account is successfully created and saved.");
 
         if (bank.getAccounts() == null) {
-            logger.info("This bank doesn't have bank accounts. New registered account is the first one being added.");
+            logger.info("This bank doesn't have bank accounts. New account is the first one being added.");
             HashSet<Account> accounts = new HashSet<>();
             accounts.add(createdAccount);
             bank.setAccounts(accounts);
         } else {
             bank.getAccounts().add(createdAccount);
-            logger.info("New registered account is added into bank.");
+            logger.info("New account is added into bank db.");
         }
         bankRepository.save(bank);
 
         return createdAccount;
     }
 
-    private String generateNewMerchantPassword(String name, String merchantID) {
-        String merchantPassword = name + merchantID + RandomStringUtils.randomAlphabetic(8);
-
-        // Hash merchant password
-        String hashedMerchantPassword = new BCryptPasswordEncoder().encode(merchantPassword);
-        return hashedMerchantPassword.substring(0, 30);
+    @Override
+    public Long getIssuerOrderId() {
+        GeneralSequenceNumber gsn = gsr.getOne(1L);         // get issuer counter
+        gsn.setIssuerCounter(gsn.getIssuerCounter() + 1L);      // increment issuer counter
+        gsr.save(gsn);
+        return gsn.getIssuerCounter();
     }
-
 }

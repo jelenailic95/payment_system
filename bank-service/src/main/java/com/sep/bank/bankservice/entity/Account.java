@@ -21,11 +21,11 @@ public class Account {
     private User cardHolder;
 
     @Column
-    @Size(max = 100)
+//    @Size(max = 30, min = 30)
     private String merchantId;
 
     @Column
-    @Size(max = 30)
+//    @Size(max = 100, min = 100)
     private String merchantPassword;
 
     public Account() {

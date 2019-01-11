@@ -1,5 +1,10 @@
 package com.sep.payment.paymentconcentrator.domain.entity;
 
+import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -17,20 +22,17 @@ public class PaymentRequest {
     @Column//10,2
     private double amount;
 
-//    @Size(max = 30, min = 30)
     @Column
     private String merchantId;
 
-//    @Size(max = 100, min = 100)
     @Column
     private String merchantPassword;
 
-//    @Max(10)
-//    @Min(10)
     @Column
     private Long merchantOrderId;
 
     @Column
+    @CreationTimestamp
     private Date merchantTimestamp;
 
     @Column
@@ -41,6 +43,9 @@ public class PaymentRequest {
 
     @Column
     private String errorUrl;
+
+    @Column
+    private TransactionStatus status;
 
 
     public PaymentRequest() {
@@ -102,14 +107,6 @@ public class PaymentRequest {
         this.failedUrl = failedUrl;
     }
 
-    public Date getMerchandTimestamp() {
-        return merchantTimestamp;
-    }
-
-    public void setMerchandTimestamp(Date merchandTimestamp) {
-        this.merchantTimestamp = merchandTimestamp;
-    }
-
     public String getSuccessUrl() {
         return successUrl;
     }
@@ -132,5 +129,13 @@ public class PaymentRequest {
 
     public void setErrorUrl(String errorUrl) {
         this.errorUrl = errorUrl;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
     }
 }

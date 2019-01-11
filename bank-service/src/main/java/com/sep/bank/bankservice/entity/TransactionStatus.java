@@ -1,6 +1,8 @@
 package com.sep.bank.bankservice.entity;
 
-public enum TransactionStatus {
+import java.io.Serializable;
+
+public enum TransactionStatus implements Serializable {
     PAID,
     FAILED,      // some error
     CANCELLED,   // user pressed cancel button

@@ -10,8 +10,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Random;
 
 @Service
 public class PaymentRequestServiceImpl implements PaymentRequestService {
@@ -31,24 +29,31 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setMerchantId(foundClient.getClientId());
         paymentRequest.setMerchantPassword(foundClient.getClientPassword());
-
-        Random random = new Random();
-        paymentRequest.setMerchantOrderId(random.nextLong());
         paymentRequest.setAmount(amount);
-        paymentRequest.setMerchandTimestamp(new Date());
+
+        // get last payment request from the db
+        PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
+
+        // generate new merchant order id by incrementing the last stored merchant order id
+        Long merchantOrderId = lastPayment.getMerchantOrderId() + 1;
+
+        paymentRequest.setMerchantOrderId(merchantOrderId);
+
+        paymentRequestRepository.save(paymentRequest);
 
         logger.info("Payment request is successfully created.");
         logger.info("Payment request - merchant order: {}", paymentRequest.getMerchantOrderId());
-
-        paymentRequestRepository.save(paymentRequest);
 
         return paymentRequest;
     }
 
     @Override
-    public PaymentRequest getPaymentRequest(Long merchantOrderId){
-        return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
+    public PaymentRequest getPaymentRequest(Long paymentId){
+        return paymentRequestRepository.getOne(paymentId);
     }
 
-
+    @Override
+    public PaymentRequest save(PaymentRequest paymentRequest){
+        return paymentRequestRepository.save(paymentRequest);
+    }
 }

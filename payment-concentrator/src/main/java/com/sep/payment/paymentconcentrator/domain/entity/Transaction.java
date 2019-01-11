@@ -38,13 +38,14 @@ public class Transaction {
         return id;
     }
 
-    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, TransactionStatus status, double ammount) {
+    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId,
+                       TransactionStatus status, double amount) {
         this.merchantOrderId = merchantOrderId;
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
         this.paymentId = paymentId;
         this.status = status;
-        this.amount = ammount;
+        this.amount = amount;
     }
 
     public void setId(Long id) {

@@ -19,4 +19,5 @@ public interface BankService {
     PaymentDataDTO getPaymentUrl(PaymentRequestDTO requestDTO);
     Transaction checkBankForCard(CardAmountDTO card);
     Transaction checkCard(AcquirerDataDTO acquirerDataDTO);
+    Long getIssuerOrderId();
 }

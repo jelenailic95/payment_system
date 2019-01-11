@@ -14,15 +14,15 @@ public class TransactionDTO {
     private Long acquirerOrderId;
     private Date acquirerTimestamp;
     private double amount;
+    // todo: obrisati to
     private String resultUrl;
 
-
-    public TransactionDTO(Long merchantOrderId, Long paymentId, Long acquierOrderId, Date acquirerTimestamp, double ammount) {
+    public TransactionDTO(Long merchantOrderId, Long paymentId, Long acquierOrderId, Date acquirerTimestamp, double amount) {
         this.merchantOrderId = merchantOrderId;
         this.paymentId = paymentId;
         this.acquirerOrderId = acquierOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
-        this.amount = ammount;
+        this.amount = amount;
     }
 
     public TransactionDTO() {

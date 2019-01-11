@@ -4,7 +4,7 @@ import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
 
 import java.util.Date;
 
-public class TransactionResultCustomerDTO {
+public class TransactionResultUrlDTO {
     private Long merchantOrderId;
     private Long acquirerOrderId;
     private Date acquirerTimestamp;
@@ -13,7 +13,7 @@ public class TransactionResultCustomerDTO {
     private double amount;
     private TransactionStatus status;
 
-    public TransactionResultCustomerDTO(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, String resultUrl, double amount, TransactionStatus status) {
+    public TransactionResultUrlDTO(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, String resultUrl, double amount, TransactionStatus status) {
         this.merchantOrderId = merchantOrderId;
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;

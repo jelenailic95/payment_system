@@ -2,7 +2,6 @@ package com.sep.pcc.paymentcardcentre.controller;
 
 import com.sep.pcc.paymentcardcentre.entity.Bank;
 import com.sep.pcc.paymentcardcentre.entity.dto.AcquirerDataDTO;
-import com.sep.pcc.paymentcardcentre.entity.dto.CardDTO;
 import com.sep.pcc.paymentcardcentre.entity.dto.PaymentResultDTO;
 import com.sep.pcc.paymentcardcentre.service.PccService;
 import org.slf4j.Logger;
@@ -32,16 +31,17 @@ public class PccController {
     public PaymentResultDTO forwardToBank(@RequestBody AcquirerDataDTO acquirerDataDTO) {
         logger.info("Request - forward to the customer's bank. Acquirer order id: {}", acquirerDataDTO.getAcquirerOrderId());
 
-        CardDTO cardDTO = acquirerDataDTO.getCard();
+        Bank bank = pccService.findBank(acquirerDataDTO);
 
-        Bank bank = pccService.findBank(cardDTO.getPan());
+        String bankUrl = "";
 
-        String bankUrl = HOST + PORT + bank.getBankName() + PATH;
+        if (bank != null) {
+            bankUrl = HOST + PORT + bank.getServiceName() + PATH;
+        }
 
-        logger.info("Forward to the: {}", bank.getBankName());
+        // todo: neki error baci ako ne postoji bank
 
-        // vraca banci prodavca acqOrderId acqTimestamp, issuerOrderId, issuerTimestap i status transakcije
-        // todo: setovati header zbog autorizacije
+        // vraca banci prodavca acqOrderId acqTimestamp, issuerOrderId, issuerTimestamp i status transakcije
         return restTemplate.postForObject(bankUrl, acquirerDataDTO, PaymentResultDTO.class);
     }
 }

@@ -46,8 +46,8 @@ public class PaymentRequestController {
         logger.info("Request - pay by bank card.");
         String client = Utility.readToken(requestDTO.getClient());
         PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
-        System.out.println(client);
 
+        logger.info("Request - call endpoint(from the bank): get payment url.");
         return ResponseEntity.ok(Objects.requireNonNull(restTemplate.postForObject("http://localhost:8762/" +
                         requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class)));
