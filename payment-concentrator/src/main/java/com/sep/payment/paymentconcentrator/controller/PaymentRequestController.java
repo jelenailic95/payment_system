@@ -65,14 +65,6 @@ public class PaymentRequestController {
         return ResponseEntity.ok(Objects.requireNonNull(o.getBody()));
     }
 
-    @GetMapping(value = "/get-token")
-    public ResponseEntity<String> getToken() throws UnsupportedEncodingException {
-        Algorithm algorithm = Algorithm.HMAC256(Constants.TOKEN_SECRET);
-        String token = JWT.create()
-                .withClaim("client", "Laguna")
-                .sign(algorithm);
-        return ResponseEntity.ok(token);
-    }
 
 
 }
