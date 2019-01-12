@@ -24,4 +24,11 @@ public class Seller {
 
     @Column
     private String journalMail;
+
+    @Column
+    private String clientId;
+
+
+    @Column
+    private String secret;
 }
