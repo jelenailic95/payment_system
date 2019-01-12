@@ -65,5 +65,4 @@ public class AcquirerController {
         restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO,
                 TransactionDTO.class);
     }
-
 }

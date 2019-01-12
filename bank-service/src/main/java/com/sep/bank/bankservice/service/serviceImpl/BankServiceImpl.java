@@ -73,7 +73,7 @@ public class BankServiceImpl implements BankService {
         if (account != null) {
             logger.info("This client exists in the system. Merchant id: {}", account.getMerchantId());
 
-            // todo izbaciti slesh
+            // todo izbaciti /
             String paymentUrl = fieldsGenerator.generateField(Long.toString(requestDTO.getMerchantOrderId()), 256);
 
             GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
@@ -93,9 +93,9 @@ public class BankServiceImpl implements BankService {
     @Override
     public Transaction checkCard(AcquirerDataDTO acquirerDataDTO) {
         CardDTO card = acquirerDataDTO.getCard();
-        Card foundCard = cardService.findCard(aes.encrypt(card.getPan()),
-                aes.encrypt(card.getSecurityCode()),
-                aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
+
+        Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
+                card.getExpirationDate(), true);
 
         if (foundCard != null) {
             logger.info("This credit card exists in the bank system. Card holder name: {}", aes.decrypt(foundCard.getCardHolderName()));
@@ -126,9 +126,8 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public Transaction checkBankForCard(CardAmountDTO card) {
-        Card foundCard = cardService.findCard(aes.encrypt(card.getPan()),
-                aes.encrypt(card.getSecurityCode()),
-                aes.encrypt(card.getCardHolderName()), aes.encrypt(card.getExpirationDate()));
+        Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
+                card.getExpirationDate(), false);
 
         Transaction transaction = new Transaction();
         transaction.setMerchantOrderId(card.getMerchantOrderId());

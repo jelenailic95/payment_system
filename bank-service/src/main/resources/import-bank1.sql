@@ -23,8 +23,9 @@ INSERT INTO account (amount, account_number, card_holder_id, merchant_id, mercha
 INSERT INTO bank_accounts (bank_id, accounts_id) VALUES (1, 2);
 
 INSERT INTO card (pan, security_code, expiration_date, card_holder_name, account_id)
-VALUES ('lIJERUR1/L15zu5f1AcjZC1gnKhZY1JiuEP5EZeBqUM=', 'PWD34VGvqJP/iK77+C6q0Q==', 'KsgGjD0FxJQHrqxo59IFIw==',
-'XsMhWT/pXjdmFneaSw49hg==', 2);
+VALUES ('cGe+y54REOeuj8uicSdoew==q6Ypxlzr1wFn1bLXJhdP44BMor6mYmT/3BYNuRbPz0I=',
+'n3jntj15MXKxkNT0MzmxQg==79F65uEvhE1cJxR+mW7Pog==', 'bWIdCav6AuZUFtb/pR/EYw==KY+N/6ZYSrLSKO6ZmHOAcQ==',
+'newWxAALXoVcI0gH7CAFgA==qNms+coSZNYZJ5zkD27oeg==', 2);
 
 INSERT INTO transaction (acquirer_order_id, acquirer_timestamp, amount, merchant_order_id, payment_id, status)
 VALUES (null, null, 200, 1000000000, 1000000000, "PAID");
