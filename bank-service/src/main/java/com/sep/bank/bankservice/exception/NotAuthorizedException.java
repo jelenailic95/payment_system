@@ -8,7 +8,7 @@ public class NotAuthorizedException extends RuntimeException {
     private final String mail;
 
     public NotAuthorizedException(final String mail) {
-        super("Paypal user not exists with email: " + mail);
+        super("Bank user doesn not exist with this email: " + mail);
         this.mail = mail;
     }
 

@@ -25,7 +25,7 @@ public class CardServiceImpl implements CardService {
 
     @Override
     public Card findCard(String pan, String code, String name, String date, Boolean encrypted) {
-        // check if data is encrypted
+        // if data is encrypted decrypt it
         if (encrypted) {
             pan = aes.decrypt(pan);
             code = aes.decrypt(code);
@@ -33,9 +33,14 @@ public class CardServiceImpl implements CardService {
             date = aes.decrypt(date);
         }
 
+        // get all credit cards
         List<Card> cards = getAll();
+
         for (Card c : cards) {
+            // check if the PAN number is the same
             if (aes.decrypt(c.getPan()).equals(pan)) {
+
+                // if the PAN number is the same, check if other fields are equal with the given card data
                 if (aes.decrypt(c.getExpirationDate()).equals(date)
                         && aes.decrypt(c.getCardHolderName()).equals(name)
                         && aes.decrypt(c.getSecurityCode()).equals(code)) {

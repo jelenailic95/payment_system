@@ -73,8 +73,10 @@ public class BankServiceImpl implements BankService {
         if (account != null) {
             logger.info("This client exists in the system. Merchant id: {}", account.getMerchantId());
 
-            // todo izbaciti /
             String paymentUrl = fieldsGenerator.generateField(Long.toString(requestDTO.getMerchantOrderId()), 256);
+
+            // remove '/' from generated url
+            paymentUrl = paymentUrl.replaceAll("/", "");
 
             GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
             gsn.setPaymentCounter(gsn.getPaymentCounter() + 1L);    // increment payment counter

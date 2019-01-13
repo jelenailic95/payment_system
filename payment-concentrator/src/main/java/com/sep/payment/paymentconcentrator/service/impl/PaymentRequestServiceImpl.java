@@ -5,6 +5,7 @@ import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.repository.ClientRepository;
 import com.sep.payment.paymentconcentrator.repository.PaymentRequestRepository;
 import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
+import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,15 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
 
         paymentRequest.setMerchantOrderId(merchantOrderId);
 
+        // generate URLs
+        String errorUrl = "error?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+        String successUrl = "success?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+        String failUrl = "fail?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+
+        paymentRequest.setErrorUrl(errorUrl);
+        paymentRequest.setSuccessUrl(successUrl);
+        paymentRequest.setFaildUrl(failUrl);
+
         paymentRequestRepository.save(paymentRequest);
 
         logger.info("Payment request is successfully created.");
@@ -48,12 +58,12 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
-    public PaymentRequest getPaymentRequest(Long paymentId){
+    public PaymentRequest getPaymentRequest(Long paymentId) {
         return paymentRequestRepository.getOne(paymentId);
     }
 
     @Override
-    public PaymentRequest save(PaymentRequest paymentRequest){
+    public PaymentRequest save(PaymentRequest paymentRequest) {
         return paymentRequestRepository.save(paymentRequest);
     }
 }
