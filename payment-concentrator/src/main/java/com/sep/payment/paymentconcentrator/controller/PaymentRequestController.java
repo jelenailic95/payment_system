@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.servlet.ModelAndView;
@@ -48,7 +49,7 @@ public class PaymentRequestController {
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
 
     @PostMapping(value = "/pay-by-bank-card")
-    public ResponseEntity createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<?> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
         String client = Utility.readToken(requestDTO.getClient());
         PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
@@ -71,8 +72,11 @@ public class PaymentRequestController {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Location", "/pay-by-card/123");
 
-        return new ResponseEntity<>(headers,HttpStatus.FOUND);
 
+        return new ResponseEntity<>(headers,HttpStatus.FOUND);
+//        ModelMap model = new ModelMap();
+//        model.addAttribute("attribute", "forwardWithForwardPrefix");
+//        return new  ModelAndView("forward:/http://localhost:4200/pay-by-card/123", model);
     }
 
     @GetMapping(value = "/pay-by-card/123")
