@@ -14,11 +14,9 @@ import java.util.Optional;
 @RequestMapping(produces = "application/vnd.error+json")
 public class BankControllerAdvice {
 
-
-
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<VndErrors> notFound(final NotFoundException e) {
-        return error(e, HttpStatus.NOT_FOUND, e.getParam());
+        return error(e, HttpStatus.NOT_FOUND, e.getMessage());
     }
 
     private ResponseEntity<VndErrors> error(final Exception exception, final HttpStatus httpStatus, final String logRef) {

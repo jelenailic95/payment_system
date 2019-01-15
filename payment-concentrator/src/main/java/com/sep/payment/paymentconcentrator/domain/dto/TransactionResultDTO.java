@@ -6,7 +6,7 @@ import java.util.Date;
 
 public class TransactionResultDTO {
     private Long merchantOrderId;
-    private Long paymentId;
+    private String paymentId;
     private TransactionStatus status;
     private Long acquirerOrderId;
     private Date acquirerTimestamp;
@@ -20,11 +20,11 @@ public class TransactionResultDTO {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 

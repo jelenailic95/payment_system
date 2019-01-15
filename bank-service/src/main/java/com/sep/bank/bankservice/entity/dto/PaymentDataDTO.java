@@ -4,17 +4,17 @@ public class PaymentDataDTO {
 
     private String paymentUrl;
     private String paymentId;
-    private double ammount;
+    private double amount;
     private Long merchantOrderId;
 
 
     public PaymentDataDTO() {
     }
 
-    public PaymentDataDTO(String paymentUrl, String paymentId, double ammount, Long merchant) {
+    public PaymentDataDTO(String paymentUrl, String paymentId, double amount, Long merchant) {
         this.paymentUrl = paymentUrl;
         this.paymentId = paymentId;
-        this.ammount = ammount;
+        this.amount = amount;
         this.merchantOrderId = merchant;
     }
 
@@ -34,12 +34,12 @@ public class PaymentDataDTO {
         this.paymentId = paymentId;
     }
 
-    public double getAmmount() {
-        return ammount;
+    public double getAmount() {
+        return amount;
     }
 
-    public void setAmmount(double ammount) {
-        this.ammount = ammount;
+    public void setAmount(double amount) {
+        this.amount = amount;
     }
 
     public Long getMerchantOrderId() {

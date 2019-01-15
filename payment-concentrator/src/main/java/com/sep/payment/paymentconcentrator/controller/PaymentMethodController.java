@@ -53,15 +53,16 @@ public class PaymentMethodController {
             logger.info("This client doesn't have any registered payment methods.");
             throw new NotFoundException("Methods for journal".concat(clientName).concat("does not exist"));
         }
+
         Set<PaymentMethodDTO> paymentMethodDTOS = new HashSet<>();
-        Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(), PaymentMethodDTO.class)));
+        Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(),
+                PaymentMethodDTO.class)));
         ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth",clientDTO, Object.class);
         HttpHeaders headers = new HttpHeaders();
         headers.add(RequestContext.REQUEST_HEADER_NAME, "Bearer " + res.getHeaders());
 
         logger.info("This client has registered payment methods.");
 
-        //kreirati token koji ce dalje biti za autentifikaciju
         return new ResponseEntity<Set<PaymentMethodDTO>>(paymentMethodDTOS, headers, HttpStatus.OK);
     }
 
@@ -69,7 +70,8 @@ public class PaymentMethodController {
     public ResponseEntity<Client> enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO) {
         logger.info("Request - enable new payment method, that exists in the system.");
 
-        Client client = clientService.addNewMethod(newMethodDTO.getClientName(), newMethodDTO.getClientId(), newMethodDTO.getClientPassword(),
+        Client client = clientService.addNewMethod(newMethodDTO.getClientName(), newMethodDTO.getClientId(),
+                newMethodDTO.getClientPassword(),
                 newMethodDTO.getMethod());
 
         logger.info("Payment method is successfully enabled.");

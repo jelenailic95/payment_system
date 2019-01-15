@@ -7,4 +7,5 @@ import org.springframework.stereotype.Service;
 public interface PaymentRequestService {
     PaymentRequest createPaymentRequest(String clientID, double amount, String bankName);
     PaymentRequest getPaymentRequest(Long merchantOrderId);
+    PaymentRequest save(PaymentRequest paymentRequest);
 }

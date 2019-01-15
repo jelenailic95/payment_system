@@ -5,13 +5,12 @@ import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.repository.ClientRepository;
 import com.sep.payment.paymentconcentrator.repository.PaymentRequestRepository;
 import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
+import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
-import java.util.Random;
 
 @Service
 public class PaymentRequestServiceImpl implements PaymentRequestService {
@@ -31,24 +30,40 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setMerchantId(foundClient.getClientId());
         paymentRequest.setMerchantPassword(foundClient.getClientPassword());
-
-        Random random = new Random();
-        paymentRequest.setMerchantOrderId(random.nextLong());
         paymentRequest.setAmount(amount);
-        paymentRequest.setMerchandTimestamp(new Date());
+
+        // get last payment request from the db
+        PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
+
+        // generate new merchant order id by incrementing the last stored merchant order id
+        Long merchantOrderId = lastPayment.getMerchantOrderId() + 1;
+
+        paymentRequest.setMerchantOrderId(merchantOrderId);
+
+        // generate URLs
+        String errorUrl = "error?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+        String successUrl = "success?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+        String failUrl = "fail?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+
+        paymentRequest.setErrorUrl(errorUrl);
+        paymentRequest.setSuccessUrl(successUrl);
+        paymentRequest.setFaildUrl(failUrl);
+
+        paymentRequestRepository.save(paymentRequest);
 
         logger.info("Payment request is successfully created.");
         logger.info("Payment request - merchant order: {}", paymentRequest.getMerchantOrderId());
-
-        paymentRequestRepository.save(paymentRequest);
 
         return paymentRequest;
     }
 
     @Override
-    public PaymentRequest getPaymentRequest(Long merchantOrderId){
+    public PaymentRequest getPaymentRequest(Long merchantOrderId) {
         return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
     }
 
-
+    @Override
+    public PaymentRequest save(PaymentRequest paymentRequest) {
+        return paymentRequestRepository.save(paymentRequest);
+    }
 }

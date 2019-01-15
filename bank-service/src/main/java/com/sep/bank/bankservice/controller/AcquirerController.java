@@ -19,6 +19,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import javax.validation.Valid;
+
 @RestController
 public class AcquirerController {
 
@@ -60,8 +62,7 @@ public class AcquirerController {
 
         // final step - send transaction information to the payment concentrator
         logger.info("Transaction object is forwarded to the payment concentrator.");
-        // todo: setovati header
-        restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO, TransactionDTO.class);
+        restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO,
+                TransactionDTO.class);
     }
-
 }

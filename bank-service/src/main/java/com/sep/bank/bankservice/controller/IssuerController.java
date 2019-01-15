@@ -36,9 +36,9 @@ public class IssuerController {
         logger.info("Transaction is done. Transaction status: {}", transaction.getStatus());
         logger.info("Transaction result is returned to the seller's bank.");
 
-        Random random = new Random();
+        Long issuerOrderId = bankService.getIssuerOrderId();
         return new PaymentResultDTO(acquirerDataDTO.getAcquirerOrderId(),
-                acquirerDataDTO.getAcquirerTimestamp(), random.nextLong(), new Date(), transaction.getStatus());
+                acquirerDataDTO.getAcquirerTimestamp(), issuerOrderId, new Date(), transaction.getStatus());
     }
 }
 

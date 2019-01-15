@@ -30,6 +30,13 @@ public class Card {
     public Card() {
     }
 
+    public Card(String pan, String securityCode, String cardHolderName, String expirationDate) {
+        this.pan = pan;
+        this.securityCode = securityCode;
+        this.cardHolderName = cardHolderName;
+        this.expirationDate = expirationDate;
+    }
+
     public Long getId() {
         return id;
     }
