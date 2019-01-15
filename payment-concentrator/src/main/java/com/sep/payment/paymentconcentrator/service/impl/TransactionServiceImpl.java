@@ -23,7 +23,7 @@ public class TransactionServiceImpl implements TransactionService {
         transactionRepository.save(transaction);
 
         // set status on the payment request
-        PaymentRequest paymentRequest = paymentRequestService.getPaymentRequest(transaction.getPaymentId());
+        PaymentRequest paymentRequest = paymentRequestService.getPaymentRequest(transaction.getMerchantOrderId());
         paymentRequest.setStatus(transaction.getStatus());
         paymentRequestService.save(paymentRequest);
 

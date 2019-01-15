@@ -9,7 +9,7 @@ public class CardAmountDTO {
     private String expirationDate;
     private double amount;
     private Long merchantOrderId;
-    private Long paymentId;
+    private String paymentId;
 
     public CardAmountDTO() {
     }
@@ -62,11 +62,11 @@ public class CardAmountDTO {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 }

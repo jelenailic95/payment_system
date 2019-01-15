@@ -1,5 +1,7 @@
 package com.sep.bank.bankservice.service.serviceImpl;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.bank.bankservice.entity.*;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.BankRepository;
@@ -12,12 +14,14 @@ import com.sep.bank.bankservice.service.CardService;
 import com.sep.bank.bankservice.service.UserService;
 import com.sep.bank.bankservice.util.FieldsGenerator;
 import org.apache.commons.lang.RandomStringUtils;
+import org.aspectj.apache.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -78,14 +82,24 @@ public class BankServiceImpl implements BankService {
             // remove '/' from generated url
             paymentUrl = paymentUrl.replaceAll("/", "");
 
-            GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
-            gsn.setPaymentCounter(gsn.getPaymentCounter() + 1L);    // increment payment counter
-            gsr.save(gsn);
+//            GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
+//            gsn.setPaymentCounter(gsn.getPaymentCounter() + 1L);    // increment payment counter
+//            gsr.save(gsn);
 
             // return generated payment url & payment id
+            Algorithm algoritham = null;
+            try {
+                algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            }
+
+            String paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
+                    .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
+
             paymentDataDTO = new PaymentDataDTO(
                     paymentUrl,
-                    gsn.getPaymentCounter(),
+                    paymentId,
                     requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
         }
@@ -130,6 +144,8 @@ public class BankServiceImpl implements BankService {
     public Transaction checkBankForCard(CardAmountDTO card) {
         Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
                 card.getExpirationDate(), false);
+
+        // todo: uzvuci paymentId, iz njega uzeti merchanta i njemu povecati iznos na racunu
 
         Transaction transaction = new Transaction();
         transaction.setMerchantOrderId(card.getMerchantOrderId());

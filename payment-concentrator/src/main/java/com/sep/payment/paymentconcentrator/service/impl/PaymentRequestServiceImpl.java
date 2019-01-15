@@ -58,8 +58,8 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
-    public PaymentRequest getPaymentRequest(Long paymentId) {
-        return paymentRequestRepository.getOne(paymentId);
+    public PaymentRequest getPaymentRequest(Long merchantOrderId) {
+        return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
     }
 
     @Override

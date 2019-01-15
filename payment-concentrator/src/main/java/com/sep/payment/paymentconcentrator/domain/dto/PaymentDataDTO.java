@@ -3,14 +3,14 @@ package com.sep.payment.paymentconcentrator.domain.dto;
 public class PaymentDataDTO {
 
     private String paymentUrl;
-    private Long paymentId;
+    private String paymentId;
     private double amount;
     private Long merchantOrderId;
 
     public PaymentDataDTO() {
     }
 
-    public PaymentDataDTO(String paymentUrl, Long paymentId) {
+    public PaymentDataDTO(String paymentUrl, String paymentId) {
         this.paymentUrl = paymentUrl;
         this.paymentId = paymentId;
     }
@@ -23,11 +23,11 @@ public class PaymentDataDTO {
         this.paymentUrl = paymentUrl;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 

@@ -21,7 +21,7 @@ public class Transaction implements Serializable {
     private Date acquirerTimestamp;
 
     @Column
-    private Long paymentId;
+    private String paymentId;
 
     @Column
     @Enumerated(EnumType.STRING)
@@ -38,7 +38,7 @@ public class Transaction implements Serializable {
         return id;
     }
 
-    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId,
+    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, String paymentId,
                        TransactionStatus status, double amount) {
         this.merchantOrderId = merchantOrderId;
         this.acquirerOrderId = acquirerOrderId;
@@ -77,11 +77,11 @@ public class Transaction implements Serializable {
         this.acquirerOrderId = acquirerOrderId;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 

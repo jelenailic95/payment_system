@@ -63,7 +63,6 @@ public class PaymentMethodController {
 
         logger.info("This client has registered payment methods.");
 
-        //kreirati token koji ce dalje biti za autentifikaciju
         return new ResponseEntity<Set<PaymentMethodDTO>>(paymentMethodDTOS, headers, HttpStatus.OK);
     }
 

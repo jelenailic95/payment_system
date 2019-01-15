@@ -9,7 +9,7 @@ public class TransactionDTO {
     @JsonIgnore
     private Long id;
     private Long merchantOrderId;
-    private Long paymentId;
+    private String paymentId;
     private TransactionStatus status;
     private Long acquirerOrderId;
     private Date acquirerTimestamp;
@@ -17,7 +17,7 @@ public class TransactionDTO {
     // todo: obrisati to
     private String resultUrl;
 
-    public TransactionDTO(Long merchantOrderId, Long paymentId, Long acquierOrderId, Date acquirerTimestamp, double amount) {
+    public TransactionDTO(Long merchantOrderId, String paymentId, Long acquierOrderId, Date acquirerTimestamp, double amount) {
         this.merchantOrderId = merchantOrderId;
         this.paymentId = paymentId;
         this.acquirerOrderId = acquierOrderId;
@@ -44,11 +44,11 @@ public class TransactionDTO {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 

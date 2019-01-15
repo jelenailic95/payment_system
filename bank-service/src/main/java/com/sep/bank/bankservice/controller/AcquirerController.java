@@ -44,7 +44,7 @@ public class AcquirerController {
     private Logger logger = LoggerFactory.getLogger(AcquirerController.class);
 
     @PostMapping("/get-payment-url")
-    public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody @Valid PaymentRequestDTO request) {
+    public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody PaymentRequestDTO request) {
         logger.info("Request - get payment url. Merchant: {}", request.getMerchantId());
         PaymentDataDTO paymentData = bankService.getPaymentUrl(request);
 

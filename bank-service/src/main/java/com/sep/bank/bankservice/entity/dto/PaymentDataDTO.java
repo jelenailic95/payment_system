@@ -3,7 +3,7 @@ package com.sep.bank.bankservice.entity.dto;
 public class PaymentDataDTO {
 
     private String paymentUrl;
-    private Long paymentId;
+    private String paymentId;
     private double amount;
     private Long merchantOrderId;
 
@@ -11,7 +11,7 @@ public class PaymentDataDTO {
     public PaymentDataDTO() {
     }
 
-    public PaymentDataDTO(String paymentUrl, Long paymentId, double amount, Long merchant) {
+    public PaymentDataDTO(String paymentUrl, String paymentId, double amount, Long merchant) {
         this.paymentUrl = paymentUrl;
         this.paymentId = paymentId;
         this.amount = amount;
@@ -26,11 +26,11 @@ public class PaymentDataDTO {
         this.paymentUrl = paymentUrl;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 

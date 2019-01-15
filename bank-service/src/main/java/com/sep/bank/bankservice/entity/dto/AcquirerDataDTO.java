@@ -13,12 +13,12 @@ public class AcquirerDataDTO {
 
     // dodala zbog cuvanja transakcije u banci kupca
     private Long merchantOrderId;
-    private Long paymentId;
+    private String paymentId;
 
     public AcquirerDataDTO() {
     }
 
-    public AcquirerDataDTO(Long acquirerOrderId, Date acquirerTimestamp, CardDTO card, double amount, Long merchantOrderId, Long paymentId) {
+    public AcquirerDataDTO(Long acquirerOrderId, Date acquirerTimestamp, CardDTO card, double amount, Long merchantOrderId, String paymentId) {
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
         this.cardDTO = card;
@@ -75,11 +75,11 @@ public class AcquirerDataDTO {
         this.merchantOrderId = merchantOrderId;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 }
