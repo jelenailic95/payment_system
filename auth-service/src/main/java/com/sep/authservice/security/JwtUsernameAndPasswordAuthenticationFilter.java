@@ -1,6 +1,7 @@
 package com.sep.authservice.security;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sep.authservice.entity.ClientCredentials;
 import com.sep.authservice.service.UserDetailsServiceImpl;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -41,10 +42,10 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
 		try {
 			System.out.println();
-			ClientCredentials creds = new ObjectMapper().readValue(request.getInputStream(), ClientCredentials.class);
-			UserDetails userDetails = userDetailsService.loadUserByUsername(creds.getClientId());
+			ClientCredentials client = new ObjectMapper().readValue(request.getInputStream(), ClientCredentials.class);
+			UserDetails userDetails = userDetailsService.loadUserByUsername(client.getClientId());
 			UsernamePasswordAuthenticationToken authToken = new UsernamePasswordAuthenticationToken(
-					userDetails, null, Collections.emptyList());
+					userDetails, null, userDetails.getAuthorities());
 			authToken.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
 			SecurityContextHolder.getContext().setAuthentication(authToken);
 			return authToken;
@@ -71,15 +72,5 @@ public class JwtUsernameAndPasswordAuthenticationFilter extends UsernamePassword
 
 	}
 	
-	private static class ClientCredentials {
-	    private String clientId;
 
-		public String getClientId() {
-			return clientId;
-		}
-
-		public void setClientId(String clientId) {
-			this.clientId = clientId;
-		}
-	}
 }
