@@ -11,9 +11,9 @@ import com.paypal.svcs.types.aa.GetVerifiedStatusResponse;
 import com.paypal.svcs.types.common.RequestEnvelope;
 import com.sep.paypal.config.AdaptiveConfiguration;
 import com.sep.paypal.exception.NotFoundException;
-import com.sep.paypal.model.entity.JournalPlan;
 import com.sep.paypal.model.dto.PlanInfo;
 import com.sep.paypal.model.dto.RequestCreatePlan;
+import com.sep.paypal.model.entity.JournalPlan;
 import com.sep.paypal.model.entity.Seller;
 import com.sep.paypal.model.entity.TransactionPayment;
 import com.sep.paypal.model.enumeration.*;
@@ -24,6 +24,8 @@ import com.sep.paypal.service.PaypalService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.ApplicationContext;
 import org.springframework.stereotype.Service;
 
 import java.io.UnsupportedEncodingException;
@@ -39,13 +41,16 @@ public class PaypalServiceImpl implements PaypalService {
 
     private Logger logger = LoggerFactory.getLogger(PaypalService.class);
 
-    private final APIContext apiContext;
+    private APIContext apiContext;
 
     private final JournalPlanRepository journalPlanRepository;
 
     private final TransactionRepository transactionRepository;
 
     private final SellerRepository sellerRepository;
+
+    @Value("${paypal.mode}")
+    private String mode;
 
     @Autowired
     public PaypalServiceImpl(APIContext apiContext, JournalPlanRepository journalPlanRepository, TransactionRepository transactionRepository, SellerRepository sellerRepository) {
@@ -56,7 +61,9 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public Payment createPayment(Double total, String currency, PaymentMethod method, PaymentIntent intent, String description, String emailPayee, String journalName, String cancelUrl, String successUrl) throws PayPalRESTException {
+    public Payment createPayment(String id, String secret, Double total, String currency,
+                                 PaymentMethod method, PaymentIntent intent, String description,
+                                 String journalName, String cancelUrl, String successUrl) throws PayPalRESTException {
         Details details = new Details();
         details.setShipping("0");
 
@@ -65,54 +72,54 @@ public class PaypalServiceImpl implements PaypalService {
         amount.setTotal(String.valueOf(total));
         amount.setDetails(details);
 
-        Seller seller = this.sellerRepository.findSellerByJournalMail(emailPayee);
+        /*Seller seller = this.sellerRepository.findSellerByJournalMail(emailPayee);
         if (seller == null) {
             throw new NotFoundException("mail", emailPayee);
         } else {
             Payee payee = new Payee();
-            payee.setEmail(emailPayee);
+            payee.setEmail(emailPayee);*/
 
-            Transaction transaction = new Transaction();
-            transaction.setDescription(description);
-            transaction.setAmount(amount);
-            transaction.setPayee(payee);
+        Transaction transaction = new Transaction();
+        transaction.setDescription(description);
+        transaction.setAmount(amount);
+        //transaction.setPayee(payee);
 
-            Item item = new Item();
-            item.setName(journalName).setQuantity("1").setCurrency(currency).setPrice(String.valueOf(total));
-            ItemList itemList = new ItemList();
-            List<Item> items = new ArrayList<>();
-            items.add(item);
-            itemList.setItems(items);
-            transaction.setItemList(itemList);
+        Item item = new Item();
+        item.setName(journalName).setQuantity("1").setCurrency(currency).setPrice(String.valueOf(total));
+        ItemList itemList = new ItemList();
+        List<Item> items = new ArrayList<>();
+        items.add(item);
+        itemList.setItems(items);
+        transaction.setItemList(itemList);
 
 
-            List<Transaction> transactions = new ArrayList<>();
-            transactions.add(transaction);
+        List<Transaction> transactions = new ArrayList<>();
+        transactions.add(transaction);
 
-            Payer payer = new Payer();
-            payer.setPaymentMethod(method.toString());
+        Payer payer = new Payer();
+        payer.setPaymentMethod(method.toString());
 
-            Payment payment = new Payment();
-            payment.setIntent(intent.toString());
-            payment.setPayer(payer);
-            payment.setTransactions(transactions);
+        Payment payment = new Payment();
+        payment.setIntent(intent.toString());
+        payment.setPayer(payer);
+        payment.setTransactions(transactions);
 
-            RedirectUrls redirectUrls = new RedirectUrls();
-            redirectUrls.setCancelUrl(cancelUrl);
-            redirectUrls.setReturnUrl(successUrl);
-            payment.setRedirectUrls(redirectUrls);
+        RedirectUrls redirectUrls = new RedirectUrls();
+        redirectUrls.setCancelUrl(cancelUrl);
+        redirectUrls.setReturnUrl(successUrl);
+        payment.setRedirectUrls(redirectUrls);
 
-            return payment.create(apiContext);
-        }
+        return payment.create(new APIContext(id, secret, mode));
+
     }
 
     @Override
-    public Payment executePayment(String paymentId, String payerId) throws PayPalRESTException {
+    public Payment executePayment(String id, String secret, String paymentId, String payerId) throws PayPalRESTException {
         Payment payment = new Payment();
         payment.setId(paymentId);
         PaymentExecution paymentExecute = new PaymentExecution();
         paymentExecute.setPayerId(payerId);
-        Payment result = payment.execute(apiContext, paymentExecute);
+        Payment result = payment.execute(new APIContext(id, secret, mode), paymentExecute);
         this.storeTransactionToDatabase(result, null);
         return result;
     }
@@ -140,10 +147,10 @@ public class PaypalServiceImpl implements PaypalService {
     @Override
     public void createPlanForSubscription(RequestCreatePlan request) {
         Plan plan = new Plan();
-        Seller seller = this.sellerRepository.findSellerByJournalNameAndJournalMail(
-                request.getNameOfJournal(), request.getPayee());
-        if(seller == null) {
-            throw new NotFoundException("name and email", request.getNameOfJournal() + ", " + request.getPayee());
+        Seller seller = this.sellerRepository.findSellerByClientIdAndSecret(
+                request.getClientId(), request.getClientSecret());
+        if (seller == null) {
+            throw new NotFoundException("name and email", request.getNameOfJournal());
         }
         plan.setName(request.getNameOfJournal());
         plan.setDescription(request.getDescription());
@@ -169,16 +176,20 @@ public class PaypalServiceImpl implements PaypalService {
         MerchantPreferences merchantPreferences = new MerchantPreferences();
         merchantPreferences.setSetupFee(currency);
         merchantPreferences.setCancelUrl("https://example.com/cancel");
-        merchantPreferences.setReturnUrl("http://localhost:8762/paypal-service/plan/finish-subscription");
+        String successUrl = "http://localhost:8762/paypal-service/plan/finish-subscription";
+        successUrl = successUrl.concat("?clientId=").concat(request.getClientId());
+        successUrl = successUrl.concat("&secret=").concat(request.getClientSecret());
+        merchantPreferences.setReturnUrl(successUrl);
         merchantPreferences.setMaxFailAttempts("0");
         merchantPreferences.setAutoBillAmount("YES");
         merchantPreferences.setInitialFailAmountAction("CONTINUE");
         plan.setMerchantPreferences(merchantPreferences);
-        activatePlan(plan, request.getNameOfJournal(), request.getPayee());
+        activatePlan(plan, request.getNameOfJournal(), request.getClientId(), request.getClientSecret());
     }
 
-    private void activatePlan(Plan plan, String nameOfJournal, String payee) {
+    private void activatePlan(Plan plan, String nameOfJournal, String clientId, String secret) {
         try {
+            APIContext apiContext = new APIContext(clientId, secret, mode);
             Plan createdPlan = plan.create(apiContext);
 
             logger.info("Created plan with id = {}", createdPlan.getId());
@@ -197,10 +208,11 @@ public class PaypalServiceImpl implements PaypalService {
 
             // Activate plan
             createdPlan.update(apiContext, patchRequestList);
+            Seller seller = this.sellerRepository.findSellerByClientIdAndSecret(clientId, secret);
             JournalPlan journalPlan;
             journalPlan = JournalPlan.builder().journal(nameOfJournal)
                     .planId(createdPlan.getId())
-                    .payee(payee).build();
+                    .payee(seller.getJournalMail()).build();
             journalPlanRepository.save(journalPlan);
 
         } catch (PayPalRESTException e) {
@@ -209,7 +221,7 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public URL subscribeToPlan(String nameOfJournal) {
+    public URL subscribeToPlan(String nameOfJournal, String clientId, String secret) {
         Agreement agreement = new Agreement();
         agreement.setName(String.format("Subscription for %s", nameOfJournal));
         agreement.setDescription(nameOfJournal);
@@ -221,7 +233,7 @@ public class PaypalServiceImpl implements PaypalService {
 
         Plan plan = new Plan();
         JournalPlan journalPlan = journalPlanRepository.findJournalPlanByJournal(nameOfJournal);
-        if(journalPlan == null){
+        if (journalPlan == null) {
             throw new NotFoundException("name", nameOfJournal);
         }
         plan.setId(journalPlan.getPlanId());
@@ -232,7 +244,7 @@ public class PaypalServiceImpl implements PaypalService {
         agreement.setPayer(payer);
 
         try {
-            agreement = agreement.create(apiContext);
+            agreement = agreement.create(new APIContext(clientId, secret, mode));
 
             for (Links links : agreement.getLinks()) {
                 if ("approval_url".equals(links.getRel())) {
@@ -248,15 +260,15 @@ public class PaypalServiceImpl implements PaypalService {
 
 
     @Override
-    public void finishSubscription(String token) {
+    public void finishSubscription(String token, String clientId, String secret) {
         Agreement agreement = new Agreement();
         agreement.setToken(token);
 
         try {
-            Agreement activeAgreement = agreement.execute(apiContext, agreement.getToken());
+            Agreement activeAgreement = agreement.execute(new APIContext(clientId, secret, mode), agreement.getToken());
             activeAgreement.setState("active");
             JournalPlan journalPlan = this.journalPlanRepository.findJournalPlanByJournal(activeAgreement.getDescription());
-            transferToPayee(activeAgreement, journalPlan.getPayee());
+            //transferToPayee(activeAgreement, journalPlan.getPayee());
             AgreementWithPayee agreementWithPayee = new AgreementWithPayee();
             agreementWithPayee.setAgreement(activeAgreement);
             agreementWithPayee.setPayee(journalPlan.getPayee());
@@ -343,7 +355,7 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public PlanInfo getPlanByName(String name) {
+    public PlanInfo getPlanByName(String name, String clientId, String secret) {
         String id = "";
         try {
             id = this.journalPlanRepository.findJournalPlanByJournal(name).getPlanId();
@@ -352,7 +364,7 @@ public class PaypalServiceImpl implements PaypalService {
         }
         PlanInfo planInfo = null;
         try {
-            Plan plan = Plan.get(apiContext, id);
+            Plan plan = Plan.get(new APIContext(clientId, secret, mode), id);
             Currency amount = plan.getPaymentDefinitions().get(0).getAmount();
             String freq = plan.getPaymentDefinitions().get(0).getFrequency();
             String interval = plan.getPaymentDefinitions().get(0).getFrequencyInterval();
@@ -376,4 +388,5 @@ public class PaypalServiceImpl implements PaypalService {
             this.sellerRepository.save(seller);
         }
     }
+
 }

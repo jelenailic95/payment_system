@@ -1,16 +1,13 @@
 package com.sep.paypal.exception;
 
 import com.paypal.base.exception.HttpErrorException;
-import com.paypal.base.rest.PayPalRESTException;
-import com.sep.paypal.PaypalController;
+import com.sep.paypal.controller.PaypalController;
 import org.springframework.hateoas.VndErrors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.client.HttpClientErrorException;
-import org.springframework.web.client.HttpServerErrorException;
 
 import java.util.Optional;
 

@@ -10,6 +10,8 @@ import java.io.Serializable;
 @Builder
 public class SubscribeDto implements Serializable {
 
+    private String clientId;
+    private String secret;
     private String nameOfJournal;
 
 }

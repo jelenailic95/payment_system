@@ -12,6 +12,8 @@ import lombok.RequiredArgsConstructor;
 @RequiredArgsConstructor
 public class SellerDto {
 
+    private String clientId;
+    private String secret;
     private String journalName;
     private String journalMail;
 }

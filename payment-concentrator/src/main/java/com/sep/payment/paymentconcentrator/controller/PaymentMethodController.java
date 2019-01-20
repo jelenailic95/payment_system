@@ -1,9 +1,12 @@
 package com.sep.payment.paymentconcentrator.controller;
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.payment.paymentconcentrator.domain.dto.ClientDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.NewMethodDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.PaymentMethodDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
+import com.sep.payment.paymentconcentrator.domain.entity.Constants;
 import com.sep.payment.paymentconcentrator.exception.NotFoundException;
 import com.sep.payment.paymentconcentrator.security.RequestContext;
 import com.sep.payment.paymentconcentrator.service.ClientService;
@@ -12,10 +15,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -78,4 +78,14 @@ public class PaymentMethodController {
 
         return ResponseEntity.ok().body(client);
     }
+
+    @GetMapping(value = "/get-token/{name}")
+    public ResponseEntity<String> getToken(@PathVariable String name) throws UnsupportedEncodingException {
+        Algorithm algorithm = Algorithm.HMAC256(Constants.TOKEN_SECRET);
+        String token = JWT.create()
+                .withClaim("client", name)
+                .sign(algorithm);
+        return ResponseEntity.ok(token);
+    }
+
 }

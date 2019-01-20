@@ -15,6 +15,8 @@ import javax.validation.constraints.Pattern;
 @RequiredArgsConstructor
 public class RequestPayment {
 
+    private String clientId;
+    private String clientSecret;
     private Double price;
     private String currency;
     private String nameOfJournal;
