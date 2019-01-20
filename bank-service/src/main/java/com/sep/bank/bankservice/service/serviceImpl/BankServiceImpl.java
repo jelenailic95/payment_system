@@ -82,20 +82,15 @@ public class BankServiceImpl implements BankService {
             // remove '/' from generated url
             paymentUrl = paymentUrl.replaceAll("/", "");
 
-//            GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
-//            gsn.setPaymentCounter(gsn.getPaymentCounter() + 1L);    // increment payment counter
-//            gsr.save(gsn);
-
             // return generated payment url & payment id
-            Algorithm algoritham = null;
+            String paymentId ="";
             try {
-                algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
+                Algorithm algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
+                paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
+                        .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
-
-            String paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
-                    .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
 
             paymentDataDTO = new PaymentDataDTO(
                     paymentUrl,

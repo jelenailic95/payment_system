@@ -2198,3 +2198,625 @@ Using generated security password: 88307825-5555-4060-8e5a-d7bf6703e671
 2019-01-15 17:16:00.322  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
 2019-01-15 17:16:00.323  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000003
 2019-01-15 17:16:00.323  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:21:34.226  INFO 13504 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:21:34.274  INFO 13504 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:21:37.959  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:21:37.982  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:21:37.983  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000004
+2019-01-15 17:21:37.983  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:23:05.105  INFO 13504 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:23:05.143  INFO 13504 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:23:08.344  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:23:08.358  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:23:08.359  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000005
+2019-01-15 17:23:08.360  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:24:25.891  INFO 13504 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:24:25.928  INFO 13504 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:24:29.989  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:24:30.005  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:24:30.005  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000006
+2019-01-15 17:24:30.005  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:28:42.813  INFO 13504 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:28:42.856  INFO 13504 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:28:46.314  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:28:46.333  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:28:46.333  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000007
+2019-01-15 17:28:46.333  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:36:24.904  INFO 13504 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:36:24.942  INFO 13504 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:36:28.204  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:36:28.223  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:36:28.224  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000008
+2019-01-15 17:36:28.224  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:37:05.879  INFO 13504 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:37:05.913  INFO 13504 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:37:08.634  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:37:08.649  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:37:08.650  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000009
+2019-01-15 17:37:08.650  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:37:15.519  INFO 13504 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:37:15.561  INFO 13504 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:37:18.683  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:37:18.707  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:37:18.707  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000010
+2019-01-15 17:37:18.708  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:37:29.480  INFO 13504 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:37:29.518  INFO 13504 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:37:32.617  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:37:32.633  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:37:32.634  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000011
+2019-01-15 17:37:32.634  INFO 13504 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:38:25.768  INFO 13504 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:38:25.813  INFO 13504 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:38:29.146  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:38:29.167  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:38:29.167  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000012
+2019-01-15 17:38:29.168  INFO 13504 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:38:38.131  INFO 13504 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:38:38.205  INFO 13504 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:38:41.152  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:38:41.168  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:38:41.169  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000013
+2019-01-15 17:38:41.169  INFO 13504 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:39:29.565  INFO 13504 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:39:29.624  INFO 13504 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:39:32.843  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:39:32.860  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:39:32.860  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000014
+2019-01-15 17:39:32.860  INFO 13504 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 17:54:17.097  INFO 13504 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 17:54:17.142  INFO 13504 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 17:54:20.611  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 17:54:20.632  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 17:54:20.632  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000015
+2019-01-15 17:54:20.633  INFO 13504 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 18:03:36.353  INFO 7336 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-01-15 18:03:39.869  INFO 7336 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-01-15 18:03:40.073  INFO 7336 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 184ms. Found 4 repository interfaces.
+2019-01-15 18:03:41.253  INFO 7336 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6f67118b-c307-33af-9e67-1df1ab1187a2
+2019-01-15 18:03:41.594  INFO 7336 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$8b8bdc33] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 18:03:41.656  INFO 7336 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$b0c2965] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 18:03:41.679  INFO 7336 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$a7a5df30] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 18:03:45.115  INFO 7336 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (http)
+2019-01-15 18:03:45.191  INFO 7336 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-01-15 18:03:45.192  INFO 7336 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-01-15 18:03:45.237  INFO 7336 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\bin;D:\Python\;D:\Python\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Apache\maven\bin;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\Lenovo\AppData\Local\Programs\Git\cmd;C:\ProgramData\ComposerSetup\bin;D:\wamp64\bin\php\php7.1.9;C:\Program Files\PuTTY\;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;D:\programi\bin;C:\Program Files\Haskell Platform\8.4.3\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\PHP;C:\Program Files\Java\jre1.8.0_131\bin;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\;C:\Users\Lenovo\AppData\Roaming\local\bin;C:\Users\Lenovo\AppData\Roaming\cabal\bin;C:\Users\Lenovo\Anaconda2;C:\Users\Lenovo\Anaconda2\Library\mingw-w64\bin;C:\Users\Lenovo\Anaconda2\Library\usr\bin;C:\Users\Lenovo\Anaconda2\Library\bin;C:\Users\Lenovo\Anaconda2\Scripts;C:\Users\Lenovo\AppData\Roaming\npm;D:\Scripts\;C:\Program Files\Haskell Platform\8.4.3\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\lib\ghc-8.4.3;D:\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Heroku\bin;C:\Users\Lenovo\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;;.]
+2019-01-15 18:03:45.975  INFO 7336 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-01-15 18:03:45.978  INFO 7336 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9601 ms
+2019-01-15 18:03:50.510  INFO 7336 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-15 18:03:50.511  INFO 7336 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-01-15 18:03:50.512  INFO 7336 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-15 18:03:50.513  INFO 7336 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-01-15 18:03:50.513  INFO 7336 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-15 18:03:50.514  INFO 7336 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-01-15 18:03:50.515  INFO 7336 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-01-15 18:03:50.515  INFO 7336 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-01-15 18:03:50.518  INFO 7336 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-01-15 18:03:50.920  INFO 7336 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-01-15 18:03:51.366  INFO 7336 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-01-15 18:03:51.739  INFO 7336 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-15 18:03:52.052  INFO 7336 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-01-15 18:03:52.056  INFO 7336 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-01-15 18:03:52.490  INFO 7336 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-01-15 18:03:52.962  INFO 7336 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-01-15 18:03:55.332  INFO 7336 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/sc/payment-concentrator/target/classes/import.sql)'
+2019-01-15 18:03:55.395  INFO 7336 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-15 18:03:55.872  WARN 7336 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-01-15 18:03:58.826  INFO 7336 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: b4153049-3c4a-4b08-877b-0abc499506f2
+
+2019-01-15 18:04:00.995  INFO 7336 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@fc2d1c1, org.springframework.security.web.context.SecurityContextPersistenceFilter@37e1cd1, org.springframework.security.web.header.HeaderWriterFilter@788e786b, org.springframework.security.web.authentication.logout.LogoutFilter@1ec60aa, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@24ccf1ec, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@78fb0bff, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2dd41712, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@6bb6bfe7, org.springframework.security.web.session.SessionManagementFilter@172c1756, org.springframework.security.web.access.ExceptionTranslationFilter@29dea5a8, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@21cf5cab]
+2019-01-15 18:04:02.333  INFO 7336 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-01-15 18:04:02.647  WARN 7336 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-01-15 18:04:05.410  INFO 7336 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-01-15 18:04:10.154  INFO 7336 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (http) with context path ''
+2019-01-15 18:04:10.163  INFO 7336 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 39.617 seconds (JVM running for 42.611)
+2019-01-15 18:07:07.828  INFO 7336 --- [http-nio-8443-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-01-15 18:07:07.830  INFO 7336 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-01-15 18:07:07.968  INFO 7336 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 137 ms
+2019-01-15 18:07:09.516  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 18:07:09.625  INFO 7336 --- [http-nio-8443-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-01-15 18:07:10.968  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 18:07:16.773  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 18:07:16.978  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 18:07:16.978  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000001
+2019-01-15 18:07:16.978  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:13:55.269  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:13:55.453  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:13:58.204  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:13:58.250  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:13:58.251  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000002
+2019-01-15 19:13:58.251  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:15:11.221  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:15:11.269  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:15:14.167  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:15:14.196  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:15:14.197  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000003
+2019-01-15 19:15:14.197  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:18:19.646  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:18:19.693  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:18:22.148  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:18:22.174  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:18:22.174  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000004
+2019-01-15 19:18:22.174  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:21:25.746  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:21:25.798  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:21:28.673  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:21:28.695  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:21:28.696  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000005
+2019-01-15 19:21:28.696  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:22:30.770  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:22:30.812  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:22:33.346  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:22:33.366  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:22:33.367  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000006
+2019-01-15 19:22:33.367  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:23:51.015  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:23:51.051  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:25:09.186  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:25:09.226  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:25:11.536  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:25:11.556  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:25:11.556  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000007
+2019-01-15 19:25:11.556  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:32:59.613  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:32:59.664  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:33:02.382  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:33:02.408  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:33:02.409  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000008
+2019-01-15 19:33:02.409  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:34:09.490  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:34:09.532  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:34:12.399  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:34:12.419  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:34:12.419  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000009
+2019-01-15 19:34:12.419  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:41:09.940  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:41:10.015  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:41:14.490  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:41:14.521  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:41:14.522  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000010
+2019-01-15 19:41:14.522  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:41:46.762  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:41:46.810  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:42:08.465  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:42:08.508  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:43:52.303  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:43:52.343  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:45:51.695  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:45:51.745  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:47:01.182  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:47:01.229  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:47:07.180  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:47:07.230  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:47:28.073  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:47:28.113  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:48:50.132  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:48:50.169  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:49:36.098  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:49:36.173  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:49:36.173  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000011
+2019-01-15 19:49:36.173  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:54:30.867  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:54:30.912  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:57:57.254  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:57:57.298  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:58:25.577  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 19:58:25.597  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 19:58:25.597  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000012
+2019-01-15 19:58:25.598  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 19:59:26.484  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:59:26.542  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 19:59:43.943  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 19:59:43.979  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:00:57.021  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:00:57.057  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:01:13.453  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:01:13.493  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:23:51.948  INFO 7336 --- [http-nio-8443-exec-10] o.apache.coyote.http11.Http11Processor   : Error parsing HTTP request header
+ Note: further occurrences of HTTP request parsing errors will be logged at DEBUG level.
+
+java.lang.IllegalArgumentException: Invalid character found in method name. HTTP method names must be tokens
+	at org.apache.coyote.http11.Http11InputBuffer.parseRequestLine(Http11InputBuffer.java:414) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:294) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]
+
+2019-01-15 20:27:55.685  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:27:55.750  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:28:13.139  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:28:13.186  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:29:10.142  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:29:10.185  INFO 7336 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:29:29.951  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:29:29.975  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:29:29.975  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000013
+2019-01-15 20:29:29.976  INFO 7336 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:29:51.127  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:29:51.173  INFO 7336 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:32:03.298  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:32:03.394  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:32:03.394  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000014
+2019-01-15 20:32:03.394  INFO 7336 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:32:34.330  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:32:34.377  INFO 7336 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:32:53.494  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:32:53.517  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:32:53.517  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000015
+2019-01-15 20:32:53.517  INFO 7336 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:33:40.985  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:33:41.038  INFO 7336 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:34:00.898  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:34:00.918  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:34:00.918  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000016
+2019-01-15 20:34:00.918  INFO 7336 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:34:34.374  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:34:34.425  INFO 7336 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:35:11.421  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:35:11.440  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:35:11.440  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000017
+2019-01-15 20:35:11.441  INFO 7336 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:38:19.163  INFO 11036 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-01-15 20:38:23.919  INFO 11036 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-01-15 20:38:24.239  INFO 11036 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 291ms. Found 4 repository interfaces.
+2019-01-15 20:38:26.008  INFO 11036 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6f67118b-c307-33af-9e67-1df1ab1187a2
+2019-01-15 20:38:26.543  INFO 11036 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$9850c30b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:38:26.628  INFO 11036 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$17d1103d] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:38:26.661  INFO 11036 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$b46ac608] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:38:29.723  INFO 11036 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (http)
+2019-01-15 20:38:29.789  INFO 11036 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-01-15 20:38:29.790  INFO 11036 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-01-15 20:38:29.825  INFO 11036 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\bin;D:\Python\;D:\Python\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Apache\maven\bin;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\Lenovo\AppData\Local\Programs\Git\cmd;C:\ProgramData\ComposerSetup\bin;D:\wamp64\bin\php\php7.1.9;C:\Program Files\PuTTY\;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;D:\programi\bin;C:\Program Files\Haskell Platform\8.4.3\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\PHP;C:\Program Files\Java\jre1.8.0_131\bin;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\;C:\Users\Lenovo\AppData\Roaming\local\bin;C:\Users\Lenovo\AppData\Roaming\cabal\bin;C:\Users\Lenovo\Anaconda2;C:\Users\Lenovo\Anaconda2\Library\mingw-w64\bin;C:\Users\Lenovo\Anaconda2\Library\usr\bin;C:\Users\Lenovo\Anaconda2\Library\bin;C:\Users\Lenovo\Anaconda2\Scripts;C:\Users\Lenovo\AppData\Roaming\npm;D:\Scripts\;C:\Program Files\Haskell Platform\8.4.3\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\lib\ghc-8.4.3;D:\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Heroku\bin;C:\Users\Lenovo\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;;.]
+2019-01-15 20:38:30.369  INFO 11036 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-01-15 20:38:30.370  INFO 11036 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 11146 ms
+2019-01-15 20:38:36.162  INFO 11036 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-15 20:38:36.164  INFO 11036 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-01-15 20:38:36.167  INFO 11036 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-15 20:38:36.168  INFO 11036 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-01-15 20:38:36.168  INFO 11036 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-15 20:38:36.169  INFO 11036 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-01-15 20:38:36.169  INFO 11036 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-01-15 20:38:36.171  INFO 11036 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-01-15 20:38:36.173  INFO 11036 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-01-15 20:38:36.654  INFO 11036 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-01-15 20:38:37.259  INFO 11036 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-01-15 20:38:37.623  INFO 11036 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-15 20:38:37.923  INFO 11036 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-01-15 20:38:37.929  INFO 11036 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-01-15 20:38:38.580  INFO 11036 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-01-15 20:38:39.179  INFO 11036 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-01-15 20:38:42.106  INFO 11036 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/sc/payment-concentrator/target/classes/import.sql)'
+2019-01-15 20:38:42.188  INFO 11036 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-15 20:38:42.707  WARN 11036 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-01-15 20:38:48.545  INFO 11036 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a4d85df7-d304-4ae0-b972-7aa5930009c2
+
+2019-01-15 20:38:49.735  INFO 11036 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@42650b01, org.springframework.security.web.context.SecurityContextPersistenceFilter@45a8625d, org.springframework.security.web.header.HeaderWriterFilter@461e6301, org.springframework.security.web.authentication.logout.LogoutFilter@401c7255, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@50898998, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@26269d1e, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@d987ebb, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@167a8c22, org.springframework.security.web.session.SessionManagementFilter@48124447, org.springframework.security.web.access.ExceptionTranslationFilter@49f8c88b, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@41cdda]
+2019-01-15 20:38:51.051  INFO 11036 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-01-15 20:38:51.350  WARN 11036 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-01-15 20:38:54.715  INFO 11036 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-01-15 20:38:57.932  INFO 11036 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (http) with context path ''
+2019-01-15 20:38:57.941  INFO 11036 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 47.456 seconds (JVM running for 52.391)
+2019-01-15 20:39:34.286  INFO 11036 --- [http-nio-8443-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-01-15 20:39:34.288  INFO 11036 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-01-15 20:39:34.394  INFO 11036 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 103 ms
+2019-01-15 20:39:36.513  INFO 11036 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:39:36.644  INFO 11036 --- [http-nio-8443-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-01-15 20:39:37.514  INFO 11036 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:39:45.944  INFO 11036 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:39:46.161  INFO 11036 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:39:46.162  INFO 11036 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000001
+2019-01-15 20:39:46.162  INFO 11036 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:39:46.530 ERROR 11036 --- [http-nio-8443-exec-2] o.a.c.c.C.[.[.[/].[dispatcherServlet]    : Servlet.service() for servlet [dispatcherServlet] in context with path [] threw exception [Request processing failed; nested exception is java.lang.IllegalArgumentException: Invalid characters (CR/LF) in header Access-Control-Allow-Headers] with root cause
+
+java.lang.IllegalArgumentException: Invalid characters (CR/LF) in header Access-Control-Allow-Headers
+	at org.springframework.security.web.firewall.FirewalledResponse.validateCrlf(FirewalledResponse.java:73) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.firewall.FirewalledResponse.addHeader(FirewalledResponse.java:55) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at javax.servlet.http.HttpServletResponseWrapper.addHeader(HttpServletResponseWrapper.java:174) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.security.web.util.OnCommittedResponseWrapper.addHeader(OnCommittedResponseWrapper.java:63) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.http.server.ServletServerHttpResponse.lambda$writeHeaders$0(ServletServerHttpResponse.java:103) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at java.util.Map.forEach(Map.java:630) ~[na:1.8.0_131]
+	at org.springframework.http.server.ServletServerHttpResponse.writeHeaders(ServletServerHttpResponse.java:101) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.http.server.ServletServerHttpResponse.flush(ServletServerHttpResponse.java:88) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.HttpEntityMethodProcessor.handleReturnValue(HttpEntityMethodProcessor.java:226) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.method.support.HandlerMethodReturnValueHandlerComposite.handleReturnValue(HandlerMethodReturnValueHandlerComposite.java:82) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.ServletInvocableHandlerMethod.invokeAndHandle(ServletInvocableHandlerMethod.java:119) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.invokeHandlerMethod(RequestMappingHandlerAdapter.java:895) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.annotation.RequestMappingHandlerAdapter.handleInternal(RequestMappingHandlerAdapter.java:800) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.mvc.method.AbstractHandlerMethodAdapter.handle(AbstractHandlerMethodAdapter.java:87) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doDispatch(DispatcherServlet.java:1038) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.DispatcherServlet.doService(DispatcherServlet.java:942) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.processRequest(FrameworkServlet.java:998) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.servlet.FrameworkServlet.doPost(FrameworkServlet.java:901) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:660) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.web.servlet.FrameworkServlet.service(FrameworkServlet.java:875) ~[spring-webmvc-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at javax.servlet.http.HttpServlet.service(HttpServlet.java:741) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:231) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.tomcat.websocket.server.WsFilter.doFilter(WsFilter.java:53) ~[tomcat-embed-websocket-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.boot.actuate.web.trace.servlet.HttpTraceFilter.doFilterInternal(HttpTraceFilter.java:90) ~[spring-boot-actuator-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:320) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.invoke(FilterSecurityInterceptor.java:127) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.access.intercept.FilterSecurityInterceptor.doFilter(FilterSecurityInterceptor.java:91) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.access.ExceptionTranslationFilter.doFilter(ExceptionTranslationFilter.java:119) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.session.SessionManagementFilter.doFilter(SessionManagementFilter.java:137) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.authentication.AnonymousAuthenticationFilter.doFilter(AnonymousAuthenticationFilter.java:111) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter.doFilter(SecurityContextHolderAwareRequestFilter.java:170) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.savedrequest.RequestCacheAwareFilter.doFilter(RequestCacheAwareFilter.java:63) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter.doFilterInternal(JwtTokenAuthenticationFilter.java:81) ~[classes/:na]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.authentication.logout.LogoutFilter.doFilter(LogoutFilter.java:116) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.header.HeaderWriterFilter.doFilterInternal(HeaderWriterFilter.java:66) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.context.SecurityContextPersistenceFilter.doFilter(SecurityContextPersistenceFilter.java:105) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter.doFilterInternal(WebAsyncManagerIntegrationFilter.java:56) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.security.web.FilterChainProxy$VirtualFilterChain.doFilter(FilterChainProxy.java:334) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilterInternal(FilterChainProxy.java:215) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.security.web.FilterChainProxy.doFilter(FilterChainProxy.java:178) ~[spring-security-web-5.1.1.RELEASE.jar:5.1.1.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.invokeDelegate(DelegatingFilterProxy.java:357) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.filter.DelegatingFilterProxy.doFilter(DelegatingFilterProxy.java:270) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.web.filter.RequestContextFilter.doFilterInternal(RequestContextFilter.java:99) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.web.filter.FormContentFilter.doFilterInternal(FormContentFilter.java:92) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.web.filter.HiddenHttpMethodFilter.doFilterInternal(HiddenHttpMethodFilter.java:93) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:154) ~[spring-boot-actuator-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.filterAndRecordMetrics(WebMvcMetricsFilter.java:122) ~[spring-boot-actuator-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.actuate.metrics.web.servlet.WebMvcMetricsFilter.doFilterInternal(WebMvcMetricsFilter.java:107) ~[spring-boot-actuator-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.springframework.web.filter.CharacterEncodingFilter.doFilterInternal(CharacterEncodingFilter.java:200) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.web.filter.OncePerRequestFilter.doFilter(OncePerRequestFilter.java:107) ~[spring-web-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.apache.catalina.core.ApplicationFilterChain.internalDoFilter(ApplicationFilterChain.java:193) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.ApplicationFilterChain.doFilter(ApplicationFilterChain.java:166) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.StandardWrapperValve.invoke(StandardWrapperValve.java:199) ~[tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.StandardContextValve.invoke(StandardContextValve.java:96) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.authenticator.AuthenticatorBase.invoke(AuthenticatorBase.java:490) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.StandardHostValve.invoke(StandardHostValve.java:139) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.valves.ErrorReportValve.invoke(ErrorReportValve.java:92) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.core.StandardEngineValve.invoke(StandardEngineValve.java:74) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.catalina.connector.CoyoteAdapter.service(CoyoteAdapter.java:343) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.coyote.http11.Http11Processor.service(Http11Processor.java:408) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.coyote.AbstractProcessorLight.process(AbstractProcessorLight.java:66) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.coyote.AbstractProtocol$ConnectionHandler.process(AbstractProtocol.java:770) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.tomcat.util.net.NioEndpoint$SocketProcessor.doRun(NioEndpoint.java:1415) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at org.apache.tomcat.util.net.SocketProcessorBase.run(SocketProcessorBase.java:49) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at java.util.concurrent.ThreadPoolExecutor.runWorker(ThreadPoolExecutor.java:1142) [na:1.8.0_131]
+	at java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:617) [na:1.8.0_131]
+	at org.apache.tomcat.util.threads.TaskThread$WrappingRunnable.run(TaskThread.java:61) [tomcat-embed-core-9.0.12.jar:9.0.12]
+	at java.lang.Thread.run(Thread.java:748) [na:1.8.0_131]
+
+2019-01-15 20:41:01.950  INFO 13192 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-01-15 20:41:06.769  INFO 13192 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-01-15 20:41:07.064  INFO 13192 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 265ms. Found 4 repository interfaces.
+2019-01-15 20:41:09.160  INFO 13192 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6f67118b-c307-33af-9e67-1df1ab1187a2
+2019-01-15 20:41:09.710  INFO 13192 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d13c8527] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:41:09.772  INFO 13192 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$50bcd259] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:41:09.800  INFO 13192 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$ed568824] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:41:14.078  INFO 13192 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (http)
+2019-01-15 20:41:14.149  INFO 13192 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-01-15 20:41:14.150  INFO 13192 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-01-15 20:41:14.227  INFO 13192 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\bin;D:\Python\;D:\Python\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Apache\maven\bin;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\Lenovo\AppData\Local\Programs\Git\cmd;C:\ProgramData\ComposerSetup\bin;D:\wamp64\bin\php\php7.1.9;C:\Program Files\PuTTY\;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;D:\programi\bin;C:\Program Files\Haskell Platform\8.4.3\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\PHP;C:\Program Files\Java\jre1.8.0_131\bin;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\;C:\Users\Lenovo\AppData\Roaming\local\bin;C:\Users\Lenovo\AppData\Roaming\cabal\bin;C:\Users\Lenovo\Anaconda2;C:\Users\Lenovo\Anaconda2\Library\mingw-w64\bin;C:\Users\Lenovo\Anaconda2\Library\usr\bin;C:\Users\Lenovo\Anaconda2\Library\bin;C:\Users\Lenovo\Anaconda2\Scripts;C:\Users\Lenovo\AppData\Roaming\npm;D:\Scripts\;C:\Program Files\Haskell Platform\8.4.3\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\lib\ghc-8.4.3;D:\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Heroku\bin;C:\Users\Lenovo\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;;.]
+2019-01-15 20:41:14.741  INFO 13192 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-01-15 20:41:14.742  INFO 13192 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 12756 ms
+2019-01-15 20:41:20.053  INFO 13192 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-15 20:41:20.054  INFO 13192 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-01-15 20:41:20.057  INFO 13192 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-15 20:41:20.059  INFO 13192 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-01-15 20:41:20.060  INFO 13192 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-15 20:41:20.061  INFO 13192 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-01-15 20:41:20.061  INFO 13192 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-01-15 20:41:20.062  INFO 13192 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-01-15 20:41:20.065  INFO 13192 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-01-15 20:41:20.511  INFO 13192 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-01-15 20:41:21.161  INFO 13192 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-01-15 20:41:21.486  INFO 13192 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-15 20:41:21.824  INFO 13192 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-01-15 20:41:21.828  INFO 13192 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-01-15 20:41:22.618  INFO 13192 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-01-15 20:41:23.286  INFO 13192 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-01-15 20:41:25.786  INFO 13192 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/sc/payment-concentrator/target/classes/import.sql)'
+2019-01-15 20:41:25.891  INFO 13192 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-15 20:41:26.479  WARN 13192 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-01-15 20:41:30.976  INFO 13192 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 65919321-b2d7-4b85-ac08-f765e4e10f05
+
+2019-01-15 20:41:31.657  INFO 13192 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@14c6b5d1, org.springframework.security.web.context.SecurityContextPersistenceFilter@3eeda746, org.springframework.security.web.header.HeaderWriterFilter@14694e99, org.springframework.security.web.authentication.logout.LogoutFilter@627a3ff1, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@142a76f7, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@77cfce64, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@3447a8e9, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@4f5d30e8, org.springframework.security.web.session.SessionManagementFilter@5ebc1e82, org.springframework.security.web.access.ExceptionTranslationFilter@7cd5b219, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@2f74e4b0]
+2019-01-15 20:41:32.714  INFO 13192 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-01-15 20:41:33.010  WARN 13192 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-01-15 20:41:35.860  INFO 13192 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-01-15 20:41:39.114  INFO 13192 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (http) with context path ''
+2019-01-15 20:41:39.124  INFO 13192 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 44.25 seconds (JVM running for 47.899)
+2019-01-15 20:50:03.124  INFO 13192 --- [http-nio-8443-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-01-15 20:50:03.126  INFO 13192 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-01-15 20:50:03.199  INFO 13192 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 73 ms
+2019-01-15 20:50:04.927  INFO 13192 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:50:05.062  INFO 13192 --- [http-nio-8443-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-01-15 20:50:06.001  INFO 13192 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:50:25.498  INFO 13192 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:50:25.727  INFO 13192 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:50:25.728  INFO 13192 --- [http-nio-8443-exec-2] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000001
+2019-01-15 20:50:25.728  INFO 13192 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:51:27.997  INFO 13192 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:51:28.050  INFO 13192 --- [http-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:51:32.058  INFO 13192 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:51:32.095  INFO 13192 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:51:32.096  INFO 13192 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000002
+2019-01-15 20:51:32.096  INFO 13192 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:52:11.511  INFO 10684 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-01-15 20:52:15.203  INFO 10684 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-01-15 20:52:15.455  INFO 10684 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 227ms. Found 4 repository interfaces.
+2019-01-15 20:52:16.969  INFO 10684 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6f67118b-c307-33af-9e67-1df1ab1187a2
+2019-01-15 20:52:17.506  INFO 10684 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$bf53afc1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:52:17.592  INFO 10684 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$3ed3fcf3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:52:17.621  INFO 10684 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$db6db2be] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:52:20.561  INFO 10684 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (http)
+2019-01-15 20:52:20.646  INFO 10684 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-01-15 20:52:20.647  INFO 10684 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-01-15 20:52:20.689  INFO 10684 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\bin;D:\Python\;D:\Python\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Apache\maven\bin;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\Lenovo\AppData\Local\Programs\Git\cmd;C:\ProgramData\ComposerSetup\bin;D:\wamp64\bin\php\php7.1.9;C:\Program Files\PuTTY\;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;D:\programi\bin;C:\Program Files\Haskell Platform\8.4.3\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\PHP;C:\Program Files\Java\jre1.8.0_131\bin;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\;C:\Users\Lenovo\AppData\Roaming\local\bin;C:\Users\Lenovo\AppData\Roaming\cabal\bin;C:\Users\Lenovo\Anaconda2;C:\Users\Lenovo\Anaconda2\Library\mingw-w64\bin;C:\Users\Lenovo\Anaconda2\Library\usr\bin;C:\Users\Lenovo\Anaconda2\Library\bin;C:\Users\Lenovo\Anaconda2\Scripts;C:\Users\Lenovo\AppData\Roaming\npm;D:\Scripts\;C:\Program Files\Haskell Platform\8.4.3\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\lib\ghc-8.4.3;D:\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Heroku\bin;C:\Users\Lenovo\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;;.]
+2019-01-15 20:52:21.328  INFO 10684 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-01-15 20:52:21.328  INFO 10684 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9771 ms
+2019-01-15 20:52:25.511  INFO 10684 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-15 20:52:25.512  INFO 10684 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-01-15 20:52:25.519  INFO 10684 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-15 20:52:25.520  INFO 10684 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-01-15 20:52:25.520  INFO 10684 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-15 20:52:25.522  INFO 10684 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-01-15 20:52:25.524  INFO 10684 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-01-15 20:52:25.524  INFO 10684 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-01-15 20:52:25.527  INFO 10684 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-01-15 20:52:26.023  INFO 10684 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-01-15 20:52:26.556  INFO 10684 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-01-15 20:52:26.918  INFO 10684 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-15 20:52:27.179  INFO 10684 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-01-15 20:52:27.188  INFO 10684 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-01-15 20:52:27.709  INFO 10684 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-01-15 20:52:28.308  INFO 10684 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-01-15 20:52:30.778  INFO 10684 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/sc/payment-concentrator/target/classes/import.sql)'
+2019-01-15 20:52:30.844  INFO 10684 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-15 20:52:31.296  WARN 10684 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-01-15 20:52:35.759  INFO 10684 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 44701c48-c5c0-402b-834a-e4ace8c85daf
+
+2019-01-15 20:52:36.875  INFO 10684 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1a8085d3, org.springframework.security.web.context.SecurityContextPersistenceFilter@50b6feab, org.springframework.security.web.header.HeaderWriterFilter@5adccbf5, org.springframework.security.web.authentication.logout.LogoutFilter@556d2988, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@5071488, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@769d1002, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2fb9c939, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@7cc6dfdf, org.springframework.security.web.session.SessionManagementFilter@4951c471, org.springframework.security.web.access.ExceptionTranslationFilter@2dda7191, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@20ec097e]
+2019-01-15 20:52:37.976  INFO 10684 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-01-15 20:52:38.217  WARN 10684 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-01-15 20:52:40.492  INFO 10684 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-01-15 20:52:45.202  INFO 10684 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (http) with context path ''
+2019-01-15 20:52:45.282  INFO 10684 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 40.264 seconds (JVM running for 42.668)
+2019-01-15 20:52:52.451  INFO 10684 --- [http-nio-8443-exec-10] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-01-15 20:52:52.452  INFO 10684 --- [http-nio-8443-exec-10] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-01-15 20:52:52.557  INFO 10684 --- [http-nio-8443-exec-10] o.s.web.servlet.DispatcherServlet        : Completed initialization in 104 ms
+2019-01-15 20:52:54.792  INFO 10684 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:52:54.951  INFO 10684 --- [http-nio-8443-exec-10] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-01-15 20:52:55.876  INFO 10684 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:53:05.781  INFO 10684 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:53:06.019  INFO 10684 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:53:06.020  INFO 10684 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000001
+2019-01-15 20:53:06.020  INFO 10684 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:58:20.282  INFO 10684 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 20:58:20.339  INFO 10684 --- [http-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 20:58:43.373  INFO 10684 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 20:58:43.396  INFO 10684 --- [http-nio-8443-exec-7] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 20:58:43.396  INFO 10684 --- [http-nio-8443-exec-7] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000002
+2019-01-15 20:58:43.396  INFO 10684 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 20:59:17.843  INFO 10288 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-01-15 20:59:22.676  INFO 10288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-01-15 20:59:22.974  INFO 10288 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 280ms. Found 4 repository interfaces.
+2019-01-15 20:59:24.416  INFO 10288 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=6f67118b-c307-33af-9e67-1df1ab1187a2
+2019-01-15 20:59:24.754  INFO 10288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2c169a76] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:59:24.856  INFO 10288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$ab96e7a8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:59:24.905  INFO 10288 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$48309d73] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-01-15 20:59:27.398  INFO 10288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (http)
+2019-01-15 20:59:27.439  INFO 10288 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-01-15 20:59:27.440  INFO 10288 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-01-15 20:59:27.466  INFO 10288 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk1.8.0_131\bin;C:\WINDOWS\Sun\Java\bin;C:\WINDOWS\system32;C:\WINDOWS;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Program Files\Haskell\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\bin;D:\Python\;D:\Python\Scripts\;C:\ProgramData\Oracle\Java\javapath;C:\WINDOWS\system32;C:\WINDOWS;C:\WINDOWS\System32\Wbem;C:\Program Files\Apache\maven\bin;C:\WINDOWS\System32\WindowsPowerShell\v1.0\;C:\Program Files\Microsoft SQL Server\130\Tools\Binn\;C:\Program Files\dotnet\;C:\Users\Lenovo\AppData\Local\Programs\Git\cmd;C:\ProgramData\ComposerSetup\bin;D:\wamp64\bin\php\php7.1.9;C:\Program Files\PuTTY\;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;C:\Program Files (x86)\Gpg4win\..\GnuPG\bin;D:\programi\bin;C:\Program Files\Haskell Platform\8.4.3\mingw\bin;C:\WINDOWS\System32\OpenSSH\;C:\PHP;C:\Program Files\Java\jre1.8.0_131\bin;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Lenovo\AppData\Local\Programs\Python\Python37-32\;C:\Users\Lenovo\AppData\Roaming\local\bin;C:\Users\Lenovo\AppData\Roaming\cabal\bin;C:\Users\Lenovo\Anaconda2;C:\Users\Lenovo\Anaconda2\Library\mingw-w64\bin;C:\Users\Lenovo\Anaconda2\Library\usr\bin;C:\Users\Lenovo\Anaconda2\Library\bin;C:\Users\Lenovo\Anaconda2\Scripts;C:\Users\Lenovo\AppData\Roaming\npm;D:\Scripts\;C:\Program Files\Haskell Platform\8.4.3\bin;C:\Program Files\Haskell Platform\8.4.3\lib\extralibs\bin;C:\Program Files\Haskell Platform\8.4.3\lib\ghc-8.4.3;D:\;C:\Users\Lenovo\AppData\Local\Microsoft\WindowsApps;C:\Program Files\Heroku\bin;C:\Users\Lenovo\AppData\Roaming\Composer\vendor\bin;C:\Program Files\MongoDB\Server\3.6\bin;C:\Users\Lenovo\AppData\Roaming\nvm;C:\Program Files\nodejs;;.]
+2019-01-15 20:59:27.831  INFO 10288 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-01-15 20:59:27.834  INFO 10288 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9959 ms
+2019-01-15 20:59:30.956  INFO 10288 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-01-15 20:59:30.957  INFO 10288 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-01-15 20:59:30.958  INFO 10288 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-01-15 20:59:30.958  INFO 10288 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-01-15 20:59:30.958  INFO 10288 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-01-15 20:59:30.959  INFO 10288 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-01-15 20:59:30.960  INFO 10288 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-01-15 20:59:30.960  INFO 10288 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-01-15 20:59:30.967  INFO 10288 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-01-15 20:59:31.300  INFO 10288 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-01-15 20:59:32.024  INFO 10288 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-01-15 20:59:32.421  INFO 10288 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-01-15 20:59:32.918  INFO 10288 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-01-15 20:59:32.933  INFO 10288 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-01-15 20:59:33.836  INFO 10288 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-01-15 20:59:34.432  INFO 10288 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-01-15 20:59:36.551  INFO 10288 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/sc/payment-concentrator/target/classes/import.sql)'
+2019-01-15 20:59:36.614  INFO 10288 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-01-15 20:59:37.068  WARN 10288 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-01-15 20:59:40.351  INFO 10288 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 7077bb93-75c7-4bdd-a96f-e711eb861745
+
+2019-01-15 20:59:42.178  INFO 10288 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@e0d04b8, org.springframework.security.web.context.SecurityContextPersistenceFilter@71408eaf, org.springframework.security.web.header.HeaderWriterFilter@7fded834, org.springframework.security.web.authentication.logout.LogoutFilter@22594564, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@5d7bb6e8, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@486465fa, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4c76cf2f, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@21f9ba42, org.springframework.security.web.session.SessionManagementFilter@6ffcbe17, org.springframework.security.web.access.ExceptionTranslationFilter@1c13d712, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@185cedb1]
+2019-01-15 20:59:43.946  INFO 10288 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-01-15 20:59:44.556  WARN 10288 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-01-15 20:59:48.503  INFO 10288 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-01-15 20:59:52.163  INFO 10288 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (http) with context path ''
+2019-01-15 20:59:52.172  INFO 10288 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 40.249 seconds (JVM running for 43.043)
+2019-01-15 21:01:01.623  INFO 10288 --- [http-nio-8443-exec-1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-01-15 21:01:01.625  INFO 10288 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-01-15 21:01:01.675  INFO 10288 --- [http-nio-8443-exec-1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 50 ms
+2019-01-15 21:01:02.979  INFO 10288 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 21:01:03.065  INFO 10288 --- [http-nio-8443-exec-1] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-01-15 21:01:03.693  INFO 10288 --- [http-nio-8443-exec-1] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 21:01:11.472  INFO 10288 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 21:01:11.690  INFO 10288 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 21:01:11.691  INFO 10288 --- [http-nio-8443-exec-10] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000001
+2019-01-15 21:01:11.691  INFO 10288 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 21:05:03.150  INFO 10288 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 21:05:03.211  INFO 10288 --- [http-nio-8443-exec-7] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 21:05:16.926  INFO 10288 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 21:05:16.966  INFO 10288 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 21:05:16.966  INFO 10288 --- [http-nio-8443-exec-6] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000002
+2019-01-15 21:05:16.966  INFO 10288 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 21:08:35.037  INFO 10288 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 21:08:35.078  INFO 10288 --- [http-nio-8443-exec-2] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 21:08:52.062  INFO 10288 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 21:08:52.080  INFO 10288 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 21:08:52.081  INFO 10288 --- [http-nio-8443-exec-4] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000003
+2019-01-15 21:08:52.081  INFO 10288 --- [http-nio-8443-exec-4] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 21:09:03.206  INFO 10288 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 21:09:03.250  INFO 10288 --- [http-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 21:09:28.976  INFO 10288 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - pay by bank card.
+2019-01-15 21:09:28.993  INFO 10288 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request is successfully created.
+2019-01-15 21:09:28.994  INFO 10288 --- [http-nio-8443-exec-9] c.s.p.p.s.i.PaymentRequestServiceImpl    : Payment request - merchant order: 1000000004
+2019-01-15 21:09:28.994  INFO 10288 --- [http-nio-8443-exec-9] c.s.p.p.c.PaymentRequestController       : Request - call endpoint(from the bank): get payment url.
+2019-01-15 21:30:23.806  INFO 10288 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 21:30:23.851  INFO 10288 --- [http-nio-8443-exec-6] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-01-15 21:31:53.758  INFO 10288 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-01-15 21:31:53.802  INFO 10288 --- [http-nio-8443-exec-5] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
