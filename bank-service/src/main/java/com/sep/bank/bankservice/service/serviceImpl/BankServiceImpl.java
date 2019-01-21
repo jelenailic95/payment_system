@@ -14,7 +14,6 @@ import com.sep.bank.bankservice.service.CardService;
 import com.sep.bank.bankservice.service.UserService;
 import com.sep.bank.bankservice.util.FieldsGenerator;
 import org.apache.commons.lang.RandomStringUtils;
-import org.aspectj.apache.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -83,7 +82,7 @@ public class BankServiceImpl implements BankService {
             paymentUrl = paymentUrl.replaceAll("/", "");
 
             // return generated payment url & payment id
-            String paymentId ="";
+            String paymentId = "";
             try {
                 Algorithm algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
                 paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
@@ -92,10 +91,7 @@ public class BankServiceImpl implements BankService {
                 e.printStackTrace();
             }
 
-            paymentDataDTO = new PaymentDataDTO(
-                    paymentUrl,
-                    paymentId,
-                    requestDTO.getAmount(),
+            paymentDataDTO = new PaymentDataDTO(paymentUrl, paymentId, requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
         }
         return paymentDataDTO;

@@ -43,7 +43,7 @@ public class PaymentRequestController {
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
 
     @PostMapping(value = "/pay-by-bank-card")
-    public ModelAndView createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
         String client = Utility.readToken(requestDTO.getClient());
         PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
@@ -54,36 +54,9 @@ public class PaymentRequestController {
                         requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class));
 
-//        return new RedirectView("http://localhost:4200/pay-by-card/123");
-//        return new
-//        return ResponseEntity.ok();
-
-//        HttpHeaders headers = new HttpHeaders();
-//        UriComponentsBuilder b = UriComponentsBuilder.fromPath("http://localhost:4200/pay-by-card/123");
-//
-//        UriComponents uriComponents =  b.build();
-
-        //HttpHeaders headers = new HttpHeaders();
-        //headers.add("Location", "/pay-by-card/123");
-
-        return new ModelAndView("redirect:/pay-by-card/123");
-
-        //return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        return ResponseEntity.ok().body(paymentDataDTO);
     }
 
-
-
-
-
-
-
-    //        ModelMap model = new ModelMap();
-//        model.addAttribute("attribute", "forwardWithForwardPrefix");
-//        return new  ModelAndView("forward:/http://localhost:4200/pay-by-card/123", model);
-    @GetMapping(value = "/pay-by-card/123")
-    public ResponseEntity a() throws UnsupportedEncodingException {
-        return null;
-    }
 
     @PostMapping(value = "/pay-by-bitcoin")
     public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
