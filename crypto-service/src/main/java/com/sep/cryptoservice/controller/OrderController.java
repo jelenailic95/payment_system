@@ -1,20 +1,22 @@
 package com.sep.cryptoservice.controller;
 
-import com.sep.cryptoservice.domain.GetOrderTask;
 import com.sep.cryptoservice.domain.Order;
 import com.sep.cryptoservice.domain.dto.RequestDTO;
 import com.sep.cryptoservice.domain.dto.ResponseOrderDTO;
+import com.sep.cryptoservice.security.RequestContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
-import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.ScheduledFuture;
+import java.util.Date;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @RestController
 @RequestMapping("/")
@@ -33,22 +35,10 @@ public class OrderController {
 
         ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://api-sandbox.coingate.com/v2/orders",
                 entity, ResponseOrderDTO.class);
-        System.out.println(o.getBody().getPayment_url());
-        check(o.getBody().getId(), requestDTO.getClientId());
-
+        o.getBody().setClientId(requestDTO.getClientId());
         return o;
     }
 
-//    @GetMapping("/test")
-//    public String test() {
-//        this.check("140351", requestDTO.getClientId());
-//        System.out.println("TEST");
-//        return "prosao";
-//    }
 
-    public void check(String orderId, String clientId) {
-        ScheduledFuture<?> d = scheduler.schedule(new GetOrderTask(restTemplate, orderId, clientId), new CronTrigger("*/5 * * * * *"));
-
-    }
 }
 

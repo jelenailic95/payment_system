@@ -1,16 +1,15 @@
-package com.sep.cryptoservice.domain.dto;
+package com.sep.payment.paymentconcentrator.domain.dto;
 
 import javax.persistence.Column;
 
 public class RequestDTO {
     //kome se placa (njegovi podaci se traze u bazi
     private String client;
-    // kod bitcoina token
+    // kod bitcoina token, kod banke bank1
     private String clientId;
     @Column(precision=10, scale=2)
     private double amount;
     private String currency;
-
 
     public RequestDTO() {
     }
