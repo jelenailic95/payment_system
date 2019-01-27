@@ -111,20 +111,39 @@
                 <groupId>org.springframework.boot</groupId>
                 <artifactId>spring-boot-maven-plugin</artifactId>
             </plugin>
-
             <plugin>
+                <artifactId>maven-resources-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <id>copy-resources</id>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>copy-resources</goal>
+                        </goals>
+                        <configuration>
+                            <outputDirectory>${project.build.directory}/classes/resources/</outputDirectory>
+                            <resources>
+                                <resource>
+                                    <directory>${project.basedir}/src/main/resources/bank-client/</directory>
+                                </resource>
+                            </resources>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <!--<plugin>
                 <groupId>org.owasp</groupId>
                 <artifactId>dependency-check-maven</artifactId>
                 <version>4.0.2</version>
                 <configuration>
-                    <!-- Generate HTML report (ALL - for all formats) -->
+                    &lt;!&ndash; Generate HTML report (ALL - for all formats) &ndash;&gt;
                     <format>HTML</format>
-                    <!-- Don't use Nexus Analyzer -->
+                    &lt;!&ndash; Don't use Nexus Analyzer &ndash;&gt;
                     <centralAnalyzerEnabled>false</centralAnalyzerEnabled>
-                    <!-- Am I the latest version? -->
+                    &lt;!&ndash; Am I the latest version? &ndash;&gt;
                     <versionCheckEnabled>true</versionCheckEnabled>
                 </configuration>
-                <!-- add an execution to be automatically ran as part of the 'verify' build lifecycle phase -->
+                &lt;!&ndash; add an execution to be automatically ran as part of the 'verify' build lifecycle phase &ndash;&gt;
                 <executions>
                     <execution>
                         <goals>
@@ -132,7 +151,7 @@
                         </goals>
                     </execution>
                 </executions>
-            </plugin>
+            </plugin>-->
         </plugins>
     </build>
 

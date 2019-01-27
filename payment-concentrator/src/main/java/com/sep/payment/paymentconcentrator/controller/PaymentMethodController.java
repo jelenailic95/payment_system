@@ -5,15 +5,14 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.payment.paymentconcentrator.domain.dto.ClientDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.NewMethodDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.PaymentMethodDTO;
+import com.sep.payment.paymentconcentrator.domain.dto.PaymentMethodsAndTokenDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.domain.entity.Constants;
 import com.sep.payment.paymentconcentrator.exception.NotFoundException;
-import com.sep.payment.paymentconcentrator.security.RequestContext;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.utility.Utility;
 import org.modelmapper.ModelMapper;
 import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -43,7 +42,7 @@ public class PaymentMethodController {
     }
 
     @PostMapping(value = "/payment-methods")
-    public ResponseEntity<Set<PaymentMethodDTO>> checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<PaymentMethodsAndTokenDTO> checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO) throws UnsupportedEncodingException {
         logger.info("Request - return all possible payment methods.");
 
         String clientName = Utility.readToken(clientDTO.getClientId());
@@ -58,12 +57,10 @@ public class PaymentMethodController {
         Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(),
                 PaymentMethodDTO.class)));
         ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth",clientDTO, Object.class);
-        HttpHeaders headers = new HttpHeaders();
-        headers.add(RequestContext.REQUEST_HEADER_NAME, "Bearer " + res.getHeaders());
-
         logger.info("This client has registered payment methods.");
-
-        return new ResponseEntity<Set<PaymentMethodDTO>>(paymentMethodDTOS, headers, HttpStatus.OK);
+        PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS)
+                .token(res.getHeaders().get("Authorization").get(0)).build();
+        return ResponseEntity.ok(response);
     }
 
     @PostMapping(value = "/new-method")

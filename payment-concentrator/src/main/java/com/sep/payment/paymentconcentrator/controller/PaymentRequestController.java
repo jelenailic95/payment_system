@@ -56,35 +56,17 @@ public class PaymentRequestController {
 
         logger.info("Request - call endpoint(from the bank): get payment url.");
 
-        PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("http://localhost:8762/" +
-                requestDTO.getClientId() + "-service/get-payment-url",
+        PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("https://localhost:8762/" +
+                        requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class));
-
-//        return new RedirectView("http://localhost:4200/pay-by-card/123");
-//        return new
-//        return ResponseEntity.ok();
-
-//        HttpHeaders headers = new HttpHeaders();
-//        UriComponentsBuilder b = UriComponentsBuilder.fromPath("http://localhost:4200/pay-by-card/123");
-//
-//        UriComponents uriComponents =  b.build();
-
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "/pay-by-card/123");
+        headers.add("Location", "https://localhost:4200/pay-by-card/123");
 
 
-        return new ResponseEntity<>(headers,HttpStatus.FOUND);
-//        ModelMap model = new ModelMap();
-//        model.addAttribute("attribute", "forwardWithForwardPrefix");
-//        return new  ModelAndView("forward:/http://localhost:4200/pay-by-card/123", model);
+        return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
-    @GetMapping(value = "/pay-by-card/123")
-    public ResponseEntity a() throws UnsupportedEncodingException {
-        return null;
-    }
-
-        @PostMapping(value = "/pay-by-bitcoin")
+    @PostMapping(value = "/pay-by-bitcoin")
     public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bitcoin.");
 
@@ -97,5 +79,14 @@ public class PaymentRequestController {
     }
 
 
-
+    @PostMapping(value = "/pay-by-paypal")
+    public ResponseEntity payWithPayPal(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+        logger.info("Request - pay by paypal.");
+        String client = Utility.readToken(requestDTO.getClient());
+        Client foundClient = clientService.findByClientMethod(client, "paypal");
+        RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
+        dto.setClientSecret(foundClient.getClientPassword());
+        String url = restTemplate.postForEntity("https://localhost:8762/paypal-service/pay", dto, String.class).getBody();
+        return new ResponseEntity<>(url, HttpStatus.OK);
+    }
 }

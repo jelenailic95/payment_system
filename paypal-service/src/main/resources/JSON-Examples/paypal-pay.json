@@ -1,8 +1,0 @@
-{
-  "price" : 34,
-  "currency" : "EUR",
-  "nameOfJournal" : "National Geography",
-  "paymentIntent" : "order",
-  "paymentMethod" : "paypal",
-  "description" : "It`s OK"
-}
