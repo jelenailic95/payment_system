@@ -19,4 +19,5 @@ public class PaymentMethodDTO {
     public void setName(String name) {
         this.name = name;
     }
+
 }

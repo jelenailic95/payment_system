@@ -33,4 +33,5 @@ public interface PaypalService {
 
     void addNewSeller(Seller seller);
 
+    String findJournalByIdAndSecret(String clientId, String clientSecret);
 }

@@ -7,6 +7,8 @@ import com.paypal.base.rest.PayPalRESTException;
 import com.sep.paypal.exception.NotAuthorizedException;
 import com.sep.paypal.model.dto.*;
 import com.sep.paypal.model.entity.Seller;
+import com.sep.paypal.model.enumeration.PaymentIntent;
+import com.sep.paypal.model.enumeration.PaymentMethod;
 import com.sep.paypal.service.PaypalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -50,15 +52,17 @@ public class PaypalController {
         successUrl = "http://localhost:8762/paypal-service/".concat(PAYPAL_SUCCESS_URL)
                 .concat("?id=").concat(request.getClientId()).concat("&secret=")
                 .concat(request.getClientSecret());
+
+        String nameOfJournal = this.paypalService.findJournalByIdAndSecret(request.getClientId(), request.getClientSecret());
         Payment payment = paypalService.createPayment(
                 request.getClientId(),
                 request.getClientSecret(),
-                request.getPrice(),
-                request.getCurrency(),
-                request.getPaymentMethod(),
-                request.getPaymentIntent(),
-                request.getDescription(),
-                request.getNameOfJournal(),
+                request.getAmount(),
+                "USD",
+                PaymentMethod.PAYPAL,
+                PaymentIntent.SALE,
+                "Order for ".concat(nameOfJournal),
+                nameOfJournal,
                 cancelUrl,
                 successUrl);
         for (Links links : payment.getLinks()) {
@@ -74,7 +78,7 @@ public class PaypalController {
     public String cancelPay() {
         return "cancel";
     }
-
+    @CrossOrigin(origins = "https://localhost:4200")
     @ApiOperation(value = "If Pay succeed, finish payment")
     @GetMapping(value = PAYPAL_SUCCESS_URL)
     public String successPay(@RequestParam("id") String id, @RequestParam("secret") String secret,
@@ -83,7 +87,7 @@ public class PaypalController {
 
             Payment payment = paypalService.executePayment(id, secret, paymentId, payerId);
             if (payment.getState().equals("approved")) {
-                return "Success";
+                return "redirect:/";
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
@@ -128,7 +132,7 @@ public class PaypalController {
 
     @ApiOperation(value = "Start with subscription on some journal")
     @PostMapping(value = "plan/subscribe")
-    public ResponseEntity subscribeToPlan(@RequestBody SubscribeDto subscribeDto, @RequestHeader HttpHeaders headers) {
+    public ResponseEntity subscribeToPlan(@RequestBody SubscribeDto subscribeDto) {
         String clientId = subscribeDto.getClientId(); //headers.get("clientId").get(0);
         String secret = subscribeDto.getSecret(); //headers.get("secret").get(0);
         URL url = paypalService.subscribeToPlan(subscribeDto.getNameOfJournal(), clientId, secret);

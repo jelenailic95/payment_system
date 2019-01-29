@@ -389,4 +389,9 @@ public class PaypalServiceImpl implements PaypalService {
         }
     }
 
+    @Override
+    public String findJournalByIdAndSecret(String clientId, String clientSecret) {
+        return this.sellerRepository.findSellerByClientIdAndSecret(clientId,
+                clientSecret).getJournalName();
+    }
 }

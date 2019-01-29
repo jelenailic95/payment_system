@@ -17,10 +17,9 @@ public class RequestPayment {
 
     private String clientId;
     private String clientSecret;
-    private Double price;
+    private double amount;
     private String currency;
     private String nameOfJournal;
-    private String emailOfPayee;
     private PaymentIntent paymentIntent;
     private PaymentMethod paymentMethod;
     private String description;

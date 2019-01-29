@@ -1,5 +1,12 @@
 server:
   port: 8762
+  ssl:
+    enabled: true
+    key-store: classpath:server-keystore.jks
+    key-store-password: mdj1646MDJ
+    trust-store: classpath:server-truststore.jks
+    trust-store-password: mdj1646MDJ
+
 spring:
   application:
     name: "proxy-server"
@@ -25,15 +32,3 @@ hystrix:
 ribbon:
   ReadTimeout: 100000
   ConnectTimeout: 100000
-
-#
-#security:
-#  oauth2:
-#    client:
-#      client-id: 0oai5o6bfsGGPvAta0h7
-#      client-secret: uHiaKJ23Loz_REKlpuLj5mC8CbcNNgfNQLCswxYf
-#      access-token-uri: https://dev-332551.oktapreview.com/oauth2/default/v1/token
-#      user-authorization-uri: https://dev-332551.oktapreview.com/oauth2/default/v1/authorize
-#      scope: openid profile email
-#    resource:
-#      user-info-uri: https://dev-332551.oktapreview.com/oauth2/default/v1/userinfo

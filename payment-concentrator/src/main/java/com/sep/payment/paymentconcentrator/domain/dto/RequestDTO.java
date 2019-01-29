@@ -7,6 +7,9 @@ public class RequestDTO {
     private String client;
     // kod bitcoina token, kod banke bank1
     private String clientId;
+
+    // kod paypal-a secret
+    private String clientSecret;
     @Column(precision=10, scale=2)
     private double amount;
 
@@ -41,5 +44,13 @@ public class RequestDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 }

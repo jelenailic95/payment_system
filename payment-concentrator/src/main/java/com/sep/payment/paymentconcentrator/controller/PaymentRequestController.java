@@ -71,5 +71,14 @@ public class PaymentRequestController {
     }
 
 
-
+    @PostMapping(value = "/pay-by-paypal")
+    public ResponseEntity payWithPayPal(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+        logger.info("Request - pay by paypal.");
+        String client = Utility.readToken(requestDTO.getClient());
+        Client foundClient = clientService.findByClientMethod(client, "paypal");
+        RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
+        dto.setClientSecret(foundClient.getClientPassword());
+        String url = restTemplate.postForEntity("https://localhost:8762/paypal-service/pay", dto, String.class).getBody();
+        return new ResponseEntity<>(url, HttpStatus.OK);
+    }
 }

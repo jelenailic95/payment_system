@@ -24,7 +24,7 @@ public class PccController {
     private Logger logger = LoggerFactory.getLogger(PccController.class);
 
     private static final String PORT = "8762/";
-    private static final String HOST = "http://localhost:";
+    private static final String HOST = "https://localhost:";
     private static final String PATH = "/pay-by-card-forwarded";
 
     @PostMapping("/forward-to-bank")
