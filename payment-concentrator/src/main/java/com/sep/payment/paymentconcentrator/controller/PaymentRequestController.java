@@ -16,6 +16,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -50,7 +51,7 @@ public class PaymentRequestController {
 
         logger.info("Request - call endpoint(from the bank): get payment url.");
 
-        PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("http://localhost:8762/" +
+        PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("https://localhost:8762/" +
                         requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class));
 
@@ -66,7 +67,7 @@ public class PaymentRequestController {
         Client foundClient = clientService.findByClientMethod(client, "crypto");
         RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
 
-        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("http://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
+        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
         return ResponseEntity.ok(Objects.requireNonNull(o.getBody()));
     }
 

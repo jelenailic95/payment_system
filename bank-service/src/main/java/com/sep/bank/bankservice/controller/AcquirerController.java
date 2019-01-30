@@ -63,7 +63,7 @@ public class AcquirerController {
         // final step - send transaction information to the payment concentrator
         logger.info("Transaction object is forwarded to the payment concentrator.");
 
-        TransactionDTO finalUrl = restTemplate.postForObject("http://localhost:8443/pc/finish-transaction", transactionDTO,
+        TransactionDTO finalUrl = restTemplate.postForObject("https://localhost:8443/pc/finish-transaction", transactionDTO,
                 TransactionDTO.class);
 
         return ResponseEntity.ok(finalUrl);
