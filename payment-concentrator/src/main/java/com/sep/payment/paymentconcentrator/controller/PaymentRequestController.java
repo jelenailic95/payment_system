@@ -3,6 +3,7 @@ package com.sep.payment.paymentconcentrator.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
+import com.sep.payment.paymentconcentrator.domain.dto.FinishPaymentDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.PaymentDataDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.RequestDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.ResponseOrderDTO;
@@ -89,4 +90,19 @@ public class PaymentRequestController {
         String url = restTemplate.postForEntity("https://localhost:8762/paypal-service/pay", dto, String.class).getBody();
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
+
+    @PostMapping(value = "/finish-payment/{token}")
+    public ResponseEntity finishPaymentWithPaypal(@RequestBody FinishPaymentDTO finishPaymentDTO, @PathVariable String token) {
+        logger.info("Finishing payment - pay paypal.");
+        boolean success = restTemplate.getForEntity(("https://localhost:8762/paypal-service/" +
+                "pay/success?id=").concat(finishPaymentDTO.getId())
+                .concat("&secret=").concat(finishPaymentDTO.getSecret())
+                .concat("&paymentId=").concat(finishPaymentDTO.getPaymentId())
+                .concat("&PayerID=").concat(finishPaymentDTO.getPayerId()), Boolean.class).getBody();
+        return new ResponseEntity<>(success, HttpStatus.OK);
+
+
+    }
+
+
 }
