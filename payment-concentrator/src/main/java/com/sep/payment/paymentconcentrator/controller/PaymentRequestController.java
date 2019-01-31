@@ -1,14 +1,11 @@
 package com.sep.payment.paymentconcentrator.controller;
 
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.payment.paymentconcentrator.domain.dto.FinishPaymentDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.PaymentDataDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.RequestDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.ResponseOrderDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
-import com.sep.payment.paymentconcentrator.domain.entity.Constants;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
@@ -17,14 +14,19 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Objects;
+import java.util.Timer;
+import java.util.TimerTask;
+import java.util.concurrent.ScheduledFuture;
 
 @RestController
 @RequestMapping(value = "/pc")
@@ -61,7 +63,7 @@ public class PaymentRequestController {
         return new ResponseEntity<>(headers, HttpStatus.FOUND);
     }
 
-        @PostMapping(value = "/pay-by-bitcoin")
+    @PostMapping(value = "/pay-by-bitcoin")
     public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bitcoin.");
 
@@ -69,8 +71,33 @@ public class PaymentRequestController {
         Client foundClient = clientService.findByClientMethod(client, "crypto");
         RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
 
-        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("http://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
+        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
+//        check(o.getBody().getId(), requestDTO.getClientId());
+
         return ResponseEntity.ok(Objects.requireNonNull(o.getBody()));
+    }
+
+    public void check(String orderId, String clientId) {
+//        ScheduledFuture<?> d = scheduler.schedule(new GetOrderTask(restTemplate, orderId, clientId), new CronTrigger("*/5 * * * * *"));
+        final Timer timer = new Timer();
+
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                ResponseEntity<ResponseOrderDTO> o = restTemplate.getForEntity("https://localhost:8762/check-payment/".concat(clientId).concat("/")
+                        .concat(orderId), ResponseOrderDTO.class);
+
+             if(o.getBody().getStatus().equals("new")) {
+                 System.out.println(o.getBody().getStatus());
+                 System.out.println("skontao sam");
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        };
+
+        timer.schedule(task, 5000);
+
     }
 
 

@@ -1,0 +1,52 @@
+2019-02-01 00:01:16.836  INFO 16228 --- [https-jsse-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - pay by bitcoin.
+2019-02-01 00:11:11.100  INFO 12712 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-02-01 00:11:15.192  INFO 12712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-01 00:11:15.404  INFO 12712 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 193ms. Found 4 repository interfaces.
+2019-02-01 00:11:16.952  INFO 12712 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=ac3171e8-e737-3696-8ca5-1d8c8cc4bc0d
+2019-02-01 00:11:17.284  INFO 12712 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$95569913] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-01 00:11:17.369  INFO 12712 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$14d6e645] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-01 00:11:17.447  INFO 12712 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$b1709c10] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-01 00:11:19.885  INFO 12712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (https)
+2019-02-01 00:11:19.939  INFO 12712 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-01 00:11:19.941  INFO 12712 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-01 00:11:19.958  INFO 12712 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programi\;D:\Programi\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;D:\Programi\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Programi\nodejs;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\;C:\Users\Jelena PC\AppData\Local\Microsoft\WindowsApps;C:\Users\Jelena PC\AppData\Roaming\npm;D:\Programi\PyCharm Community Edition 2018.3.1\bin;;.]
+2019-02-01 00:11:20.424  INFO 12712 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-01 00:11:20.428  INFO 12712 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9295 ms
+2019-02-01 00:11:24.155  INFO 12712 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-01 00:11:24.157  INFO 12712 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-02-01 00:11:24.157  INFO 12712 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-01 00:11:24.158  INFO 12712 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-01 00:11:24.158  INFO 12712 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-01 00:11:24.159  INFO 12712 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-01 00:11:24.159  INFO 12712 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-02-01 00:11:24.160  INFO 12712 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-01 00:11:24.162  INFO 12712 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-02-01 00:11:24.497  INFO 12712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-01 00:11:24.953  INFO 12712 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-01 00:11:25.165  INFO 12712 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-01 00:11:25.371  INFO 12712 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-01 00:11:25.374  INFO 12712 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-01 00:11:25.650  INFO 12712 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-01 00:11:25.990  INFO 12712 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-02-01 00:11:27.682  INFO 12712 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/SIIT/Master/Sistemi%20elektronskog%20placanja/projekat/scientific_centre/payment-concentrator/target/classes/import.sql)'
+2019-02-01 00:11:27.737  INFO 12712 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-01 00:11:27.951  WARN 12712 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-01 00:11:30.787  INFO 12712 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 4381a90a-bf3d-4b90-90ab-07d411493d34
+
+2019-02-01 00:11:31.070  INFO 12712 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@43d7e3f1, org.springframework.security.web.context.SecurityContextPersistenceFilter@50793cbb, org.springframework.security.web.header.HeaderWriterFilter@75b6e009, org.springframework.security.web.authentication.logout.LogoutFilter@1e29a2d1, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@194d2f00, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@40ba5a2c, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2795548e, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@17bb73e0, org.springframework.security.web.session.SessionManagementFilter@124be818, org.springframework.security.web.access.ExceptionTranslationFilter@210b6305, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@bed6e0d]
+2019-02-01 00:11:31.486  INFO 12712 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-01 00:11:31.569  WARN 12712 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-01 00:11:33.122  INFO 12712 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-02-01 00:11:35.317  INFO 12712 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (https) with context path ''
+2019-02-01 00:11:35.328  INFO 12712 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 32.651 seconds (JVM running for 38.848)
+2019-02-01 00:11:35.514  INFO 12712 --- [RMI TCP Connection(25)-127.0.0.1] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-01 00:11:35.514  INFO 12712 --- [RMI TCP Connection(25)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-01 00:11:35.591  INFO 12712 --- [RMI TCP Connection(25)-127.0.0.1] o.s.web.servlet.DispatcherServlet        : Completed initialization in 77 ms
+2019-02-01 00:14:26.972  INFO 12712 --- [https-jsse-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-02-01 00:14:27.004  INFO 12712 --- [https-jsse-nio-8443-exec-9] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-02-01 00:14:27.790  INFO 12712 --- [https-jsse-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-02-01 00:14:32.170  INFO 12712 --- [https-jsse-nio-8443-exec-8] c.s.p.p.c.PaymentRequestController       : Request - pay by bitcoin.
