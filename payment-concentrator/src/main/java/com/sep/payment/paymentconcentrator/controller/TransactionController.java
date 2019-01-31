@@ -33,7 +33,11 @@ public class TransactionController {
     @PostMapping(value = "/finish-transaction")
     public ResponseEntity<TransactionResultUrlDTO> finishTransaction(@RequestBody TransactionResultDTO transactionDTO) {
         logger.info("Request - finish transaction. Transaction status: {}", transactionDTO.getStatus());
-        Transaction transaction = modelMapper.map(transactionDTO, Transaction.class);
+
+        Transaction transaction = new Transaction(transactionDTO.getMerchantOrderId(),
+                transactionDTO.getAcquirerOrderId(), transactionDTO.getAcquirerTimestamp(),
+                transactionDTO.getPaymentId(), transactionDTO.getStatus(), transactionDTO.getAmount());
+
         String resultUrl = transactionService.finishTransaction(transaction);
 
         logger.info("Result url is: {}", resultUrl);
@@ -46,7 +50,6 @@ public class TransactionController {
         System.out.println(transactionCustomer.getAcquirerOrderId());
         System.out.println(transactionCustomer.getAmount());
 
-        // todo: ovde treba na front da ide result
         return ResponseEntity.ok().body(transactionCustomer);
     }
 }

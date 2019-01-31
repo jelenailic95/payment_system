@@ -15,7 +15,6 @@ public class ResponseOrderDTO {
     private String order_id;
     private String payment_url;
     private String token;
-    private String clientId;
 
     public ResponseOrderDTO() {
     }
@@ -98,14 +97,6 @@ public class ResponseOrderDTO {
 
     public void setToken(String token) {
         this.token = token;
-    }
-
-    public String getClientId() {
-        return clientId;
-    }
-
-    public void setClientId(String clientId) {
-        this.clientId = clientId;
     }
 }
 

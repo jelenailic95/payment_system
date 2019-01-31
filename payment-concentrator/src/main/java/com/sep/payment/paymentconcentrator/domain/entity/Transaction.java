@@ -25,6 +25,7 @@ public class Transaction {
     private String paymentId;
 
     @Column
+    @Enumerated(EnumType.STRING)
     private TransactionStatus status;
 
     @Column

@@ -14,7 +14,6 @@ import com.sep.bank.bankservice.service.CardService;
 import com.sep.bank.bankservice.service.UserService;
 import com.sep.bank.bankservice.util.FieldsGenerator;
 import org.apache.commons.lang.RandomStringUtils;
-import org.aspectj.apache.bcel.classfile.Constant;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -82,25 +81,17 @@ public class BankServiceImpl implements BankService {
             // remove '/' from generated url
             paymentUrl = paymentUrl.replaceAll("/", "");
 
-//            GeneralSequenceNumber gsn = gsr.getOne(1L);         // get payment counter
-//            gsn.setPaymentCounter(gsn.getPaymentCounter() + 1L);    // increment payment counter
-//            gsr.save(gsn);
-
             // return generated payment url & payment id
-            Algorithm algoritham = null;
+            String paymentId = "";
             try {
-                algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
+                Algorithm algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
+                paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
+                        .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
             } catch (UnsupportedEncodingException e) {
                 e.printStackTrace();
             }
 
-            String paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
-                    .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
-
-            paymentDataDTO = new PaymentDataDTO(
-                    paymentUrl,
-                    paymentId,
-                    requestDTO.getAmount(),
+            paymentDataDTO = new PaymentDataDTO(paymentUrl, paymentId, requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
         }
         return paymentDataDTO;

@@ -1,9 +1,8 @@
-package com.sep.scientificcentre.scientificcentre.security;
+package com.sep.payment.paymentconcentrator.security;
 
 import org.springframework.beans.factory.annotation.Value;
 
 public class JwtConfig {
-
 
     @Value("${security.jwt.header:Authorization}")
     private String header;

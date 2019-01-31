@@ -12,6 +12,9 @@ public class TransactionResultDTO {
     private Date acquirerTimestamp;
     private double amount;
 
+    public TransactionResultDTO() {
+    }
+
     public Long getMerchantOrderId() {
         return merchantOrderId;
     }
