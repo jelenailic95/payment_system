@@ -7,10 +7,7 @@ import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -22,7 +19,8 @@ public class CheckPaymentController {
     CheckPaymentController(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
     }
-    @PostMapping("/check-payment/{clientId}/{orderId}")
+
+    @GetMapping("/check-payment/{clientId}/{orderId}")
     public ResponseEntity<ResponseOrderDTO> createOrder(@PathVariable String clientId, @PathVariable String orderId) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + clientId);
