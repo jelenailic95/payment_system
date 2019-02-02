@@ -6,12 +6,25 @@ server:
     key-store-password: mdj1646MDJ
     trust-store: classpath:server-truststore.jks
     trust-store-password: mdj1646MDJ
+    key-password: mdj1646MDJ
+    key-alias: secure-server
+
 
 spring:
   application:
     name: "proxy-server"
 
 eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: ${server.port}
+    statusPageUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/info
+    healthCheckUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/health
+    homePageUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/
+    hostname: localhost
   client:
     service-url:
       default-zone: "http://localhost:8761/eureka/"
@@ -23,6 +36,8 @@ zuul:
   retryable: true
   ignore-security-headers: false
   sensitiveHeaders: Cookie,Set-Cookie
+  ssl-hostname-validation-enabled: false
+
 hystrix:
   command:
     default:
