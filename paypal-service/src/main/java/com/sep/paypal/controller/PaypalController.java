@@ -2,7 +2,6 @@ package com.sep.paypal.controller;
 
 import com.paypal.api.payments.Links;
 import com.paypal.api.payments.Payment;
-import com.paypal.base.rest.APIContext;
 import com.paypal.base.rest.PayPalRESTException;
 import com.sep.paypal.exception.NotAuthorizedException;
 import com.sep.paypal.model.dto.*;
@@ -21,7 +20,6 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
-import java.util.List;
 
 @RestController
 @RequestMapping
@@ -36,7 +34,6 @@ public class PaypalController {
     private Logger log = LoggerFactory.getLogger(getClass());
 
     private static final String PAYPAL_SUCCESS_URL = "pay/success";
-    private static final String PAYPAL_CANCEL_URL = "pay/cancel";
 
     @Autowired
     public PaypalController(PaypalService paypalService) {
@@ -48,10 +45,10 @@ public class PaypalController {
     public String pay(@RequestBody RequestPayment request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
-        cancelUrl = "http://localhost:8762/paypal-service/" + PAYPAL_CANCEL_URL;
-        successUrl = "http://localhost:8762/paypal-service/".concat(PAYPAL_SUCCESS_URL)
-                .concat("?id=").concat(request.getClientId()).concat("&secret=")
-                .concat(request.getClientSecret());
+        cancelUrl = "https://localhost:4200/result/cancel";
+        successUrl = "https://localhost:4200/result/success"
+                .concat("?id=").concat(request.getClientId())
+                .concat("&secret=").concat(request.getClientSecret());
 
         String nameOfJournal = this.paypalService.findJournalByIdAndSecret(request.getClientId(), request.getClientSecret());
         Payment payment = paypalService.createPayment(
@@ -73,26 +70,22 @@ public class PaypalController {
         return "redirect:/";
     }
 
-    @ApiOperation(value = "If Pay canceled")
-    @GetMapping(value = PAYPAL_CANCEL_URL)
-    public String cancelPay() {
-        return "cancel";
-    }
-    @CrossOrigin(origins = "https://localhost:4200")
+
     @ApiOperation(value = "If Pay succeed, finish payment")
     @GetMapping(value = PAYPAL_SUCCESS_URL)
-    public String successPay(@RequestParam("id") String id, @RequestParam("secret") String secret,
-                             @RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+    public boolean successPay(@RequestParam("id") String id, @RequestParam("secret") String secret,
+                              @RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
         try {
 
             Payment payment = paypalService.executePayment(id, secret, paymentId, payerId);
             if (payment.getState().equals("approved")) {
-                return "redirect:/";
+                return true;
             }
         } catch (PayPalRESTException e) {
             log.error(e.getMessage());
+            return false;
         }
-        return "redirect:/";
+        return true;
     }
 
     @ApiOperation(value = "Add new seller to DB")
@@ -112,9 +105,9 @@ public class PaypalController {
 
     @ApiOperation(value = "Get some plan by name")
     @GetMapping(value = "get-plan")
-    public ResponseEntity getPlanForJournal(@RequestParam("name") String name,@RequestHeader HttpHeaders headers) {
-        String clientId = headers.get("clientId").get(0);
-        String secret = headers.get("secret").get(0);
+    public ResponseEntity getPlanForJournal(@RequestParam("name") String name,
+                                            @RequestParam("clientId") String clientId,
+                                            @RequestParam("secret") String secret) {
 
         PlanInfo planInfo = this.paypalService.getPlanByName(name, clientId, secret);
         if (planInfo != null) {
