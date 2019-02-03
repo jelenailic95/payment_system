@@ -57,4 +57,5 @@ public class PaymentCardCentreApplication {
         restTemplate.setInterceptors(interceptors);
         return restTemplate;
     }
+
 }
