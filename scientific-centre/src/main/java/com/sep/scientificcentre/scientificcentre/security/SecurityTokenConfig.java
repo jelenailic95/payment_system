@@ -1,4 +1,4 @@
-package com.sep.payment.paymentconcentrator.security;
+package com.sep.scientificcentre.scientificcentre.security;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
@@ -26,11 +26,8 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .and()
                 .addFilterAfter(new JwtTokenAuthenticationFilter(jwtConfig), UsernamePasswordAuthenticationFilter.class)
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/pc/payment-methods").permitAll()
-                .antMatchers(HttpMethod.GET, "/pc/get-token/**").permitAll()
-                .antMatchers(HttpMethod.POST, "/pc//pay-by-bank-card").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST, "/pc/pay-by-bitcoin").permitAll()
-                .anyRequest().authenticated();
+
+                .anyRequest().permitAll();
     }
 
     @Bean

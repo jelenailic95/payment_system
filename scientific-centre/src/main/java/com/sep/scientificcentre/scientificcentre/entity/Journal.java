@@ -26,8 +26,8 @@ public class Journal {
     @Column
     private boolean openAccess;
 
-    @OneToMany
-    private Set<Paper> papers;
+//    @OneToMany
+//    private Set<Paper> papers;
 
     @Column
     private double price;

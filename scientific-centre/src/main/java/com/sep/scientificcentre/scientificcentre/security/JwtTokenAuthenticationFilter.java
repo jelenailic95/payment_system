@@ -1,4 +1,4 @@
-package com.sep.payment.paymentconcentrator.security;
+package com.sep.scientificcentre.scientificcentre.security;
 
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;

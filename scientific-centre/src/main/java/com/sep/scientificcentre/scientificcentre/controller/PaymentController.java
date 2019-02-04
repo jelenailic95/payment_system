@@ -44,14 +44,14 @@ public class PaymentController {
     public void paymentSuccessful(@RequestBody FinishPaymentDto finishPaymentDto) {
         logger.info("Request - successful payment.");
 
-        Long userId = 1L;
+        String username = "david";
         // imace ili paperId ili journalId
         Long paperId = 1L;
-        Long journalId = 1L;
+        String journalName = "Laguna";
         String typeOfPayment = "journal";
-        User user = userService.getOne(userId);
+        User user = userService.getByUsername(username);
         if(typeOfPayment.equals("journal")){
-            Journal journal = journalService.findById(journalId);
+            Journal journal = journalService.findByName(journalName);
 
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, journal.getPeriod());
@@ -64,6 +64,8 @@ public class PaymentController {
             Paper paper = paperService.getOne(paperId);
             user.getPapers().add(paper);
         }
+        userService.create(user);
+
 
 
     }

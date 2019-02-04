@@ -36,13 +36,6 @@ public class Paper {
     @Column
     private Boolean accepted;
 
-    @ManyToOne
-    private User mainAuthor;
-
-
-    @ManyToMany
-    private List<User> authors;
-
     @Column
     private String doi;
 
@@ -50,7 +43,7 @@ public class Paper {
     private double price;
 
 
-//    @ManyToOne
-//    private Journal journal;
+    @ManyToOne
+    private Journal journal;
 
 }

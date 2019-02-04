@@ -1,18 +1,16 @@
 package com.sep.scientificcentre.scientificcentre.entity.dto;
 
-
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
+import java.util.List;
+
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class FinishPaymentDto {
+public class JournalsDto {
 
-    String username;
-    // imace ili paperId ili journalId
-    Long paperId;
-    String journalName;
-    String typeOfPayment;
+    private List<JournalDto> journals;
+
 }

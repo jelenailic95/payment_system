@@ -1,4 +1,4 @@
-package com.sep.payment.paymentconcentrator.security;
+package com.sep.scientificcentre.scientificcentre.security;
 
 import org.springframework.http.HttpRequest;
 import org.springframework.http.client.ClientHttpRequestExecution;

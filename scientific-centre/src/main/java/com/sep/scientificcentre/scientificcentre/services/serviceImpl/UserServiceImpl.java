@@ -34,4 +34,14 @@ public class UserServiceImpl implements UserService {
     public User getOne(Long id) {
         return userRepository.getOne(id);
     }
+
+    @Override
+    public User getByUsername(String username) {
+        return userRepository.findByUsername(username);
+    }
+
+    @Override
+    public User login(String username, String password) {
+        return userRepository.findByUsernameAndPassword(username,password);
+    }
 }
