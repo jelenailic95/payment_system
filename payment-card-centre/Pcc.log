@@ -1,12 +1,3 @@
-2019-01-21 00:42:00.526  INFO 16316 --- [http-nio-8444-exec-3] c.s.p.p.controller.PccController         : Request - forward to the customer's bank. Acquirer order id: 1000000001
-2019-01-21 00:42:00.610  INFO 16316 --- [http-nio-8444-exec-3] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: Erste
-2019-01-21 00:42:00.630  INFO 16316 --- [http-nio-8444-exec-3] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.
-2019-01-21 00:46:26.435  INFO 16316 --- [http-nio-8444-exec-5] c.s.p.p.controller.PccController         : Request - forward to the customer's bank. Acquirer order id: 1000000002
-2019-01-21 00:46:26.444  INFO 16316 --- [http-nio-8444-exec-5] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: UniCredit
-2019-01-21 00:46:26.458  INFO 16316 --- [http-nio-8444-exec-5] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.
-2019-01-21 00:48:43.850  INFO 16316 --- [http-nio-8444-exec-6] c.s.p.p.controller.PccController         : Request - forward to the customer's bank. Acquirer order id: 1000000003
-2019-01-21 00:48:43.856  INFO 16316 --- [http-nio-8444-exec-6] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: UniCredit
-2019-01-21 00:48:43.865  INFO 16316 --- [http-nio-8444-exec-6] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.
-2019-01-21 00:54:01.775  INFO 16316 --- [http-nio-8444-exec-8] c.s.p.p.controller.PccController         : Request - forward to the customer's bank. Acquirer order id: 1000000004
-2019-01-21 00:54:01.783  INFO 16316 --- [http-nio-8444-exec-8] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: UniCredit
-2019-01-21 00:54:01.806  INFO 16316 --- [http-nio-8444-exec-8] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.
+2019-02-04 10:19:07.515  WARN 13992 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=12h16m52s16ms318µs900ns).
+2019-02-04 11:05:46.614  WARN 13992 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=2m23s671ms737µs900ns).
+2019-02-04 20:22:05.946  WARN 13992 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=1h26m24s350ms31µs900ns).

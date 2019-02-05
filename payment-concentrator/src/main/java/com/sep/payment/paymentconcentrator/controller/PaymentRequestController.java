@@ -14,6 +14,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -57,12 +58,10 @@ public class PaymentRequestController {
         PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("https://localhost:8762/" +
                         requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class));
-        HttpHeaders headers = new HttpHeaders();
-        headers.add("Location", "https://localhost:4200/pay-by-card/123");
 
-
-        return new ResponseEntity<>(headers, HttpStatus.FOUND);
+        return ResponseEntity.ok().body(paymentDataDTO);
     }
+
 
     @PostMapping(value = "/pay-by-bitcoin")
     public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {

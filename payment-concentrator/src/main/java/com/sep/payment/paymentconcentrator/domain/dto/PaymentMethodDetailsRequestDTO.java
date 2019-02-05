@@ -1,16 +1,12 @@
 package com.sep.payment.paymentconcentrator.domain.dto;
 
-public class PaymentMethodDTO {
-    private Long id;
-    private String methodName;
+public class PaymentMethodDetailsRequestDTO {
+
+    private String clientId;
     private String method;
+    private String methodName;
 
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
+    public PaymentMethodDetailsRequestDTO() {
     }
 
     public String getMethodName() {
@@ -19,6 +15,14 @@ public class PaymentMethodDTO {
 
     public void setMethodName(String methodName) {
         this.methodName = methodName;
+    }
+
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public String getMethod() {

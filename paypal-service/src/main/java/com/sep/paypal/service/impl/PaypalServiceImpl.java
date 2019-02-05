@@ -9,7 +9,7 @@ import com.paypal.svcs.types.aa.AccountIdentifierType;
 import com.paypal.svcs.types.aa.GetVerifiedStatusRequest;
 import com.paypal.svcs.types.aa.GetVerifiedStatusResponse;
 import com.paypal.svcs.types.common.RequestEnvelope;
-import com.sep.paypal.config.AdaptiveConfiguration;
+import com.sep.paypal.config.*;
 import com.sep.paypal.exception.NotFoundException;
 import com.sep.paypal.model.dto.PlanInfo;
 import com.sep.paypal.model.dto.RequestCreatePlan;

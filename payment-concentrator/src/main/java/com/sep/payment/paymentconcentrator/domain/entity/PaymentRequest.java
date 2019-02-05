@@ -20,7 +20,7 @@ public class PaymentRequest {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column//10,2
+    @Column
     private double amount;
 
     @Column

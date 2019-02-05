@@ -6,6 +6,7 @@ import com.sep.bank.bankservice.entity.*;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.BankRepository;
 import com.sep.bank.bankservice.repository.GeneralSequenceRepository;
+import com.sep.bank.bankservice.repository.PaymentRequestRepository;
 import com.sep.bank.bankservice.repository.TransactionRepository;
 import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.AccountService;
@@ -48,11 +49,13 @@ public class BankServiceImpl implements BankService {
 
     private Logger logger = LoggerFactory.getLogger(BankServiceImpl.class);
 
+    private PaymentRequestRepository paymentRequestRepository;
+
     @Autowired
     public BankServiceImpl(BankRepository bankRepository, AccountService accountService, UserService userService,
                            CardService cardService, RestTemplate restTemplate,
                            TransactionRepository transactionRepository, AES aes, FieldsGenerator fieldsGenerator,
-                           GeneralSequenceRepository gsr) {
+                           GeneralSequenceRepository gsr, PaymentRequestRepository paymentRequestRepository) {
         this.bankRepository = bankRepository;
         this.accountService = accountService;
         this.userService = userService;
@@ -62,6 +65,7 @@ public class BankServiceImpl implements BankService {
         this.aes = aes;
         this.fieldsGenerator = fieldsGenerator;
         this.gsr = gsr;
+        this.paymentRequestRepository = paymentRequestRepository;
     }
 
     @Override
@@ -85,6 +89,7 @@ public class BankServiceImpl implements BankService {
             String paymentId = "";
             try {
                 Algorithm algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
+                // todo> izbaciti ovo
                 paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
                         .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
             } catch (UnsupportedEncodingException e) {
@@ -93,6 +98,12 @@ public class BankServiceImpl implements BankService {
 
             paymentDataDTO = new PaymentDataDTO(paymentUrl, paymentId, requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
+
+            PaymentRequest paymentRequest = new PaymentRequest(requestDTO.getAmount(), account.getId(),
+                    requestDTO.getMerchantOrderId(), paymentUrl, paymentId);
+
+            paymentRequestRepository.save(paymentRequest);
+            logger.info("Payment request saved into db.");
         }
         return paymentDataDTO;
     }
@@ -107,6 +118,7 @@ public class BankServiceImpl implements BankService {
         if (foundCard != null) {
             logger.info("This credit card exists in the bank system. Card holder name: {}", aes.decrypt(foundCard.getCardHolderName()));
             if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
+                // todo: ovde dodaj na racun
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
                 return createTransaction(acquirerDataDTO, TransactionStatus.PAID);
             } else {
@@ -136,8 +148,6 @@ public class BankServiceImpl implements BankService {
         Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
                 card.getExpirationDate(), false);
 
-        // todo: uzvuci paymentId, iz njega uzeti merchanta i njemu povecati iznos na racunu
-
         Transaction transaction = new Transaction();
         transaction.setMerchantOrderId(card.getMerchantOrderId());
         transaction.setMerchantOrderId(card.getMerchantOrderId());
@@ -149,6 +159,8 @@ public class BankServiceImpl implements BankService {
                     aes.decrypt(foundCard.getCardHolderName()));
             if (checkAmountOnAccount(foundCard, card.getAmount())) {
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
+
+                // todo: ovde dodaj na racun
                 transaction.setStatus(TransactionStatus.PAID);
             } else {
                 logger.info("This client doesn't have enough money on the card. Status: REFUSED.");
@@ -184,7 +196,7 @@ public class BankServiceImpl implements BankService {
         logger.info("Transaction acquirer timestamp: {}", transaction.getAcquirerTimestamp());
 
         // poziva PCC koji prosledjuje podatke banci kupca i vraca status
-        PaymentResultDTO paymentResultDTO = restTemplate.postForObject("http://localhost:8444/forward-to-bank",
+        PaymentResultDTO paymentResultDTO = restTemplate.postForObject("https://localhost:8444/forward-to-bank",
                 acquirerDataDTO, PaymentResultDTO.class);
 
         if (paymentResultDTO != null) {
@@ -246,4 +258,12 @@ public class BankServiceImpl implements BankService {
         gsr.save(gsn);
         return gsn.getIssuerCounter();
     }
+
+    @Override
+    public PaymentRequest getPaymentRequest(String paymentUrl) {
+        PaymentRequest paymentRequest = paymentRequestRepository.findByPaymentUrl(paymentUrl);
+        logger.info("Found payment request: {}", paymentRequest.toString());
+        return paymentRequest;
+    }
+
 }

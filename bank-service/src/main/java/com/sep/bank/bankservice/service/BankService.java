@@ -2,6 +2,7 @@ package com.sep.bank.bankservice.service;
 
 import com.sep.bank.bankservice.entity.Account;
 import com.sep.bank.bankservice.entity.Bank;
+import com.sep.bank.bankservice.entity.PaymentRequest;
 import com.sep.bank.bankservice.entity.Transaction;
 import com.sep.bank.bankservice.entity.dto.AcquirerDataDTO;
 import com.sep.bank.bankservice.entity.dto.CardAmountDTO;
@@ -20,4 +21,5 @@ public interface BankService {
     Transaction checkBankForCard(CardAmountDTO card);
     Transaction checkCard(AcquirerDataDTO acquirerDataDTO);
     Long getIssuerOrderId();
+    PaymentRequest getPaymentRequest(String paymentUrl);
 }

@@ -49,4 +49,14 @@ public class PaymentDataDTO {
     public void setMerchantOrderId(Long merchantOrderId) {
         this.merchantOrderId = merchantOrderId;
     }
+
+    @Override
+    public String toString() {
+        return "PaymentDataDTO{" +
+                "paymentUrl='" + paymentUrl + '\'' +
+                ", paymentId='" + paymentId + '\'' +
+                ", amount=" + amount +
+                ", merchantOrderId=" + merchantOrderId +
+                '}';
+    }
 }
