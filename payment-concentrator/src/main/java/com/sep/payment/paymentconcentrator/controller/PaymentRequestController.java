@@ -48,7 +48,8 @@ public class PaymentRequestController {
     @PostMapping(value = "/pay-by-bank-card")
     public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
-        String client = Utility.readToken(requestDTO.getClient());
+        String token = Utility.readToken(requestDTO.getClient());
+        String client = token.split("-")[2];
         PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
 
         logger.info("Request - call endpoint(from the bank): get payment url.");
@@ -66,10 +67,16 @@ public class PaymentRequestController {
     @PostMapping(value = "/pay-by-bitcoin")
     public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bitcoin.");
+        // localStorage.getItem('user') + '-journal' + '-' + journal.name + '-' + journal.price
+        String token = Utility.readToken(requestDTO.getClient());
+        String[] tokens = token.split("-");
 
-        String client = Utility.readToken(requestDTO.getClient());
-        Client foundClient = clientService.findByClientMethod(client, "crypto");
-        RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
+        Client foundClient = clientService.findByClientMethod(tokens[2], "crypto");
+        RequestDTO dto = new RequestDTO(tokens[2], foundClient.getClientId(), Double.parseDouble(tokens[3]));
+        if (tokens[1].equals("journal"))
+            paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]), tokens[2], null, tokens[1]);
+        else
+            paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]), null, Long.parseLong(tokens[2]),tokens[1]);
 
         ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
 //        check(o.getBody().getId(), requestDTO.getClientId());
@@ -87,9 +94,9 @@ public class PaymentRequestController {
                 ResponseEntity<ResponseOrderDTO> o = restTemplate.getForEntity("https://localhost:8762/check-payment/".concat(clientId).concat("/")
                         .concat(orderId), ResponseOrderDTO.class);
 
-             if(o.getBody().getStatus().equals("new")) {
-                 System.out.println(o.getBody().getStatus());
-                 System.out.println("skontao sam");
+                if (o.getBody().getStatus().equals("new")) {
+                    System.out.println(o.getBody().getStatus());
+                    System.out.println("skontao sam");
                     timer.cancel();
                     timer.purge();
                 }

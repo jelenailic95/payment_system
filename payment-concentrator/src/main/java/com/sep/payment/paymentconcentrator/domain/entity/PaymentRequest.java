@@ -1,6 +1,7 @@
 package com.sep.payment.paymentconcentrator.domain.entity;
 
 import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
+import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.Generated;
 import org.hibernate.annotations.GenerationTime;
@@ -46,6 +47,20 @@ public class PaymentRequest {
 
     @Column
     private TransactionStatus status;
+
+    @Column
+    private Long paperId;
+
+    @Column
+    private String journalName;
+
+    @Column
+    private String typeOfPayment;
+
+    @Column
+    private String username;
+
+
 
 
     public PaymentRequest() {
@@ -137,5 +152,37 @@ public class PaymentRequest {
 
     public void setStatus(TransactionStatus status) {
         this.status = status;
+    }
+
+    public Long getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(Long paperId) {
+        this.paperId = paperId;
+    }
+
+    public String getJournalName() {
+        return journalName;
+    }
+
+    public void setJournalName(String journalName) {
+        this.journalName = journalName;
+    }
+
+    public String getTypeOfPayment() {
+        return typeOfPayment;
+    }
+
+    public void setTypeOfPayment(String typeOfPayment) {
+        this.typeOfPayment = typeOfPayment;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
     }
 }

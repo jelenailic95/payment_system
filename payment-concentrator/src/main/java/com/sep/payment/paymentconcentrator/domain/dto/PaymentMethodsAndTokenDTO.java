@@ -15,5 +15,6 @@ import java.util.Set;
 public class PaymentMethodsAndTokenDTO {
     private Set<PaymentMethodDTO> paymentMethodDTOS;
     private String token;
+    private double amount;
 
 }

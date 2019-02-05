@@ -44,8 +44,8 @@ public class PaymentMethodController {
     @PostMapping(value = "/payment-methods")
     public ResponseEntity<PaymentMethodsAndTokenDTO> checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO) throws UnsupportedEncodingException {
         logger.info("Request - return all possible payment methods.");
-
-        String clientName = Utility.readToken(clientDTO.getClientId());
+        String token = Utility.readToken(clientDTO.getClientId());
+        String clientName = token.split("-")[2];
         List<Client> clients = clientService.getAllMethods(clientName);
 
         if (clients == null) {
@@ -58,8 +58,10 @@ public class PaymentMethodController {
                 PaymentMethodDTO.class)));
         ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth",clientDTO, Object.class);
         logger.info("This client has registered payment methods.");
-        PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS)
+        PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS).
+                amount(Double.parseDouble( token.split("-")[3]))
                 .token(res.getHeaders().get("Authorization").get(0)).build();
+
         return ResponseEntity.ok(response);
     }
 

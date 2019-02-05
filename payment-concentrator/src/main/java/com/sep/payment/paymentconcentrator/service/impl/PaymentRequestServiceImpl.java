@@ -58,6 +58,26 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
+    public PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment) {
+
+        PaymentRequest paymentRequest = new PaymentRequest();
+        paymentRequest.setUsername(username);
+        paymentRequest.setAmount(amount);
+        paymentRequest.setJournalName(journalName);
+        paymentRequest.setPaperId(paperId);
+        paymentRequest.setTypeOfPayment(typeOfPayment);
+
+        PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
+        Long merchantOrderId = lastPayment.getMerchantOrderId() + 1;
+
+        paymentRequest.setMerchantOrderId(merchantOrderId);
+        paymentRequestRepository.save(paymentRequest);
+
+        logger.info("Payment request is successfully created.");
+        return paymentRequest;
+    }
+
+    @Override
     public PaymentRequest getPaymentRequest(Long merchantOrderId) {
         return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
     }
