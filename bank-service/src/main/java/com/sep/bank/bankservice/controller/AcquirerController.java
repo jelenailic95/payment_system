@@ -67,7 +67,5 @@ public class AcquirerController {
                 TransactionDTO.class);
 
         return ResponseEntity.ok(finalUrl);
-
-
     }
 }

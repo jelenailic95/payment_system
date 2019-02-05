@@ -50,6 +50,7 @@ public class TransactionController {
         System.out.println(transactionCustomer.getAcquirerOrderId());
         System.out.println(transactionCustomer.getAmount());
 
+        // todo: pozvati
         return ResponseEntity.ok().body(transactionCustomer);
     }
 }

@@ -1,14 +1,12 @@
 package com.sep.payment.paymentconcentrator.controller;
 
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
+
 import com.sep.payment.paymentconcentrator.domain.dto.FinishPaymentDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.PaymentDataDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.RequestDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.ResponseOrderDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
-import com.sep.payment.paymentconcentrator.domain.entity.Constants;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
@@ -21,7 +19,6 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
-import org.springframework.web.servlet.ModelAndView;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;

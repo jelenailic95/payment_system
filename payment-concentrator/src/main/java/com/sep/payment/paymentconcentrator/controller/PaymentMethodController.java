@@ -2,13 +2,12 @@ package com.sep.payment.paymentconcentrator.controller;
 
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
-import com.sep.payment.paymentconcentrator.domain.dto.ClientDTO;
-import com.sep.payment.paymentconcentrator.domain.dto.NewMethodDTO;
-import com.sep.payment.paymentconcentrator.domain.dto.PaymentMethodDTO;
-import com.sep.payment.paymentconcentrator.domain.dto.PaymentMethodsAndTokenDTO;
+import com.sep.payment.paymentconcentrator.domain.dto.*;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.domain.entity.Constants;
+import com.sep.payment.paymentconcentrator.domain.entity.PaymentMethod;
 import com.sep.payment.paymentconcentrator.exception.NotFoundException;
+import com.sep.payment.paymentconcentrator.security.AES;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.utility.Utility;
 import org.modelmapper.ModelMapper;
@@ -17,6 +16,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.HashSet;
@@ -33,11 +33,15 @@ public class PaymentMethodController {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    private final AES aes;
+
+
     private Logger logger = LoggerFactory.getLogger(PaymentMethodController.class);
 
-    public PaymentMethodController(ClientService clientService, RestTemplate restTemplate) {
+    public PaymentMethodController(ClientService clientService, RestTemplate restTemplate, AES aes) {
         this.clientService = clientService;
         this.restTemplate = restTemplate;
+        this.aes = aes;
     }
 
     @PostMapping(value = "/payment-methods")
@@ -53,26 +57,41 @@ public class PaymentMethodController {
         }
 
         Set<PaymentMethodDTO> paymentMethodDTOS = new HashSet<>();
+
         Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(),
                 PaymentMethodDTO.class)));
-        ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth",clientDTO, Object.class);
+        ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth", clientDTO, Object.class);
         logger.info("This client has registered payment methods.");
         PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS)
                 .token(res.getHeaders().get("Authorization").get(0)).build();
         return ResponseEntity.ok(response);
     }
 
-    @PostMapping(value = "/new-method")
-    public ResponseEntity<Client> enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO) {
-        logger.info("Request - enable new payment method, that exists in the system.");
+    @PostMapping(value = "/method-subscribe")
+    public ResponseEntity enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO)
+            throws UnsupportedEncodingException {
+        logger.info("Request - enable {} for the client {}", newMethodDTO.getMethod(), newMethodDTO.getClientName());
 
-        Client client = clientService.addNewMethod(newMethodDTO.getClientName(), newMethodDTO.getClientId(),
-                newMethodDTO.getClientPassword(),
-                newMethodDTO.getMethod());
+        Client client = clientService.methodSubscribe(newMethodDTO.getClientName(), newMethodDTO.getClientId(),
+                newMethodDTO.getClientPassword(), newMethodDTO.getMethod(), newMethodDTO.getMethodName());
 
         logger.info("Payment method is successfully enabled.");
 
+        if (client == null) {
+            return ResponseEntity.badRequest().body(null);
+        }
         return ResponseEntity.ok().body(client);
+    }
+
+    @PostMapping(value = "/method-unsubscribe")
+    public ResponseEntity methodUnsubscribe(@RequestBody @Valid PaymentMethodDetailsRequestDTO requestDTO) {
+        logger.info("Request - unsubscribe {} for the client {}", requestDTO.getMethod(), requestDTO.getClientId());
+
+        clientService.methodUnsubscribe(requestDTO.getClientId(), requestDTO.getMethod(), requestDTO.getMethodName());
+
+        logger.info("{} is successfully unsubscribe.", requestDTO.getMethod());
+
+        return ResponseEntity.ok().build();
     }
 
     @GetMapping(value = "/get-token/{name}")
@@ -84,4 +103,31 @@ public class PaymentMethodController {
         return ResponseEntity.ok(token);
     }
 
+    @PostMapping(value = "/payment-method-details")
+    public ResponseEntity getPaymentMethodDetails(@RequestBody PaymentMethodDetailsRequestDTO requestDTO)
+            throws UnsupportedEncodingException {
+        logger.info("Request- get payment method details.");
+        String client = Utility.readToken(requestDTO.getClientId());
+        Client foundClient = clientService.findByClientMethod(client, requestDTO.getMethodName());
+        logger.info("Get payment method details for the {}, for the client: {}",
+                requestDTO.getMethod(), client);
+
+        PaymentMethodDetailsDTO paymentMethodDetailsDTO = new PaymentMethodDetailsDTO();
+
+        if (foundClient != null) {
+            ClientPaymentMethodDTO clientDTO = new ClientPaymentMethodDTO(aes.decrypt(foundClient.getClientId()),
+                    modelMapper.map(foundClient.getPaymentMethod(), PaymentMethodDTO.class));
+
+            paymentMethodDetailsDTO.setClientPaymentMethodDTO(clientDTO);
+        }
+
+        if (requestDTO.getMethod().equals("bank")) {
+            List<PaymentMethod> banks = clientService.findPaymentMethodByMethod(requestDTO.getMethod());
+            paymentMethodDetailsDTO.setPaymentMethods(banks);
+        }
+
+        logger.info("Payment method is successfully returned.");
+
+        return ResponseEntity.ok(paymentMethodDetailsDTO);
+    }
 }

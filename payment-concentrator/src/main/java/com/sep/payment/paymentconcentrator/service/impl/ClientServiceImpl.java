@@ -4,6 +4,7 @@ import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentMethod;
 import com.sep.payment.paymentconcentrator.repository.ClientRepository;
 import com.sep.payment.paymentconcentrator.repository.PaymentMethodRepository;
+import com.sep.payment.paymentconcentrator.security.AES;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -18,9 +19,12 @@ public class ClientServiceImpl implements ClientService {
 
     private final PaymentMethodRepository paymentMethodRepository;
 
-    public ClientServiceImpl(ClientRepository clientRepository, PaymentMethodRepository paymentMethodRepository) {
+    private final AES aes;
+
+    public ClientServiceImpl(ClientRepository clientRepository, PaymentMethodRepository paymentMethodRepository, AES aes) {
         this.clientRepository = clientRepository;
         this.paymentMethodRepository = paymentMethodRepository;
+        this.aes = aes;
     }
 
     private Logger logger = LoggerFactory.getLogger(ClientServiceImpl.class);
@@ -31,18 +35,49 @@ public class ClientServiceImpl implements ClientService {
     }
 
     @Override
-    public Client addNewMethod(String clientName, String clientId, String clientPassword, String method) {
-        PaymentMethod paymentMethod = paymentMethodRepository.findByName(method);
+    public Client methodSubscribe(String clientName, String clientId, String clientPassword, String method,
+                                  String methodName) {
+        PaymentMethod paymentMethod = paymentMethodRepository.findByMethodNameAndMethod(methodName, method);
 
-        Client newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
+        if (paymentMethod == null) {
+            return null;
+        }
 
-        logger.info("Client has registered for the: {}", paymentMethod.getName());
+        Client client = this.findByClientMethod(clientName, methodName);
+        if (client == null) {
+            clientId = aes.encrypt(clientId);
+            if (clientPassword != null) {
+                clientPassword = aes.encrypt(clientPassword);
+            }
+            Client newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
+            logger.info("Client {} has successfully enabled {}.", clientName, method);
+            return clientRepository.save(newClient);
+        }
 
-        return clientRepository.save(newClient);
+        client.setClientId(clientId);
+        client.setClientPassword(clientPassword);
+        clientRepository.save(client);
+
+        logger.info("Client {} has successfully changed credentials for the {}.", clientName, method);
+        return client;
     }
 
     @Override
+    public void methodUnsubscribe(String client, String method, String methodName) {
+        Client clientDb = clientRepository.findByClientAndPaymentMethodMethodAndPaymentMethodMethodName(client, method,
+                methodName);
+
+        clientRepository.delete(clientDb);
+    }
+
+
+    @Override
     public Client findByClientMethod(String client, String method) {
-        return clientRepository.findByClientAndPaymentMethodName(client, method);
+        return clientRepository.findByClientAndPaymentMethodMethodName(client, method);
+    }
+
+    @Override
+    public List<PaymentMethod> findPaymentMethodByMethod(String method) {
+        return paymentMethodRepository.findByMethod(method);
     }
 }
