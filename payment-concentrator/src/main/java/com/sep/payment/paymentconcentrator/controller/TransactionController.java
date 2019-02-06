@@ -56,6 +56,9 @@ public class TransactionController {
         System.out.println(transactionCustomer.getAmount());
 
         // todo: pozvati
+        PaymentRequest p = paymentRequestRepository.findByMerchantOrderId(transactionDTO.getMerchantOrderId());
+        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+                p, String.class);
         return ResponseEntity.ok().body(transactionCustomer);
     }
 

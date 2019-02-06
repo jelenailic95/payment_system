@@ -50,8 +50,9 @@ public class PaymentRequestController {
     public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
         String token = Utility.readToken(requestDTO.getClient());
-        String client = token.split("-")[2];
-        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
+        String[] tokens = token.split("-");
+        String client = tokens[2];
+        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId(), tokens);
 
         logger.info("Request - call endpoint(from the bank): get payment url.");
 

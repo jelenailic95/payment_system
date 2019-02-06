@@ -41,6 +41,7 @@ public class SubscriptionController {
 
     @GetMapping("plan/{journal}/{method}")
     public ResponseEntity getSubscriptionPlanForJournal(@PathVariable String journal, @PathVariable String method) {
+        // todo poslati ceo token pa isparsirati
         Client client = this.clientService.findByClientMethod(journal, method);
         return this.restTemplate.getForEntity(proxyHost + "/paypal-service/get-plan"
                 .concat("?name=").concat(journal)

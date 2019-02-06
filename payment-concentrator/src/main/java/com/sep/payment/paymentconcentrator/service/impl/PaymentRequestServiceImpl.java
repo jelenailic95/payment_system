@@ -24,13 +24,20 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     private Logger logger = LoggerFactory.getLogger(PaymentRequestServiceImpl.class);
 
     @Override
-    public PaymentRequest createPaymentRequest(String client, double amount, String bankName) {
+    public PaymentRequest createPaymentRequest(String client, double amount, String bankName, String[] tokens) {
         Client foundClient = clientRepository.findByClientAndPaymentMethodMethodName(client, bankName);
 
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setMerchantId(foundClient.getClientId());
         paymentRequest.setMerchantPassword(foundClient.getClientPassword());
         paymentRequest.setAmount(amount);
+
+        paymentRequest.setUsername(tokens[0]);
+        paymentRequest.setJournalName(tokens[2]);
+        paymentRequest.setTypeOfPayment(tokens[1]);
+        paymentRequest.setScName(tokens[4]);
+        if(paymentRequest.getTypeOfPayment().equals("paper"))
+            paymentRequest.setPaperId( Long.parseLong(tokens[5]));
 
         // get last payment request from the db
         PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
