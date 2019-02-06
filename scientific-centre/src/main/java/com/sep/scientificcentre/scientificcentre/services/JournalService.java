@@ -12,4 +12,5 @@ public interface JournalService {
     Journal findByName(String name);
 
     Journal findById(Long journalId);
+    List<Journal> findAllCompanyJournals();
 }

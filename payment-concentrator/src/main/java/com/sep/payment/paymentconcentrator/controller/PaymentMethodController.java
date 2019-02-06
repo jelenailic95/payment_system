@@ -45,15 +45,18 @@ public class PaymentMethodController {
     }
 
     @PostMapping(value = "/payment-methods")
-    public ResponseEntity<PaymentMethodsAndTokenDTO> checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO) throws UnsupportedEncodingException {
+    public ResponseEntity checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO)
+            throws UnsupportedEncodingException {
         logger.info("Request - return all possible payment methods.");
+
         String token = Utility.readToken(clientDTO.getClientId());
         String clientName = token.split("-")[2];
+
         List<Client> clients = clientService.getAllMethods(clientName);
 
-        if (clients == null) {
+        if (clients.size() == 0) {
             logger.info("This client doesn't have any registered payment methods.");
-            throw new NotFoundException("Methods for journal".concat(clientName).concat("does not exist"));
+            return ResponseEntity.ok(clients);
         }
 
         Set<PaymentMethodDTO> paymentMethodDTOS = new HashSet<>();
@@ -62,8 +65,9 @@ public class PaymentMethodController {
                 PaymentMethodDTO.class)));
         ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth", clientDTO, Object.class);
         logger.info("This client has registered payment methods.");
+
         PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS).
-                amount(Double.parseDouble( token.split("-")[3]))
+                amount(Double.parseDouble(token.split("-")[3]))
                 .token(res.getHeaders().get("Authorization").get(0)).build();
 
         return ResponseEntity.ok(response);
@@ -74,7 +78,10 @@ public class PaymentMethodController {
             throws UnsupportedEncodingException {
         logger.info("Request - enable {} for the client {}", newMethodDTO.getMethod(), newMethodDTO.getClientName());
 
-        Client client = clientService.methodSubscribe(newMethodDTO.getClientName(), newMethodDTO.getClientId(),
+        String token = Utility.readToken(newMethodDTO.getClientName());
+        String clientName = token.split("-")[2];
+
+        Client client = clientService.methodSubscribe(clientName, newMethodDTO.getClientId(),
                 newMethodDTO.getClientPassword(), newMethodDTO.getMethod(), newMethodDTO.getMethodName());
 
         logger.info("Payment method is successfully enabled.");
@@ -86,10 +93,13 @@ public class PaymentMethodController {
     }
 
     @PostMapping(value = "/method-unsubscribe")
-    public ResponseEntity methodUnsubscribe(@RequestBody @Valid PaymentMethodDetailsRequestDTO requestDTO) {
+    public ResponseEntity methodUnsubscribe(@RequestBody @Valid PaymentMethodDetailsRequestDTO requestDTO)
+            throws UnsupportedEncodingException {
         logger.info("Request - unsubscribe {} for the client {}", requestDTO.getMethod(), requestDTO.getClientId());
+        String token = Utility.readToken(requestDTO.getClientId());
+        String clientName = token.split("-")[2];
 
-        clientService.methodUnsubscribe(requestDTO.getClientId(), requestDTO.getMethod(), requestDTO.getMethodName());
+        clientService.methodUnsubscribe(clientName, requestDTO.getMethod(), requestDTO.getMethodName());
 
         logger.info("{} is successfully unsubscribe.", requestDTO.getMethod());
 
@@ -109,15 +119,17 @@ public class PaymentMethodController {
     public ResponseEntity getPaymentMethodDetails(@RequestBody PaymentMethodDetailsRequestDTO requestDTO)
             throws UnsupportedEncodingException {
         logger.info("Request- get payment method details.");
-        String client = Utility.readToken(requestDTO.getClientId());
-        Client foundClient = clientService.findByClientMethod(client, requestDTO.getMethodName());
+        String token = Utility.readToken(requestDTO.getClientId());
+        String clientName = token.split("-")[2];
+        Client foundClient = clientService.findByClientMethod(clientName, requestDTO.getMethodName());
         logger.info("Get payment method details for the {}, for the client: {}",
-                requestDTO.getMethod(), client);
+                requestDTO.getMethod(), clientName);
 
         PaymentMethodDetailsDTO paymentMethodDetailsDTO = new PaymentMethodDetailsDTO();
 
         if (foundClient != null) {
-            ClientPaymentMethodDTO clientDTO = new ClientPaymentMethodDTO(aes.decrypt(foundClient.getClientId()),
+            String clientId = aes.decrypt(foundClient.getClientId());
+            ClientPaymentMethodDTO clientDTO = new ClientPaymentMethodDTO(clientId,
                     modelMapper.map(foundClient.getPaymentMethod(), PaymentMethodDTO.class));
 
             paymentMethodDetailsDTO.setClientPaymentMethodDTO(clientDTO);
@@ -131,5 +143,13 @@ public class PaymentMethodController {
         logger.info("Payment method is successfully returned.");
 
         return ResponseEntity.ok(paymentMethodDetailsDTO);
+    }
+
+    @PostMapping(value = "/toj")
+    public void p(@RequestBody String t) {
+        String enc = aes.encrypt(t);
+        System.out.println(enc);
+        String dec = aes.decrypt(enc);
+        System.out.println(dec);
     }
 }

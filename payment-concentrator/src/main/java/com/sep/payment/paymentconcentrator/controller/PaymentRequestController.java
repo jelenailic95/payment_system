@@ -56,8 +56,7 @@ public class PaymentRequestController {
         logger.info("Request - call endpoint(from the bank): get payment url.");
 
         PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("https://localhost:8762/" +
-                        requestDTO.getClientId() + "-service/get-payment-url",
-                paymentRequest, PaymentDataDTO.class));
+                        requestDTO.getClientId() + "-service/get-payment-url", paymentRequest, PaymentDataDTO.class));
 
         return ResponseEntity.ok().body(paymentDataDTO);
     }
