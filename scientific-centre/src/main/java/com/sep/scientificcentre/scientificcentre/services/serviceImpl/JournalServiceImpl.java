@@ -32,4 +32,9 @@ public class JournalServiceImpl implements JournalService {
     public Journal findById(Long journalId) {
         return journalRepository.getOne(journalId);
     }
+
+    @Override
+    public List<Journal> findAllCompanyJournals(){
+        return null;
+    }
 }

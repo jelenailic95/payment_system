@@ -54,4 +54,8 @@ public class User {
     @OneToMany
     private List<Paper> papers;
 
+    @OneToMany
+    private Set<Journal> myJournals;
+
+
 }

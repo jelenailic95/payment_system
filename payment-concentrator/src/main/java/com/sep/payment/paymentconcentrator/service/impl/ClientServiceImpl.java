@@ -44,20 +44,22 @@ public class ClientServiceImpl implements ClientService {
         }
 
         Client client = this.findByClientMethod(clientName, methodName);
-        if (client == null) {
-            clientId = aes.encrypt(clientId);
-            if (clientPassword != null) {
-                clientPassword = aes.encrypt(clientPassword);
-            }
-            Client newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
+        String encryptedClientId = aes.encrypt(clientId);
+        if (!clientPassword.equals("")) {
+            clientPassword = aes.encrypt(clientPassword);
+        }
+
+        if (client == null){
+            Client newClient = new Client(clientName, clientName, encryptedClientId, clientPassword, paymentMethod);
+            clientRepository.save(newClient);
+
             logger.info("Client {} has successfully enabled {}.", clientName, method);
             return clientRepository.save(newClient);
         }
 
-        client.setClientId(clientId);
+        client.setClientId(encryptedClientId);
         client.setClientPassword(clientPassword);
         clientRepository.save(client);
-
         logger.info("Client {} has successfully changed credentials for the {}.", clientName, method);
         return client;
     }
