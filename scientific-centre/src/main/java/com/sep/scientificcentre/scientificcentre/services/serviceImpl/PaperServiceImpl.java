@@ -28,4 +28,9 @@ public class PaperServiceImpl implements PaperService {
     public List<Paper> getAll() {
         return paperRepository.findAll();
     }
+
+    @Override
+    public List<Paper> getByJournalName(String name) {
+        return paperRepository.getPaperByJournalName(name);
+    }
 }
