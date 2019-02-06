@@ -11,19 +11,22 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.*;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @RestController
 @RequestMapping(value = "/pc")
 public class PaymentRequestController {
+
+    @Value("${proxy.host}")
+    private String proxyHost;
 
     private final PaymentRequestService paymentRequestService;
 
@@ -51,7 +54,7 @@ public class PaymentRequestController {
 
         logger.info("Request - call endpoint(from the bank): get payment url.");
 
-        PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject("https://localhost:8762/" +
+        PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject(proxyHost + "/" +
                         requestDTO.getClientId() + "-service/get-payment-url",
                 paymentRequest, PaymentDataDTO.class));
 
@@ -78,7 +81,7 @@ public class PaymentRequestController {
                     tokens[2], Long.parseLong(tokens[5]), tokens[1], tokens[4]);
         BitcoinPaymentDto paymentDto = BitcoinPaymentDto.builder().requestDTO(dto).paymentRequest(paymentRequest).build();
 
-        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://localhost:8762/crypto-service/bitcoin-payment", paymentDto, ResponseOrderDTO.class);
+        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity(proxyHost + "/crypto-service/bitcoin-payment", paymentDto, ResponseOrderDTO.class);
 
         return ResponseEntity.ok(Objects.requireNonNull(o.getBody()));
     }
@@ -91,8 +94,7 @@ public class PaymentRequestController {
         Client foundClient = clientService.findByClientMethod(client, "paypal");
         RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
         dto.setClientSecret(foundClient.getClientPassword());
-        String url = restTemplate.postForEntity("https://localhost:8762/paypal-service/pay", dto, String.class).getBody();
-
+        String url = restTemplate.postForEntity(proxyHost + "/paypal-service/pay", dto, String.class).getBody();
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
 
@@ -100,14 +102,12 @@ public class PaymentRequestController {
     public ResponseEntity finishPaymentWithPaypal(@RequestBody FinishPaymentDTO finishPaymentDTO, @PathVariable String token) {
         logger.info("Finishing payment - pay paypal.");
 
-        boolean success = restTemplate.getForEntity(("https://localhost:8762/paypal-service/" +
+        boolean success = restTemplate.getForEntity((proxyHost + "/paypal-service/" +
                 "pay/success?id=").concat(finishPaymentDTO.getId())
                 .concat("&secret=").concat(finishPaymentDTO.getSecret())
                 .concat("&paymentId=").concat(finishPaymentDTO.getPaymentId())
                 .concat("&PayerID=").concat(finishPaymentDTO.getPayerId()), Boolean.class).getBody();
         return new ResponseEntity<>(success, HttpStatus.OK);
-
-
     }
 
 

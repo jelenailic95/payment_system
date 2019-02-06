@@ -11,6 +11,8 @@ import com.sep.payment.paymentconcentrator.security.AES;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.utility.Utility;
 import org.modelmapper.ModelMapper;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -27,6 +29,9 @@ import java.util.Set;
 @RestController
 @RequestMapping(value = "/pc")
 public class PaymentMethodController {
+
+    @Value(value = "${auth.host}")
+    private String authProxy;
 
     private final ClientService clientService;
     private final RestTemplate restTemplate;
@@ -60,7 +65,7 @@ public class PaymentMethodController {
 
         Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(),
                 PaymentMethodDTO.class)));
-        ResponseEntity<Object> res = restTemplate.postForEntity("http://localhost:9100/auth", clientDTO, Object.class);
+        ResponseEntity<Object> res = restTemplate.postForEntity(authProxy + "/auth",clientDTO, Object.class);
         logger.info("This client has registered payment methods.");
         PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS).
                 amount(Double.parseDouble( token.split("-")[3]))

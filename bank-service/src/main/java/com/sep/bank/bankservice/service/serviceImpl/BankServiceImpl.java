@@ -18,6 +18,7 @@ import org.apache.commons.lang.RandomStringUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
@@ -28,6 +29,9 @@ import java.util.List;
 
 @Service
 public class BankServiceImpl implements BankService {
+
+    @Value("${pc.host}")
+    private String pcHost;
 
     private final BankRepository bankRepository;
 
@@ -196,7 +200,7 @@ public class BankServiceImpl implements BankService {
         logger.info("Transaction acquirer timestamp: {}", transaction.getAcquirerTimestamp());
 
         // poziva PCC koji prosledjuje podatke banci kupca i vraca status
-        PaymentResultDTO paymentResultDTO = restTemplate.postForObject("https://localhost:8444/forward-to-bank",
+        PaymentResultDTO paymentResultDTO = restTemplate.postForObject(pcHost + "/forward-to-bank",
                 acquirerDataDTO, PaymentResultDTO.class);
 
         if (paymentResultDTO != null) {
