@@ -60,7 +60,7 @@ public class PaymentRequest {
     @Column
     private String username;
 
-
+    @Column String scName;
 
 
     public PaymentRequest() {
@@ -184,5 +184,13 @@ public class PaymentRequest {
 
     public void setUsername(String username) {
         this.username = username;
+    }
+
+    public String getScName() {
+        return scName;
+    }
+
+    public void setScName(String scName) {
+        this.scName = scName;
     }
 }

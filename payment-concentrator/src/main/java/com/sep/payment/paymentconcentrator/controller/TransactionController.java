@@ -1,5 +1,6 @@
 package com.sep.payment.paymentconcentrator.controller;
 
+import com.sep.payment.paymentconcentrator.domain.dto.FinishResponseDto;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultUrlDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping(value = "/pc")
@@ -27,6 +29,9 @@ public class TransactionController {
     private PaymentRequestRepository paymentRequestRepository;
 
     private ModelMapper modelMapper = new ModelMapper();
+
+    @Autowired
+    private RestTemplate restTemplate;
 
     private Logger logger = LoggerFactory.getLogger(TransactionController.class);
 
@@ -52,5 +57,14 @@ public class TransactionController {
 
         // todo: pozvati
         return ResponseEntity.ok().body(transactionCustomer);
+    }
+
+    @PostMapping(value = "/successful-transaction")
+    public String successfulTransaction(@RequestBody FinishResponseDto p) {
+        logger.info("Request - successful transaction.");
+
+        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+                p, String.class);
+        return "ok";
     }
 }

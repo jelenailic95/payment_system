@@ -1,10 +1,7 @@
 package com.sep.payment.paymentconcentrator.controller;
 
 
-import com.sep.payment.paymentconcentrator.domain.dto.FinishPaymentDTO;
-import com.sep.payment.paymentconcentrator.domain.dto.PaymentDataDTO;
-import com.sep.payment.paymentconcentrator.domain.dto.RequestDTO;
-import com.sep.payment.paymentconcentrator.domain.dto.ResponseOrderDTO;
+import com.sep.payment.paymentconcentrator.domain.dto.*;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.service.ClientService;
@@ -14,11 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.support.CronTrigger;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,24 +20,27 @@ import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ScheduledFuture;
 
 @RestController
 @RequestMapping(value = "/pc")
 public class PaymentRequestController {
 
-    @Autowired
-    private PaymentRequestService paymentRequestService;
+    private final PaymentRequestService paymentRequestService;
 
-    @Autowired
-    private ClientService clientService;
+    private final ClientService clientService;
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
 
     private ModelMapper modelMapper = new ModelMapper();
 
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
+
+    @Autowired
+    public PaymentRequestController(PaymentRequestService paymentRequestService, ClientService clientService, RestTemplate restTemplate) {
+        this.paymentRequestService = paymentRequestService;
+        this.clientService = clientService;
+        this.restTemplate = restTemplate;
+    }
 
     @PostMapping(value = "/pay-by-bank-card")
     public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
@@ -72,38 +68,19 @@ public class PaymentRequestController {
 
         Client foundClient = clientService.findByClientMethod(tokens[2], "crypto");
         RequestDTO dto = new RequestDTO(tokens[2], foundClient.getClientId(), Double.parseDouble(tokens[3]));
-        if (tokens[1].equals("journal"))
-            paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]), tokens[2], null, tokens[1]);
-        else
-            paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]), null, Long.parseLong(tokens[2]),tokens[1]);
+        PaymentRequest paymentRequest;
 
-        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://localhost:8762/crypto-service/bitcoin-payment", dto, ResponseOrderDTO.class);
-//        check(o.getBody().getId(), requestDTO.getClientId());
+        if (tokens[1].equals("journal"))
+            paymentRequest = paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]),
+                    tokens[2], null, tokens[1], tokens[4]);
+        else
+            paymentRequest = paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]),
+                    tokens[2], Long.parseLong(tokens[5]), tokens[1], tokens[4]);
+        BitcoinPaymentDto paymentDto = BitcoinPaymentDto.builder().requestDTO(dto).paymentRequest(paymentRequest).build();
+
+        ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://localhost:8762/crypto-service/bitcoin-payment", paymentDto, ResponseOrderDTO.class);
 
         return ResponseEntity.ok(Objects.requireNonNull(o.getBody()));
-    }
-
-    public void check(String orderId, String clientId) {
-//        ScheduledFuture<?> d = scheduler.schedule(new GetOrderTask(restTemplate, orderId, clientId), new CronTrigger("*/5 * * * * *"));
-        final Timer timer = new Timer();
-
-        final TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                ResponseEntity<ResponseOrderDTO> o = restTemplate.getForEntity("https://localhost:8762/check-payment/".concat(clientId).concat("/")
-                        .concat(orderId), ResponseOrderDTO.class);
-
-                if (o.getBody().getStatus().equals("new")) {
-                    System.out.println(o.getBody().getStatus());
-                    System.out.println("skontao sam");
-                    timer.cancel();
-                    timer.purge();
-                }
-            }
-        };
-
-        timer.schedule(task, 5000);
-
     }
 
 
@@ -115,12 +92,14 @@ public class PaymentRequestController {
         RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
         dto.setClientSecret(foundClient.getClientPassword());
         String url = restTemplate.postForEntity("https://localhost:8762/paypal-service/pay", dto, String.class).getBody();
+
         return new ResponseEntity<>(url, HttpStatus.OK);
     }
 
     @PostMapping(value = "/finish-payment/{token}")
     public ResponseEntity finishPaymentWithPaypal(@RequestBody FinishPaymentDTO finishPaymentDTO, @PathVariable String token) {
         logger.info("Finishing payment - pay paypal.");
+
         boolean success = restTemplate.getForEntity(("https://localhost:8762/paypal-service/" +
                 "pay/success?id=").concat(finishPaymentDTO.getId())
                 .concat("&secret=").concat(finishPaymentDTO.getSecret())

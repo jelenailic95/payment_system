@@ -6,7 +6,9 @@ import org.springframework.stereotype.Service;
 @Service
 public interface PaymentRequestService {
     PaymentRequest createPaymentRequest(String clientID, double amount, String bankName);
-    PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment);
+    PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment,
+                                 String scName);
     PaymentRequest getPaymentRequest(Long merchantOrderId);
     PaymentRequest save(PaymentRequest paymentRequest);
+    PaymentRequest getByIde(Long id);
 }

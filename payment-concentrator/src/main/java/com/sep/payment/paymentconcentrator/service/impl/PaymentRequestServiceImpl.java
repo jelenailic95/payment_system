@@ -58,7 +58,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
-    public PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment) {
+    public PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment, String scName) {
 
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setUsername(username);
@@ -66,6 +66,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         paymentRequest.setJournalName(journalName);
         paymentRequest.setPaperId(paperId);
         paymentRequest.setTypeOfPayment(typeOfPayment);
+        paymentRequest.setScName(scName);
 
         PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
         Long merchantOrderId = lastPayment.getMerchantOrderId() + 1;
@@ -85,5 +86,10 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     @Override
     public PaymentRequest save(PaymentRequest paymentRequest) {
         return paymentRequestRepository.save(paymentRequest);
+    }
+
+    @Override
+    public PaymentRequest getByIde(Long id) {
+        return paymentRequestRepository.getOne(id);
     }
 }
