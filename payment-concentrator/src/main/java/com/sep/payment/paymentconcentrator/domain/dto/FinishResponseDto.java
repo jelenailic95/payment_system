@@ -1,5 +1,6 @@
 package com.sep.scientificcentre.scientificcentre.entity.dto;
 
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.RequiredArgsConstructor;
@@ -7,9 +8,11 @@ import lombok.RequiredArgsConstructor;
 @Data
 @RequiredArgsConstructor
 @AllArgsConstructor
-public class LoginDto {
+public class FinishPaymentDto {
 
-    private String username;
-    private String password;
-    private String scName;
+    String username;
+    // imace ili paperId ili journalId
+    Long paperId;
+    String journalName;
+    String typeOfPayment;
 }

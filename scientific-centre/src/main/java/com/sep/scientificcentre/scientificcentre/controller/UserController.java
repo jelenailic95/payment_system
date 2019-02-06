@@ -5,7 +5,9 @@ import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.scientificcentre.scientificcentre.entity.User;
 import com.sep.scientificcentre.scientificcentre.entity.dto.LoginDto;
 import com.sep.scientificcentre.scientificcentre.services.UserService;
+import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -17,10 +19,14 @@ import java.io.UnsupportedEncodingException;
 public class UserController {
 
     private final UserService userService;
+    private final ModelMapper modelMapper;
+    @Value("${scientific_centre_name}")
+    private String scName;
 
     @Autowired
     public UserController(UserService userService) {
         this.userService = userService;
+        this.modelMapper = new ModelMapper();
     }
 
     @PostMapping(value = "/login")
@@ -28,7 +34,9 @@ public class UserController {
         User user = userService.login(loginDto.getUsername(), loginDto.getPassword());
         if(user == null)
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
-        return ResponseEntity.ok(user);
+        LoginDto response = modelMapper.map(user, LoginDto.class);
+        response.setScName(scName);
+        return ResponseEntity.ok(response);
 
     }
 

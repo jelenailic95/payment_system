@@ -33,7 +33,7 @@ public class PaymentController {
 
     @Autowired
     PaymentController(PaperService paperService, JournalService journalService, UserService userService,
-                      PaidJournalRepository paidJournalRepository){
+                      PaidJournalRepository paidJournalRepository) {
         this.paperService = paperService;
         this.journalService = journalService;
         this.paidJournalRepository = paidJournalRepository;
@@ -41,17 +41,12 @@ public class PaymentController {
     }
 
     @PostMapping(value = "/successful-payment")
-    public void paymentSuccessful(@RequestBody FinishPaymentDto finishPaymentDto) {
+    public String paymentSuccessful(@RequestBody FinishPaymentDto finishPaymentDto) {
         logger.info("Request - successful payment.");
 
-        String username = "david";
-        // imace ili paperId ili journalId
-        Long paperId = 1L;
-        String journalName = "Laguna";
-        String typeOfPayment = "journal";
-        User user = userService.getByUsername(username);
-        if(typeOfPayment.equals("journal")){
-            Journal journal = journalService.findByName(journalName);
+        User user = userService.getByUsername(finishPaymentDto.getUsername());
+        if (finishPaymentDto.getTypeOfPayment().equals("journal")) {
+            Journal journal = journalService.findByName(finishPaymentDto.getJournalName());
 
             Calendar cal = Calendar.getInstance();
             cal.add(Calendar.MONTH, journal.getPeriod());
@@ -60,13 +55,13 @@ public class PaymentController {
             PaidJournal paidJournal = PaidJournal.builder().journal(journal).activityDate(result).build();
             user.getJournals().add(paidJournalRepository.save(paidJournal));
 
-        }else{
-            Paper paper = paperService.getOne(paperId);
+        } else {
+            Paper paper = paperService.getOne(finishPaymentDto.getPaperId());
             user.getPapers().add(paper);
         }
         userService.create(user);
-
-
+        logger.info("Payment successfully added for user " + finishPaymentDto.getUsername());
+        return "ok";
 
     }
 }
