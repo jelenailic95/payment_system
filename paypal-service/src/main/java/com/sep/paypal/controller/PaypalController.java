@@ -20,6 +20,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.net.URL;
+import java.util.List;
 
 @RestController
 @RequestMapping
@@ -30,6 +31,9 @@ public class PaypalController {
 
     @Value("${paypal.mode}")
     private String mode;
+
+    @Value("${client.host}")
+    private String host;
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
@@ -45,8 +49,8 @@ public class PaypalController {
     public String pay(@RequestBody RequestPayment request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
-        cancelUrl = "https://localhost:4200/result/cancel";
-        successUrl = "https://localhost:4200/result/success"
+        cancelUrl = host + "/result/cancel";
+        successUrl = host + "/result/success"
                 .concat("?id=").concat(request.getClientId())
                 .concat("&secret=").concat(request.getClientSecret());
 
@@ -109,9 +113,9 @@ public class PaypalController {
                                             @RequestParam("clientId") String clientId,
                                             @RequestParam("secret") String secret) {
 
-        PlanInfo planInfo = this.paypalService.getPlanByName(name, clientId, secret);
-        if (planInfo != null) {
-            return ResponseEntity.ok(planInfo);
+        List<PlanInfo> plans = this.paypalService.getPlansByName(name, clientId, secret);
+        if (plans != null || !plans.isEmpty()) {
+            return ResponseEntity.ok(plans);
         }
         return ResponseEntity.notFound().build();
     }
@@ -120,24 +124,26 @@ public class PaypalController {
     @PostMapping(value = "plan/create-plan")
     public ResponseEntity createPlanForSubscription(@RequestBody RequestCreatePlan requestCreatePlan) {
         paypalService.createPlanForSubscription(requestCreatePlan);
-        return ResponseEntity.ok().build();
+        return ResponseEntity.ok("Successfully created plan");
     }
 
     @ApiOperation(value = "Start with subscription on some journal")
     @PostMapping(value = "plan/subscribe")
     public ResponseEntity subscribeToPlan(@RequestBody SubscribeDto subscribeDto) {
-        String clientId = subscribeDto.getClientId(); //headers.get("clientId").get(0);
-        String secret = subscribeDto.getSecret(); //headers.get("secret").get(0);
-        URL url = paypalService.subscribeToPlan(subscribeDto.getNameOfJournal(), clientId, secret);
+        String clientId = subscribeDto.getClientId();
+        String secret = subscribeDto.getSecret();
+        URL url = paypalService.subscribeToPlan(subscribeDto.getNameOfJournal(),
+                clientId, secret, subscribeDto.getPlanId());
         return ResponseEntity.ok(url);
     }
 
     @ApiOperation(value = "Finish subscription steps (Step before 'subscribeToPlan')")
     @GetMapping(value = "plan/finish-subscription")
     public ResponseEntity finishSubscription(@RequestParam("token") String token,
-                                             @RequestParam("clientId") String clientId,
-                                             @RequestParam("secret") String secret) {
-        paypalService.finishSubscription(token, clientId, secret);
+                                             @RequestParam("id") String clientId,
+                                             @RequestParam("secret") String secret,
+                                             @RequestParam("planId") String planId) {
+        paypalService.finishSubscription(token, clientId, secret, planId);
         return ResponseEntity.ok("Subscription finished");
     }
 

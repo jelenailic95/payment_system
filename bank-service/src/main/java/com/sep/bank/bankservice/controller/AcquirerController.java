@@ -13,6 +13,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -25,6 +26,9 @@ import javax.validation.Valid;
 
 @RestController
 public class AcquirerController {
+
+    @Value("${p-concentrator.host}")
+    private String pConcentratorHost;
 
     @Autowired
     private BankService bankService;
@@ -65,7 +69,7 @@ public class AcquirerController {
         // final step - send transaction information to the payment concentrator
         logger.info("Transaction object is forwarded to the payment concentrator.");
 
-        TransactionDTO finalUrl = restTemplate.postForObject("https://localhost:8443/pc/finish-transaction", transactionDTO,
+        TransactionDTO finalUrl = restTemplate.postForObject(pConcentratorHost + "/pc/finish-transaction", transactionDTO,
                 TransactionDTO.class);
 
         return ResponseEntity.ok(finalUrl);

@@ -16,4 +16,5 @@ public class PlanInfoDTO {
     private String amount;
     private String frequency;
     private String frequencyInterval;
+    private String cycles;
 }

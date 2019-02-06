@@ -14,4 +14,6 @@ public class PlanInfo {
     private String amount;
     private FrequencyPayment frequency;
     private String frequencyInterval;
+    private String cycles;
+    private String planId;
 }
