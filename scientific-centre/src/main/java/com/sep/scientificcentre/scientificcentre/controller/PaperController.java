@@ -1,5 +1,6 @@
 package com.sep.scientificcentre.scientificcentre.controller;
 
+import com.sep.scientificcentre.scientificcentre.entity.PaidJournal;
 import com.sep.scientificcentre.scientificcentre.entity.Paper;
 import com.sep.scientificcentre.scientificcentre.entity.User;
 import com.sep.scientificcentre.scientificcentre.entity.dto.FinishPaymentDto;
@@ -10,7 +11,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.*;
 
 @RestController
 @RequestMapping("/api/papers")
@@ -35,5 +36,19 @@ public class PaperController {
             Paper paper = paperService.getOne(finishPaymentDto.getPaperId());
             user.getPapers().add(paper);
             userService.create(user);
+    }
+
+    @GetMapping(value = "/my-papers/{username}")
+    public ResponseEntity<List<Paper>> getMyPapers(@RequestBody String username) {
+        User user = userService.getByUsername(username);
+        List<Paper> myPapers = new ArrayList<>();
+        myPapers.addAll(user.getPapers());
+        List<PaidJournal> journals = user.getJournals();
+        for(PaidJournal j: journals){
+            if(j.getActivityDate().before(new Date())){
+                myPapers.addAll(paperService.getByJournalName(j.getJournal().getName()));
+            }
+        }
+        return new ResponseEntity<>(myPapers, HttpStatus.OK);
     }
 }

@@ -34,11 +34,12 @@ public class Order {
     public Order() {
  }
 
-    public Order(double price_amount, String price_currency, String receive_currency, String callback_url) {
+    public Order(double price_amount, String price_currency, String receive_currency, String success_url, String cancel_url) {
         this.price_amount = price_amount;
         this.price_currency = price_currency;
        this.receive_currency = receive_currency;
-        this.callback_url = callback_url;
+        this.success_url = success_url;
+        this.cancel_url = cancel_url;
     }
 
     public Long getId() {

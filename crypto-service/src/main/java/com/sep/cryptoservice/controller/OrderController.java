@@ -4,6 +4,8 @@ import com.sep.cryptoservice.domain.Order;
 import com.sep.cryptoservice.domain.dto.*;
 import com.sep.cryptoservice.repository.OrderRepository;
 import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
@@ -27,6 +29,7 @@ public class OrderController {
     private final TaskScheduler scheduler = new ConcurrentTaskScheduler();
     private final ModelMapper modelMapper;
     private final OrderRepository orderRepository;
+    private Logger logger = LoggerFactory.getLogger(OrderController.class);
 
     @Autowired
     public OrderController(RestTemplate restTemplate, OrderRepository orderRepository) {
@@ -37,7 +40,8 @@ public class OrderController {
 
     @PostMapping("/bitcoin-payment")
     public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody BitcoinPaymentDto requestDTO) {
-        Order order = new Order(requestDTO.getRequestDTO().getAmount(), "USD", "USD", "http://ex.com");
+        Order order = new Order(requestDTO.getRequestDTO().getAmount(), "USD", "USD",
+                "https://localhost:4200/result/success", "https://localhost:4200/result/cancel");
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + requestDTO.getRequestDTO().getClientId());
         HttpEntity<Order> entity = new HttpEntity<>(order, headers);
@@ -67,14 +71,19 @@ public class OrderController {
 
                 System.out.println(o.getBody().getStatus());
                 if (o.getBody().getStatus().equals("paid")) {
-                    System.out.println(o.getBody().getStatus());
+                    logger.info("Order successfully paid.");
+
                     FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
                             journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
                     timer.cancel();
                     timer.purge();
                     restTemplate.postForEntity("https://localhost:8443/pc/successful-transaction", finishPaymentDTO, String.class);
+                }
+                if(o.getBody().getStatus().equals("invalid")){
+                    logger.info("Order is canceled.");
 
-
+                    timer.cancel();
+                    timer.purge();
                 }
             }
         };
