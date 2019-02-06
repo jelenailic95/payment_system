@@ -11,6 +11,7 @@ import com.sep.paypal.model.enumeration.PaymentMethod;
 import org.springframework.stereotype.Service;
 
 import java.net.URL;
+import java.util.List;
 
 @Service
 public interface PaypalService {
@@ -21,15 +22,15 @@ public interface PaypalService {
 
     void createPlanForSubscription(RequestCreatePlan requestCreatePlan);
 
-    URL subscribeToPlan(String nameOfJournal, String clientId, String secret);
+    URL subscribeToPlan(String nameOfJournal, String clientId, String secret, String planId);
 
-    void finishSubscription(String token, String clientId, String secret);
+    void finishSubscription(String token, String clientId, String secret, String planId);
 
     Payment createPayment(String id, String secret, Double price, String currency, PaymentMethod paymentMethod, PaymentIntent paymentIntent, String description, String journalName, String cancelUrl, String successUrl) throws PayPalRESTException;
 
     void storeTransactionToDatabase(Payment payment, AgreementWithPayee agreementWithPayee);
 
-    PlanInfo getPlanByName(String name, String clientId, String secret);
+    List<PlanInfo> getPlansByName(String name, String clientId, String secret);
 
     void addNewSeller(Seller seller);
 

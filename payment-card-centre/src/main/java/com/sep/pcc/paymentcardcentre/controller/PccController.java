@@ -7,6 +7,7 @@ import com.sep.pcc.paymentcardcentre.service.PccService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
@@ -14,6 +15,9 @@ import org.springframework.web.client.RestTemplate;
 
 @RestController
 public class PccController {
+
+    @Value("${proxy.host}")
+    private String proxyHost;
 
     @Autowired
     private PccService pccService;
@@ -23,8 +27,9 @@ public class PccController {
 
     private Logger logger = LoggerFactory.getLogger(PccController.class);
 
-    private static final String PORT = "8762/";
-    private static final String HOST = "https://localhost:";
+    /* private static final String PORT = "8762/";
+     private static final String HOST = "https://localhost:";
+   */
     private static final String PATH = "/pay-by-card-forwarded";
 
     @PostMapping("/forward-to-bank")
@@ -36,7 +41,7 @@ public class PccController {
         String bankUrl = "";
 
         if (bank != null) {
-            bankUrl = HOST + PORT + bank.getServiceName() + PATH;
+            bankUrl = proxyHost + "/" + bank.getServiceName() + PATH;
         }
 
         // todo: neki error baci ako ne postoji bank
