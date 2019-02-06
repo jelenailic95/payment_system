@@ -27,7 +27,8 @@ public class UserDetailsServiceImpl implements UserDetailsService {
 	@Override
 	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 		try {
-				String clientUsername = Utility.readToken(username);
+				String token = Utility.readToken(username);
+				String clientUsername = token.split("-")[2];
 				AppUser result = userRepository.findByUsername(clientUsername);
 				if(result == null)
 					throw new UsernameNotFoundException("Client: " + clientUsername + " not found");
