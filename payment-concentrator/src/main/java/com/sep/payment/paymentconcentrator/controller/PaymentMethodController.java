@@ -65,7 +65,7 @@ public class PaymentMethodController {
 
         Objects.requireNonNull(clients).forEach(client -> paymentMethodDTOS.add(modelMapper.map(client.getPaymentMethod(),
                 PaymentMethodDTO.class)));
-        ResponseEntity<Object> res = restTemplate.postForEntity(authProxy + "/auth",clientDTO, Object.class);
+        ResponseEntity<Object> res = restTemplate.postForEntity(authProxy + "/auth", clientDTO, Object.class);
         logger.info("This client has registered payment methods.");
         PaymentMethodsAndTokenDTO response = PaymentMethodsAndTokenDTO.builder().paymentMethodDTOS(paymentMethodDTOS).
                 amount(Double.parseDouble( token.split("-")[3]))

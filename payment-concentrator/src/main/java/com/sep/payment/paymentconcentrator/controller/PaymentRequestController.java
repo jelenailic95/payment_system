@@ -14,6 +14,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.*;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -82,7 +83,6 @@ public class PaymentRequestController {
         BitcoinPaymentDto paymentDto = BitcoinPaymentDto.builder().requestDTO(dto).paymentRequest(paymentRequest).build();
 
         ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity(proxyHost + "/crypto-service/bitcoin-payment", paymentDto, ResponseOrderDTO.class);
-
         return ResponseEntity.ok(Objects.requireNonNull(o.getBody()));
     }
 
@@ -90,9 +90,10 @@ public class PaymentRequestController {
     @PostMapping(value = "/pay-by-paypal")
     public ResponseEntity payWithPayPal(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
         logger.info("Request - pay by paypal.");
-        String client = Utility.readToken(requestDTO.getClient());
-        Client foundClient = clientService.findByClientMethod(client, "paypal");
-        RequestDTO dto = new RequestDTO(client, foundClient.getClientId(), requestDTO.getAmount());
+        String token = Utility.readToken(requestDTO.getClient());
+        String[] tokens = token.split("-");
+        Client foundClient = clientService.findByClientMethod(tokens[2], "paypal");
+        RequestDTO dto = new RequestDTO(tokens[2], foundClient.getClientId(), requestDTO.getAmount());
         dto.setClientSecret(foundClient.getClientPassword());
         String url = restTemplate.postForEntity(proxyHost + "/paypal-service/pay", dto, String.class).getBody();
         return new ResponseEntity<>(url, HttpStatus.OK);
