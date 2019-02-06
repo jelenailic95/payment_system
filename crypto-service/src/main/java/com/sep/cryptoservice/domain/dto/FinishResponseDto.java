@@ -1,4 +1,4 @@
-package com.sep.payment.paymentconcentrator.domain.dto;
+package com.sep.cryptoservice.domain.dto;
 
 
 import lombok.AllArgsConstructor;

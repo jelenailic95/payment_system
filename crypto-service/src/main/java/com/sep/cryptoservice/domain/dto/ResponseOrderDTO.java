@@ -1,7 +1,5 @@
 package com.sep.cryptoservice.domain.dto;
 
-import java.util.Date;
-
 public class ResponseOrderDTO {
     private String id;
     private String status;
