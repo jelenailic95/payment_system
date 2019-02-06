@@ -29,8 +29,7 @@ public class PaymentRequestController {
     @Value("${proxy.host}")
     private String proxyHost;
 
-    @Autowired
-    private PaymentRequestService paymentRequestService;
+
     private final PaymentRequestService paymentRequestService;
 
     private final ClientService clientService;

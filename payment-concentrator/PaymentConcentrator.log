@@ -9811,3 +9811,65 @@ Using generated security password: d5eb9a68-ee66-4819-8052-af3c98c27671
 2019-02-06 19:28:40.117  INFO 69301 --- [https-jsse-nio-8443-exec-9] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
 2019-02-06 19:28:47.336  INFO 69301 --- [https-jsse-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
 2019-02-06 19:28:47.412  INFO 69301 --- [https-jsse-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-02-06 19:44:30.531  INFO 69301 --- [Thread-11] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-02-06 19:44:30.594  INFO 69301 --- [Thread-11] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-02-06 19:44:30.951  INFO 69301 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-02-06 19:44:31.038  INFO 69301 --- [Thread-11] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-02-06 19:45:59.388  INFO 78719 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : No active profile set, falling back to default profiles: default
+2019-02-06 19:46:01.223  INFO 78719 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-06 19:46:01.438  INFO 78719 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 194ms. Found 4 repository interfaces.
+2019-02-06 19:46:02.017  INFO 78719 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=85d58a7a-1155-3b00-a824-22a347b5f0b3
+2019-02-06 19:46:02.158  INFO 78719 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$d5d2ef1] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-06 19:46:02.178  INFO 78719 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$8cdd7c23] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-06 19:46:02.185  INFO 78719 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$297731ee] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-06 19:46:03.996  INFO 78719 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8443 (https)
+2019-02-06 19:46:04.053  INFO 78719 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-06 19:46:04.053  INFO 78719 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-06 19:46:04.066  INFO 78719 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/davidvuletas/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-02-06 19:46:04.363  INFO 78719 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-06 19:46:04.375  INFO 78719 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 4974 ms
+2019-02-06 19:46:08.069  INFO 78719 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-06 19:46:08.072  INFO 78719 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'webMvcMetricsFilter' to: [/*]
+2019-02-06 19:46:08.072  INFO 78719 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-06 19:46:08.072  INFO 78719 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-06 19:46:08.072  INFO 78719 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-06 19:46:08.073  INFO 78719 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-06 19:46:08.074  INFO 78719 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'httpTraceFilter' to: [/*]
+2019-02-06 19:46:08.074  INFO 78719 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-06 19:46:08.079  INFO 78719 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-02-06 19:46:08.557  INFO 78719 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-06 19:46:08.755  INFO 78719 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-06 19:46:08.911  INFO 78719 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-06 19:46:09.041  INFO 78719 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-06 19:46:09.043  INFO 78719 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-06 19:46:09.324  INFO 78719 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-06 19:46:09.673  INFO 78719 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5Dialect
+2019-02-06 19:46:12.792  INFO 78719 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-concentrator/target/classes/import.sql)'
+2019-02-06 19:46:12.894  INFO 78719 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-06 19:46:13.122  WARN 78719 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-06 19:46:15.660  INFO 78719 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: cd1ccbd0-f853-4e86-84f6-6054643484fa
+
+2019-02-06 19:46:15.938  INFO 78719 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@3c9459e3, org.springframework.security.web.context.SecurityContextPersistenceFilter@5f77bd37, org.springframework.security.web.header.HeaderWriterFilter@4aba0c86, org.springframework.security.web.authentication.logout.LogoutFilter@747c0e12, com.sep.payment.paymentconcentrator.security.JwtTokenAuthenticationFilter@7c5d1372, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@68415e55, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@2aba4a1c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5ddfb69d, org.springframework.security.web.session.SessionManagementFilter@36e65540, org.springframework.security.web.access.ExceptionTranslationFilter@c495f7, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@58d55c11]
+2019-02-06 19:46:16.338  INFO 78719 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-06 19:46:16.442  WARN 78719 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-06 19:46:17.677  INFO 78719 --- [restartedMain] o.s.b.a.e.web.EndpointLinksResolver      : Exposing 2 endpoint(s) beneath base path '/actuator'
+2019-02-06 19:46:18.271  INFO 78719 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8443 (https) with context path ''
+2019-02-06 19:46:18.281  INFO 78719 --- [restartedMain] c.s.p.p.PaymentConcentratorApplication   : Started PaymentConcentratorApplication in 20.007 seconds (JVM running for 21.525)
+2019-02-06 19:46:18.877  INFO 78719 --- [RMI TCP Connection(10)-192.168.1.5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-06 19:46:18.879  INFO 78719 --- [RMI TCP Connection(10)-192.168.1.5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-06 19:46:18.908  INFO 78719 --- [RMI TCP Connection(10)-192.168.1.5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 29 ms
+2019-02-06 19:46:38.477  INFO 78719 --- [https-jsse-nio-8443-exec-4] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-02-06 19:47:35.500  INFO 78719 --- [https-jsse-nio-8443-exec-2] c.s.p.p.c.SubscriptionController         : Finishing payment - pay paypal.
+2019-02-06 19:55:41.477  INFO 78719 --- [https-jsse-nio-8443-exec-6] c.s.p.p.c.SubscriptionController         : Finishing payment - pay paypal.
+2019-02-06 20:02:19.955  INFO 78719 --- [https-jsse-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-02-06 20:02:21.106  INFO 78719 --- [https-jsse-nio-8443-exec-8] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-02-06 20:03:04.156  INFO 78719 --- [https-jsse-nio-8443-exec-3] c.s.p.p.c.SubscriptionController         : Finishing payment - pay paypal.
+2019-02-06 20:12:42.085  INFO 78719 --- [https-jsse-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-02-06 20:12:42.629  INFO 78719 --- [https-jsse-nio-8443-exec-10] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-02-06 20:12:57.122  INFO 78719 --- [https-jsse-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : Request - return all possible payment methods.
+2019-02-06 20:12:57.168  INFO 78719 --- [https-jsse-nio-8443-exec-3] c.s.p.p.c.PaymentMethodController        : This client has registered payment methods.
+2019-02-06 20:15:50.749  INFO 78719 --- [https-jsse-nio-8443-exec-6] c.s.p.p.c.SubscriptionController         : Finishing payment - pay paypal.
