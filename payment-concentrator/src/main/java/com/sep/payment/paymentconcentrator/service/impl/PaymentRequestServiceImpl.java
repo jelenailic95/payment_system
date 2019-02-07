@@ -15,13 +15,17 @@ import org.springframework.stereotype.Service;
 @Service
 public class PaymentRequestServiceImpl implements PaymentRequestService {
 
-    @Autowired
-    private PaymentRequestRepository paymentRequestRepository;
+    private final PaymentRequestRepository paymentRequestRepository;
 
-    @Autowired
-    private ClientRepository clientRepository;
+    private final ClientRepository clientRepository;
 
     private Logger logger = LoggerFactory.getLogger(PaymentRequestServiceImpl.class);
+
+    @Autowired
+    public PaymentRequestServiceImpl(PaymentRequestRepository paymentRequestRepository, ClientRepository clientRepository) {
+        this.paymentRequestRepository = paymentRequestRepository;
+        this.clientRepository = clientRepository;
+    }
 
     @Override
     public PaymentRequest createPaymentRequest(String client, double amount, String bankName, String[] tokens) {

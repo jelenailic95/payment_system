@@ -12,8 +12,8 @@ insert into user (id,username, password, email, first_name, last_name, city, zip
 insert into user (id,username, password, email, first_name, last_name, city, zip_code, country, role) values
 (5,'Company1', '123', 'laguna@gamil.com', 'Laguna', 'Lagunic', 'Nis', 18000, 'Serbia', 'COMPANY');
 
-insert into journal (issn_number, name, open_access, price, period) values ('N1', 'Laguna', true ,1, 12);
-insert into journal (issn_number, name, open_access,  price, period) values ('N2', 'National', false, 1,2 );
+insert into journal (issn_number, name, open_access, price, period) values ('N1', 'Laguna', false ,1, 12);
+insert into journal (issn_number, name, open_access,  price, period) values ('N2', 'National', true, 1,2 );
 
 insert into user_my_journals (user_id, my_journals_id) values (5,1);
 insert into user_my_journals (user_id, my_journals_id) values (5,2);

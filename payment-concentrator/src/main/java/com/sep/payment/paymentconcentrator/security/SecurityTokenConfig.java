@@ -34,7 +34,7 @@ public class SecurityTokenConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers(HttpMethod.POST, "/pc/payment-methods/**").permitAll()
                 .antMatchers(HttpMethod.GET, "/pc/get-token/**").permitAll()
                 .antMatchers(HttpMethod.POST, "/pc//pay-by-bank-card").hasAuthority("CLIENT")
-                .antMatchers(HttpMethod.POST, "/pc/successful-transaction").permitAll()
+                .antMatchers(HttpMethod.POST, "/pc/successful-transaction/**").permitAll()
                 .anyRequest().authenticated()
         ;
     }

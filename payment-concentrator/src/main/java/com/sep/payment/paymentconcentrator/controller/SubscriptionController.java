@@ -6,6 +6,7 @@ import com.sep.payment.paymentconcentrator.domain.dto.RequestCreatePlan;
 import com.sep.payment.paymentconcentrator.domain.dto.SubscribeDto;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.service.ClientService;
+import com.sep.payment.paymentconcentrator.utility.Utility;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -15,6 +16,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
+import java.io.UnsupportedEncodingException;
 import java.net.URL;
 import java.util.List;
 
@@ -40,8 +42,9 @@ public class SubscriptionController {
 
 
     @GetMapping("plan/{journal}/{method}")
-    public ResponseEntity getSubscriptionPlanForJournal(@PathVariable String journal, @PathVariable String method) {
-        // todo poslati ceo token pa isparsirati
+    public ResponseEntity getSubscriptionPlanForJournal(@PathVariable String journal, @PathVariable String method) throws UnsupportedEncodingException {
+        String token = Utility.readToken(journal);
+        journal = token.split("-")[2];
         Client client = this.clientService.findByClientMethod(journal, method);
         return this.restTemplate.getForEntity(proxyHost + "/paypal-service/get-plan"
                 .concat("?name=").concat(journal)

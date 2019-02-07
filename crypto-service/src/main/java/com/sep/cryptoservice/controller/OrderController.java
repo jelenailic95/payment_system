@@ -3,6 +3,7 @@ package com.sep.cryptoservice.controller;
 import com.sep.cryptoservice.domain.Order;
 import com.sep.cryptoservice.domain.dto.*;
 import com.sep.cryptoservice.repository.OrderRepository;
+import com.sep.cryptoservice.security.AES;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -15,7 +16,6 @@ import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
@@ -30,10 +30,11 @@ public class OrderController {
     private final ModelMapper modelMapper;
     private final OrderRepository orderRepository;
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
-
+    private final AES aes;
     @Autowired
-    public OrderController(RestTemplate restTemplate, OrderRepository orderRepository) {
+    public OrderController(RestTemplate restTemplate, OrderRepository orderRepository, AES aes) {
         this.restTemplate = restTemplate;
+        this.aes = aes;
         this.modelMapper = new ModelMapper();
         this.orderRepository = orderRepository;
     }
@@ -43,7 +44,8 @@ public class OrderController {
         Order order = new Order(requestDTO.getRequestDTO().getAmount(), "USD", "USD",
                 "https://localhost:4200/result/success", "https://localhost:4200/result/cancel");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + requestDTO.getRequestDTO().getClientId());
+        String decrToken = aes.decrypt(requestDTO.getRequestDTO().getClientId());
+        headers.add("Authorization", "Bearer " + decrToken);
         HttpEntity<Order> entity = new HttpEntity<>(order, headers);
 
         ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://api-sandbox.coingate.com/v2/orders",
@@ -52,7 +54,7 @@ public class OrderController {
         orderRepository.save(newOrder);
         o.getBody().setClientId(requestDTO.getRequestDTO().getClientId());
 
-        check(o.getBody().getId(), requestDTO.getRequestDTO().getClientId(), requestDTO.getPaymentRequest());
+        check(o.getBody().getId(), decrToken, requestDTO.getPaymentRequest());
         return o;
     }
 
@@ -73,11 +75,12 @@ public class OrderController {
                 if (o.getBody().getStatus().equals("paid")) {
                     logger.info("Order successfully paid.");
 
-                    FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
-                            journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
-                    timer.cancel();
+//                    FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
+//                            journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
+//                    timer.cancel();
                     timer.purge();
-                    restTemplate.postForEntity("https://localhost:8443/pc/successful-transaction", finishPaymentDTO, String.class);
+                    restTemplate.postForEntity("https://localhost:8443/pc/successful-transaction/".concat(p.getId().toString()),
+                            null, String.class);
                 }
                 if(o.getBody().getStatus().equals("invalid")){
                     logger.info("Order is canceled.");
