@@ -27,9 +27,6 @@ public class PccController {
 
     private Logger logger = LoggerFactory.getLogger(PccController.class);
 
-    /* private static final String PORT = "8762/";
-     private static final String HOST = "https://localhost:";
-   */
     private static final String PATH = "/pay-by-card-forwarded";
 
     @PostMapping("/forward-to-bank")
@@ -42,11 +39,10 @@ public class PccController {
 
         if (bank != null) {
             bankUrl = proxyHost + "/" + bank.getServiceName() + PATH;
+        }else{
+            return null;
         }
 
-        // todo: neki error baci ako ne postoji bank
-
-        // vraca banci prodavca acqOrderId acqTimestamp, issuerOrderId, issuerTimestamp i status transakcije
         return restTemplate.postForObject(bankUrl, acquirerDataDTO, PaymentResultDTO.class);
     }
 }

@@ -31,7 +31,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public List<Client> getAllMethods(String client) {
-        return clientRepository.findByClient(client);
+        return clientRepository.findByJournal(client);
     }
 
     @Override
@@ -49,7 +49,10 @@ public class ClientServiceImpl implements ClientService {
             clientPassword = aes.encrypt(clientPassword);
         }
 
-        if (client == null){
+        System.out.println("KRIPTOVANO: " + encryptedClientId);
+        System.out.println("KRIPTOVANO: " + clientPassword);
+
+        if (client == null) {
             Client newClient = new Client(clientName, clientName, encryptedClientId, clientPassword, paymentMethod);
             clientRepository.save(newClient);
 
@@ -59,6 +62,10 @@ public class ClientServiceImpl implements ClientService {
 
         client.setClientId(encryptedClientId);
         client.setClientPassword(clientPassword);
+
+        // todo: testirati
+        client.getPaymentMethod().setMethodName(methodName);
+
         clientRepository.save(client);
         logger.info("Client {} has successfully changed credentials for the {}.", clientName, method);
         return client;
@@ -66,7 +73,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public void methodUnsubscribe(String client, String method, String methodName) {
-        Client clientDb = clientRepository.findByClientAndPaymentMethodMethodAndPaymentMethodMethodName(client, method,
+        Client clientDb = clientRepository.findByJournalAndPaymentMethodMethodAndPaymentMethodMethodName(client, method,
                 methodName);
 
         clientRepository.delete(clientDb);
@@ -75,7 +82,7 @@ public class ClientServiceImpl implements ClientService {
 
     @Override
     public Client findByClientMethod(String client, String method) {
-        return clientRepository.findByClientAndPaymentMethodMethodName(client, method);
+        return clientRepository.findByJournalAndPaymentMethodMethodName(client, method);
     }
 
     @Override

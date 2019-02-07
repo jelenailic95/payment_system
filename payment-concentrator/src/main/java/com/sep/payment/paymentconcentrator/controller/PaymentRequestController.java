@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -28,8 +29,6 @@ public class PaymentRequestController {
     @Value("${proxy.host}")
     private String proxyHost;
 
-    private final AES aes;
-
     private final PaymentRequestService paymentRequestService;
 
     private final ClientService clientService;
@@ -41,16 +40,16 @@ public class PaymentRequestController {
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
 
     @Autowired
-    public PaymentRequestController(PaymentRequestService paymentRequestService,
-                                    ClientService clientService, RestTemplate restTemplate, AES aes) {
+    public PaymentRequestController(PaymentRequestService paymentRequestService, ClientService clientService,
+                                    RestTemplate restTemplate) {
         this.paymentRequestService = paymentRequestService;
         this.clientService = clientService;
         this.restTemplate = restTemplate;
-        this.aes = aes;
     }
 
     @PostMapping(value = "/pay-by-bank-card")
-    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws
+            UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
         String token = Utility.readToken(requestDTO.getClient());
         String[] tokens = token.split("-");
@@ -67,7 +66,8 @@ public class PaymentRequestController {
 
 
     @PostMapping(value = "/pay-by-bitcoin")
-    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws
+            UnsupportedEncodingException {
         logger.info("Request - pay by bitcoin.");
         // localStorage.getItem('user') + '-journal' + '-' + journal.name + '-' + journal.price
         String token = Utility.readToken(requestDTO.getClient());
@@ -99,7 +99,7 @@ public class PaymentRequestController {
         RequestDTO dto = new RequestDTO(tokens[2], foundClient.getClientId(), requestDTO.getAmount());
         dto.setClientSecret(foundClient.getClientPassword());
 
-PaymentRequest paymentRequest;
+        PaymentRequest paymentRequest;
         if (tokens[1].equals("journal"))
             paymentRequest = paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]),
                     tokens[2], null, tokens[1], tokens[4]);
@@ -126,6 +126,4 @@ PaymentRequest paymentRequest;
                 .concat("&PayerID=").concat(finishPaymentDTO.getPayerId()), Boolean.class).getBody();
         return new ResponseEntity<>(success, HttpStatus.OK);
     }
-
-
 }
