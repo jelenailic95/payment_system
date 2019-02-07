@@ -1,7 +1,8 @@
-package com.sep.cryptoservice.domain.dto;
+package com.sep.paypal.model.dto;
 
-public class PaymentRequest {
+public class PaymentRequestDto {
     private Long id;
+
     private double amount;
     private Long paperId;
 
@@ -13,7 +14,7 @@ public class PaymentRequest {
     String scName;
 
 
-    public PaymentRequest() {
+    public PaymentRequestDto() {
     }
 
     public Long getId() {

@@ -11,10 +11,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
 @RestController
@@ -50,12 +47,18 @@ public class TransactionController {
                 transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(),
                 transaction.getPaymentId(), resultUrl, transaction.getAmount(), transaction.getStatus());
 
+        PaymentRequest p = paymentRequestRepository.findByMerchantOrderId(transactionDTO.getMerchantOrderId());
+        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+                p, String.class);
         return ResponseEntity.ok().body(transactionCustomer);
     }
 
-    @PostMapping(value = "/successful-transaction")
-    public String successfulTransaction(@RequestBody FinishResponseDto p) {
+    @PostMapping(value = "/successful-transaction/{id}")
+    public String successfulTransaction(@PathVariable String id) {
         logger.info("Request - successful transaction.");
+        PaymentRequest p = paymentRequestRepository.getOne(Long.parseLong(id));
+//        FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
+//                journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
 
         restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
                 p, String.class);

@@ -300,3 +300,10 @@ Using generated security password: 0e48cae3-3d0a-4ac1-9715-05aed4d215ed
 2019-02-07 13:16:53.375  INFO 3580 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8444 (https) with context path ''
 2019-02-07 13:16:53.412  INFO 3580 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Started PaymentCardCentreApplication in 84.158 seconds (JVM running for 89.944)
 2019-02-07 17:20:53.329  WARN 3580 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m51s943ms265µs400ns).
+2019-02-07 20:47:01.469  INFO 3580 --- [https-jsse-nio-8444-exec-7] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-07 20:47:01.490  INFO 3580 --- [https-jsse-nio-8444-exec-7] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-07 20:47:01.739  INFO 3580 --- [https-jsse-nio-8444-exec-7] o.s.web.servlet.DispatcherServlet        : Completed initialization in 248 ms
+2019-02-07 20:47:02.450  INFO 3580 --- [https-jsse-nio-8444-exec-7] c.s.p.p.controller.PccController         : Request - forward to the customer's bank. Acquirer order id: 1000000001
+2019-02-07 20:47:02.596  INFO 3580 --- [https-jsse-nio-8444-exec-7] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-02-07 20:47:03.125  INFO 3580 --- [https-jsse-nio-8444-exec-7] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: UniCredit
+2019-02-07 20:47:03.288  INFO 3580 --- [https-jsse-nio-8444-exec-7] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.

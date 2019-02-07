@@ -36,6 +36,7 @@ public class UserController {
             return new ResponseEntity<>(HttpStatus.NOT_FOUND);
         LoginDto response = modelMapper.map(user, LoginDto.class);
         response.setScName(scName);
+        response.setUser(user);
         return ResponseEntity.ok(response);
 
     }

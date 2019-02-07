@@ -39,13 +39,13 @@ public class PaperController {
     }
 
     @GetMapping(value = "/my-papers/{username}")
-    public ResponseEntity<List<Paper>> getMyPapers(@RequestBody String username) {
+    public ResponseEntity<List<Paper>> getMyPapers(@PathVariable String username) {
         User user = userService.getByUsername(username);
         List<Paper> myPapers = new ArrayList<>();
         myPapers.addAll(user.getPapers());
         List<PaidJournal> journals = user.getJournals();
         for(PaidJournal j: journals){
-            if(j.getActivityDate().before(new Date())){
+            if(j.getActivityDate().after(new Date())){
                 myPapers.addAll(paperService.getByJournalName(j.getJournal().getName()));
             }
         }

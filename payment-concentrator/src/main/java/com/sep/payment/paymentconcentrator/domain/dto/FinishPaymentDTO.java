@@ -14,4 +14,5 @@ public class FinishPaymentDTO {
     private String secret;
     private String paymentId;
     private String payerId;
+    private String request;
 }
