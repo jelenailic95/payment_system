@@ -81,10 +81,15 @@ public class PaymentMethodController {
     @PostMapping(value = "/method-subscribe")
     public ResponseEntity enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO)
             throws UnsupportedEncodingException {
+
         logger.info("Request - enable {} for the client {}", newMethodDTO.getMethod(), newMethodDTO.getClientName());
 
-        String token = Utility.readToken(newMethodDTO.getClientName());
-        String clientName = token.split("-")[2];
+        String token = Utility.readToken(newMethodDTO.getClientId());
+        String[] tokens = token.split("-");
+        String clientName = tokens[2];
+
+//        String token = Utility.readToken(clientDTO.getClientId());
+//        String clientName = token.split("-")[2];
 
         Client client = clientService.methodSubscribe(clientName, newMethodDTO.getClientId(),
                 newMethodDTO.getClientPassword(), newMethodDTO.getMethod(), newMethodDTO.getMethodName());
@@ -148,13 +153,5 @@ public class PaymentMethodController {
         logger.info("Payment method is successfully returned.");
 
         return ResponseEntity.ok(paymentMethodDetailsDTO);
-    }
-
-    @PostMapping(value = "/toj")
-    public void p(@RequestBody String t) {
-        String enc = aes.encrypt(t);
-        System.out.println(enc);
-        String dec = aes.decrypt(enc);
-        System.out.println(dec);
     }
 }

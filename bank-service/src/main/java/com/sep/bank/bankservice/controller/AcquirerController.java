@@ -6,9 +6,7 @@ import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
 import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
 import com.sep.bank.bankservice.entity.dto.TransactionDTO;
 import com.sep.bank.bankservice.repository.CardRepository;
-import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.BankService;
-import com.sep.bank.bankservice.service.CardService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -33,21 +31,18 @@ public class AcquirerController {
     @Autowired
     private BankService bankService;
 
-    @Autowired
-    private CardRepository cardRepository;
-
-    private ModelMapper modelMapper = new ModelMapper();
-
-    @Autowired
-    CardService cardService;
-
-    @Autowired
-    private AES aes;
+    private final ModelMapper modelMapper = new ModelMapper();
 
     @Autowired
     private RestTemplate restTemplate;
 
     private Logger logger = LoggerFactory.getLogger(AcquirerController.class);
+
+    @Autowired
+    public AcquirerController(BankService bankService, RestTemplate restTemplate) {
+        this.bankService = bankService;
+        this.restTemplate = restTemplate;
+    }
 
     @PostMapping("/get-payment-url")
     public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody PaymentRequestDTO request) {
@@ -69,8 +64,8 @@ public class AcquirerController {
         // final step - send transaction information to the payment concentrator
         logger.info("Transaction object is forwarded to the payment concentrator.");
 
-        TransactionDTO finalUrl = restTemplate.postForObject(pConcentratorHost + "/pc/finish-transaction", transactionDTO,
-                TransactionDTO.class);
+        TransactionDTO finalUrl = restTemplate.postForObject(pConcentratorHost + "/pc/finish-transaction",
+                transactionDTO, TransactionDTO.class);
 
         return ResponseEntity.ok(finalUrl);
     }

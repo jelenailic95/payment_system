@@ -39,10 +39,11 @@ public class CardServiceImpl implements CardService {
         for (Card c : cards) {
             // check if the PAN number is the same
             if (aes.decrypt(c.getPan()).equals(pan)) {
+                String dbName = c.getCardHolderName();
 
                 // if the PAN number is the same, check if other fields are equal with the given card data
                 if (aes.decrypt(c.getExpirationDate()).equals(date)
-                        && aes.decrypt(c.getCardHolderName()).equals(name)
+                        && ((aes.decrypt(dbName)).toUpperCase()).equals(name.toUpperCase())
                         && aes.decrypt(c.getSecurityCode()).equals(code)) {
                     return c;
                 }

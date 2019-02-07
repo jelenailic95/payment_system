@@ -12,6 +12,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -43,15 +44,16 @@ public class PaymentRequestController {
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
 
     @Autowired
-    public PaymentRequestController(PaymentRequestService paymentRequestService,
-                                    ClientService clientService, RestTemplate restTemplate, AES aes) {
+    public PaymentRequestController(PaymentRequestService paymentRequestService, ClientService clientService,
+                                    RestTemplate restTemplate) {
         this.paymentRequestService = paymentRequestService;
         this.clientService = clientService;
         this.restTemplate = restTemplate;
     }
 
     @PostMapping(value = "/pay-by-bank-card")
-    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws
+            UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
         String token = Utility.readToken(requestDTO.getClient());
         String[] tokens = token.split("-");
@@ -68,7 +70,8 @@ public class PaymentRequestController {
 
 
     @PostMapping(value = "/pay-by-bitcoin")
-    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws
+            UnsupportedEncodingException {
         logger.info("Request - pay by bitcoin.");
         // localStorage.getItem('user') + '-journal' + '-' + journal.name + '-' + journal.price
         String token = Utility.readToken(requestDTO.getClient());
@@ -127,6 +130,4 @@ public class PaymentRequestController {
                 .concat("&PayerID=").concat(finishPaymentDTO.getPayerId()), Boolean.class).getBody();
         return new ResponseEntity<>(success, HttpStatus.OK);
     }
-
-
 }
