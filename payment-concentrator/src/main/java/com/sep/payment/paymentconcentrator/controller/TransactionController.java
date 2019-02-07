@@ -3,7 +3,6 @@ package com.sep.payment.paymentconcentrator.controller;
 import com.sep.payment.paymentconcentrator.domain.dto.FinishResponseDto;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultUrlDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultDTO;
-import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.domain.entity.Transaction;
 import com.sep.payment.paymentconcentrator.repository.PaymentRequestRepository;
 import com.sep.payment.paymentconcentrator.service.TransactionService;
@@ -51,11 +50,6 @@ public class TransactionController {
                 transaction.getAcquirerOrderId(), transaction.getAcquirerTimestamp(),
                 transaction.getPaymentId(), resultUrl, transaction.getAmount(), transaction.getStatus());
 
-        System.out.println(transactionCustomer.getResultUrl());
-        System.out.println(transactionCustomer.getAcquirerOrderId());
-        System.out.println(transactionCustomer.getAmount());
-
-        // todo: pozvati
         return ResponseEntity.ok().body(transactionCustomer);
     }
 

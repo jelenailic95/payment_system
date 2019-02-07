@@ -7,4 +7,5 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface PaymentRequestRepository extends JpaRepository<PaymentRequest, Long> {
     PaymentRequest findByPaymentUrl(String paymentUrl);
+    PaymentRequest findByMerchantOrderId(Long merchantOrderId);
 }

@@ -3,7 +3,6 @@ package com.sep.bank.bankservice.controller;
 import com.sep.bank.bankservice.entity.Account;
 import com.sep.bank.bankservice.entity.PaymentRequest;
 import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
-import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
 import com.sep.bank.bankservice.entity.dto.RegisterNewAccountDTO;
 import com.sep.bank.bankservice.service.BankService;
 import org.slf4j.Logger;
@@ -17,10 +16,14 @@ import static org.springframework.http.ResponseEntity.ok;
 @RestController
 public class BankController {
 
-    @Autowired
     private BankService bankService;
 
     private Logger logger = LoggerFactory.getLogger(BankController.class);
+
+    @Autowired
+    public BankController(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @PostMapping("/create-account")
     public ResponseEntity<Account> registerNewAccount(@RequestBody RegisterNewAccountDTO request) {
@@ -48,13 +51,4 @@ public class BankController {
 
         return ResponseEntity.ok(paymentDataDTO);
     }
-
-//    @GetMapping(value = "/get-token")
-//    public ResponseEntity<String> getToken() throws UnsupportedEncodingException {
-//        Algorithm algorithm = Algorithm.HMAC256("s4T2zOIWHMM1sxq");
-//        String token = JWT.create()
-//                .withClaim("client", "Laguna")
-//                .sign(algorithm);
-//        return ResponseEntity.ok(token);
-//    }
 }

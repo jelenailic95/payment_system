@@ -14,7 +14,7 @@ public class AccountServiceImpl implements AccountService {
     private AccountRepository accountRepository;
 
     @Override
-    public Account create(Account account){
+    public Account create(Account account) {
         return accountRepository.save(account);
     }
 
@@ -24,9 +24,13 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public void saveAccount(Account account){
+    public void saveAccount(Account account) {
         accountRepository.save(account);
     }
 
+    @Override
+    public Account getAccount(Long id) {
+        return accountRepository.getOne(id);
+    }
 
 }

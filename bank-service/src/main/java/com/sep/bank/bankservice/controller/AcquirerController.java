@@ -5,10 +5,7 @@ import com.sep.bank.bankservice.entity.dto.CardAmountDTO;
 import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
 import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
 import com.sep.bank.bankservice.entity.dto.TransactionDTO;
-import com.sep.bank.bankservice.repository.CardRepository;
-import com.sep.bank.bankservice.security.AES;
 import com.sep.bank.bankservice.service.BankService;
-import com.sep.bank.bankservice.service.CardService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -35,19 +32,21 @@ public class AcquirerController {
 
     @Autowired
     private CardRepository cardRepository;
+    private final BankService bankService;
 
-    private ModelMapper modelMapper = new ModelMapper();
+    private final ModelMapper modelMapper = new ModelMapper();
 
-    @Autowired
-    CardService cardService;
-
-    @Autowired
-    private AES aes;
 
     @Autowired
     private RestTemplate restTemplate;
 
     private Logger logger = LoggerFactory.getLogger(AcquirerController.class);
+
+    @Autowired
+    public AcquirerController(BankService bankService, RestTemplate restTemplate) {
+        this.bankService = bankService;
+        this.restTemplate = restTemplate;
+    }
 
     @PostMapping("/get-payment-url")
     public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody PaymentRequestDTO request) {
