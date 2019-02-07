@@ -9,6 +9,8 @@ public class RequestDTO {
     private String clientId;
     @Column(precision=10, scale=2)
     private double amount;
+    private String currency;
+
 
     public RequestDTO() {
     }
@@ -41,5 +43,13 @@ public class RequestDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getCurrency() {
+        return currency;
+    }
+
+    public void setCurrency(String currency) {
+        this.currency = currency;
     }
 }

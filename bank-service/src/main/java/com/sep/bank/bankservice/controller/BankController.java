@@ -1,15 +1,18 @@
 package com.sep.bank.bankservice.controller;
 
 import com.sep.bank.bankservice.entity.Account;
+import com.sep.bank.bankservice.entity.PaymentRequest;
+import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
+import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
 import com.sep.bank.bankservice.entity.dto.RegisterNewAccountDTO;
 import com.sep.bank.bankservice.service.BankService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import static org.springframework.http.ResponseEntity.ok;
 
 @RestController
 public class BankController {
@@ -26,7 +29,24 @@ public class BankController {
         Account account = bankService.registerNewAccount(request.getFullName(), request.getEmail(), request.getBankName());
 
         logger.info("New account is successfully registered.");
-        return ResponseEntity.ok(account);
+        return ok(account);
+    }
+
+    @PostMapping("/payment")
+    private ResponseEntity getPaymentRequest(@RequestBody String paymentUrl) {
+        logger.info("Request - get payment request for the payment url: {}", paymentUrl);
+        PaymentRequest paymentRequest = bankService.getPaymentRequest(paymentUrl);
+        PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
+
+        if (paymentRequest != null) {
+            paymentDataDTO.setAmount(paymentRequest.getAmount());
+            paymentDataDTO.setMerchantOrderId(paymentRequest.getMerchantOrderId());
+            paymentDataDTO.setPaymentId(paymentRequest.getPaymentId());
+        }
+
+        logger.info("Returned payment request: {}", paymentDataDTO.toString());
+
+        return ResponseEntity.ok(paymentDataDTO);
     }
 
 //    @GetMapping(value = "/get-token")

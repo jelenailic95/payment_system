@@ -9,7 +9,7 @@ import com.paypal.svcs.types.aa.AccountIdentifierType;
 import com.paypal.svcs.types.aa.GetVerifiedStatusRequest;
 import com.paypal.svcs.types.aa.GetVerifiedStatusResponse;
 import com.paypal.svcs.types.common.RequestEnvelope;
-import com.sep.paypal.config.AdaptiveConfiguration;
+import com.sep.paypal.config.*;
 import com.sep.paypal.exception.NotFoundException;
 import com.sep.paypal.model.dto.PlanInfo;
 import com.sep.paypal.model.dto.RequestCreatePlan;
@@ -52,6 +52,9 @@ public class PaypalServiceImpl implements PaypalService {
     @Value("${paypal.mode}")
     private String mode;
 
+    @Value("${client.host}")
+    private String host;
+
     @Autowired
     public PaypalServiceImpl(APIContext apiContext, JournalPlanRepository journalPlanRepository, TransactionRepository transactionRepository, SellerRepository sellerRepository) {
         this.apiContext = apiContext;
@@ -72,17 +75,9 @@ public class PaypalServiceImpl implements PaypalService {
         amount.setTotal(String.valueOf(total));
         amount.setDetails(details);
 
-        /*Seller seller = this.sellerRepository.findSellerByJournalMail(emailPayee);
-        if (seller == null) {
-            throw new NotFoundException("mail", emailPayee);
-        } else {
-            Payee payee = new Payee();
-            payee.setEmail(emailPayee);*/
-
         Transaction transaction = new Transaction();
         transaction.setDescription(description);
         transaction.setAmount(amount);
-        //transaction.setPayee(payee);
 
         Item item = new Item();
         item.setName(journalName).setQuantity("1").setCurrency(currency).setPrice(String.valueOf(total));
@@ -154,7 +149,7 @@ public class PaypalServiceImpl implements PaypalService {
         }
         plan.setName(request.getNameOfJournal());
         plan.setDescription(request.getDescription());
-        plan.setType("INFINITE");
+        plan.setType("FIXED");
 
 
         PaymentDefinition paymentDefinition = new PaymentDefinition();
@@ -175,10 +170,12 @@ public class PaypalServiceImpl implements PaypalService {
 
         MerchantPreferences merchantPreferences = new MerchantPreferences();
         merchantPreferences.setSetupFee(currency);
-        merchantPreferences.setCancelUrl("https://example.com/cancel");
-        String successUrl = "http://localhost:8762/paypal-service/plan/finish-subscription";
-        successUrl = successUrl.concat("?clientId=").concat(request.getClientId());
+        merchantPreferences.setCancelUrl(host + "/cancel");
+        String successUrl = host + "/result/success";
+        successUrl = successUrl.concat("?id=").concat(request.getClientId());
         successUrl = successUrl.concat("&secret=").concat(request.getClientSecret());
+        successUrl = successUrl.concat("&subscription=").concat("true");
+
         merchantPreferences.setReturnUrl(successUrl);
         merchantPreferences.setMaxFailAttempts("0");
         merchantPreferences.setAutoBillAmount("YES");
@@ -191,7 +188,6 @@ public class PaypalServiceImpl implements PaypalService {
         try {
             APIContext apiContext = new APIContext(clientId, secret, mode);
             Plan createdPlan = plan.create(apiContext);
-
             logger.info("Created plan with id = {}", createdPlan.getId());
             logger.info("Plan state = {}", createdPlan.getState());
             // Set up plan activate PATCH request
@@ -221,7 +217,7 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public URL subscribeToPlan(String nameOfJournal, String clientId, String secret) {
+    public URL subscribeToPlan(String nameOfJournal, String clientId, String secret, String planId) {
         Agreement agreement = new Agreement();
         agreement.setName(String.format("Subscription for %s", nameOfJournal));
         agreement.setDescription(nameOfJournal);
@@ -232,7 +228,7 @@ public class PaypalServiceImpl implements PaypalService {
         agreement.setStartDate(df.format(rightNow));
 
         Plan plan = new Plan();
-        JournalPlan journalPlan = journalPlanRepository.findJournalPlanByJournal(nameOfJournal);
+        JournalPlan journalPlan = journalPlanRepository.findJournalPlanByPlanId(planId);
         if (journalPlan == null) {
             throw new NotFoundException("name", nameOfJournal);
         }
@@ -248,7 +244,7 @@ public class PaypalServiceImpl implements PaypalService {
 
             for (Links links : agreement.getLinks()) {
                 if ("approval_url".equals(links.getRel())) {
-                    return new URL(links.getHref());
+                    return new URL(links.getHref().concat("&planId=").concat(journalPlan.getPlanId()));
                     //REDIRECT USER TO url
                 }
             }
@@ -260,18 +256,18 @@ public class PaypalServiceImpl implements PaypalService {
 
 
     @Override
-    public void finishSubscription(String token, String clientId, String secret) {
+    public void finishSubscription(String token, String clientId, String secret, String planId) {
         Agreement agreement = new Agreement();
         agreement.setToken(token);
 
         try {
             Agreement activeAgreement = agreement.execute(new APIContext(clientId, secret, mode), agreement.getToken());
             activeAgreement.setState("active");
-            JournalPlan journalPlan = this.journalPlanRepository.findJournalPlanByJournal(activeAgreement.getDescription());
-            //transferToPayee(activeAgreement, journalPlan.getPayee());
             AgreementWithPayee agreementWithPayee = new AgreementWithPayee();
             agreementWithPayee.setAgreement(activeAgreement);
-            agreementWithPayee.setPayee(journalPlan.getPayee());
+
+            agreementWithPayee.setPayee(this.sellerRepository.
+                    findSellerByClientIdAndSecret(clientId, secret).getJournalMail());
             storeTransactionToDatabase(null, agreementWithPayee);
 
             logger.info("Agreement created with ID {}", activeAgreement.getId());
@@ -340,7 +336,7 @@ public class PaypalServiceImpl implements PaypalService {
             Agreement agreement = agreementWithPayee.getAgreement();
             transactionPayment = TransactionPayment.builder()
                     .amount(agreement.getPlan().getPaymentDefinitions().get(0).getAmount().getValue())
-                    .currency("USD")
+                    .currency("EUR")
                     .createTime(LocalDateTime.now().toString())
                     .state(agreement.getState())
                     .payerEmail(agreement.getPayer().getPayerInfo().getEmail())
@@ -355,30 +351,35 @@ public class PaypalServiceImpl implements PaypalService {
     }
 
     @Override
-    public PlanInfo getPlanByName(String name, String clientId, String secret) {
-        String id = "";
+    public List<PlanInfo> getPlansByName(String name, String clientId, String secret) {
+        List<JournalPlan> plans;
+        List<PlanInfo> plansDto = new ArrayList<>();
         try {
-            id = this.journalPlanRepository.findJournalPlanByJournal(name).getPlanId();
+            plans = this.journalPlanRepository.findJournalPlansByJournal(name);
         } catch (NullPointerException e) {
             return null;
         }
         PlanInfo planInfo = null;
         try {
-            Plan plan = Plan.get(new APIContext(clientId, secret, mode), id);
-            Currency amount = plan.getPaymentDefinitions().get(0).getAmount();
-            String freq = plan.getPaymentDefinitions().get(0).getFrequency();
-            String interval = plan.getPaymentDefinitions().get(0).getFrequencyInterval();
-
-            planInfo = PlanInfo.builder().amount(amount.getValue())
-                    .currency(amount.getCurrency())
-                    .description(plan.getDescription())
-                    .name(plan.getName())
-                    .frequency(FrequencyPayment.valueOf(freq.toUpperCase()))
-                    .frequencyInterval(interval).build();
+            for (JournalPlan jp : plans) {
+                Plan plan = Plan.get(new APIContext(clientId, secret, mode), jp.getPlanId());
+                Currency amount = plan.getPaymentDefinitions().get(0).getAmount();
+                String freq = plan.getPaymentDefinitions().get(0).getFrequency();
+                String interval = plan.getPaymentDefinitions().get(0).getFrequencyInterval();
+                planInfo = PlanInfo.builder().amount(amount.getValue())
+                        .currency(amount.getCurrency())
+                        .description(plan.getDescription())
+                        .name(plan.getName())
+                        .frequency(FrequencyPayment.valueOf(freq.toUpperCase()))
+                        .frequencyInterval(interval)
+                        .cycles(plan.getPaymentDefinitions().get(0).getCycles())
+                        .planId(jp.getPlanId()).build();
+                plansDto.add(planInfo);
+            }
         } catch (PayPalRESTException e) {
             logger.error(e.getMessage());
         }
-        return planInfo;
+        return plansDto;
     }
 
     @Override

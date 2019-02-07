@@ -25,7 +25,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
 
     @Override
     public PaymentRequest createPaymentRequest(String client, double amount, String bankName) {
-        Client foundClient = clientRepository.findByClientAndPaymentMethodName(client, bankName);
+        Client foundClient = clientRepository.findByClientAndPaymentMethodMethodName(client, bankName);
 
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setMerchantId(foundClient.getClientId());
@@ -58,6 +58,27 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     }
 
     @Override
+    public PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment, String scName) {
+
+        PaymentRequest paymentRequest = new PaymentRequest();
+        paymentRequest.setUsername(username);
+        paymentRequest.setAmount(amount);
+        paymentRequest.setJournalName(journalName);
+        paymentRequest.setPaperId(paperId);
+        paymentRequest.setTypeOfPayment(typeOfPayment);
+        paymentRequest.setScName(scName);
+
+        PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
+        Long merchantOrderId = lastPayment.getMerchantOrderId() + 1;
+
+        paymentRequest.setMerchantOrderId(merchantOrderId);
+        paymentRequestRepository.save(paymentRequest);
+
+        logger.info("Payment request is successfully created.");
+        return paymentRequest;
+    }
+
+    @Override
     public PaymentRequest getPaymentRequest(Long merchantOrderId) {
         return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
     }
@@ -65,5 +86,10 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     @Override
     public PaymentRequest save(PaymentRequest paymentRequest) {
         return paymentRequestRepository.save(paymentRequest);
+    }
+
+    @Override
+    public PaymentRequest getByIde(Long id) {
+        return paymentRequestRepository.getOne(id);
     }
 }

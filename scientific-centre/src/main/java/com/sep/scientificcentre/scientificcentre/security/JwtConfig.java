@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Value;
 
 public class JwtConfig {
 
-
     @Value("${security.jwt.header:Authorization}")
     private String header;
 

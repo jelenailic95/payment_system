@@ -1,43 +1,38 @@
-package com.sep.cryptoservice.domain;
+package com.sep.cryptoservice.controller;
 
 import com.sep.cryptoservice.domain.dto.ResponseOrderDTO;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
+import java.util.Timer;
 import java.util.TimerTask;
 
-public class GetOrderTask extends TimerTask {
+@RestController
+public class CheckPaymentController {
 
 
-    private RestTemplate restTemplate;
-    private String orderId;
-    private String clientId;
+    private final RestTemplate restTemplate;
 
-    public GetOrderTask(RestTemplate restTemplate, String orderId, String clientId) {
+    CheckPaymentController(RestTemplate restTemplate){
         this.restTemplate = restTemplate;
-        this.orderId = orderId;
-        this.clientId = clientId;
     }
 
-    public GetOrderTask(String order) {
-        orderId = order;
-    }
-
-
-    @Override
-    public void run() {
-
+    @GetMapping("/check-payment/{clientId}/{orderId}")
+    public ResponseEntity<ResponseOrderDTO> createOrder(@PathVariable String clientId, @PathVariable String orderId) {
         HttpHeaders headers = new HttpHeaders();
         headers.add("Authorization", "Bearer " + clientId);
         HttpEntity<String> entity = new HttpEntity<>("", headers);
-
         ResponseEntity<ResponseOrderDTO> o = restTemplate.exchange("https://api-sandbox.coingate.com/v2/orders/" + orderId, HttpMethod.GET,
                 entity, ResponseOrderDTO.class);
-        System.out.println(o.getBody().getPayment_url());
-        System.out.println(o.getBody().getStatus());
 
+        return o;
     }
+
+
 }

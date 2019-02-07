@@ -13,6 +13,8 @@ public class ResponseOrderDTO {
     private String order_id;
     private String payment_url;
     private String token;
+    private String success_url;
+
 
     public ResponseOrderDTO() {
     }
@@ -95,6 +97,14 @@ public class ResponseOrderDTO {
 
     public void setToken(String token) {
         this.token = token;
+    }
+
+    public String getSuccess_url() {
+        return success_url;
+    }
+
+    public void setSuccess_url(String success_url) {
+        this.success_url = success_url;
     }
 }
 

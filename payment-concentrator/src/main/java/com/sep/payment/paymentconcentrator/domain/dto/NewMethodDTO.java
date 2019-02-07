@@ -3,9 +3,10 @@ package com.sep.payment.paymentconcentrator.domain.dto;
 public class NewMethodDTO {
 
     private String clientName;
+    private String method;
+    private String methodName;
     private String clientId;
     private String clientPassword;
-    private String method;
 
     public NewMethodDTO() {
     }
@@ -20,6 +21,14 @@ public class NewMethodDTO {
 
     public String getClientId() {
         return clientId;
+    }
+
+    public String getMethodName() {
+        return methodName;
+    }
+
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
     }
 
     public void setClientId(String clientId) {

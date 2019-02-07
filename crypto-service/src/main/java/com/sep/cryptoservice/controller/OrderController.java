@@ -1,54 +1,97 @@
 package com.sep.cryptoservice.controller;
 
-import com.sep.cryptoservice.domain.GetOrderTask;
 import com.sep.cryptoservice.domain.Order;
-import com.sep.cryptoservice.domain.dto.RequestDTO;
-import com.sep.cryptoservice.domain.dto.ResponseOrderDTO;
+import com.sep.cryptoservice.domain.dto.*;
+import com.sep.cryptoservice.repository.OrderRepository;
+import org.modelmapper.ModelMapper;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.scheduling.TaskScheduler;
 import org.springframework.scheduling.concurrent.ConcurrentTaskScheduler;
-import org.springframework.scheduling.support.CronTrigger;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.client.RestTemplate;
 
-import java.util.concurrent.ScheduledFuture;
+import java.util.Timer;
+import java.util.TimerTask;
 
 @RestController
-@RequestMapping("/")
 public class OrderController {
 
-    @Autowired
-    private RestTemplate restTemplate;
+    private final RestTemplate restTemplate;
     private final TaskScheduler scheduler = new ConcurrentTaskScheduler();
+    private final ModelMapper modelMapper;
+    private final OrderRepository orderRepository;
+    private Logger logger = LoggerFactory.getLogger(OrderController.class);
+
+    @Autowired
+    public OrderController(RestTemplate restTemplate, OrderRepository orderRepository) {
+        this.restTemplate = restTemplate;
+        this.modelMapper = new ModelMapper();
+        this.orderRepository = orderRepository;
+    }
 
     @PostMapping("/bitcoin-payment")
-    public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody RequestDTO requestDTO) {
-        Order order = new Order(requestDTO.getAmount(), "BTC", "BTC", "http://ex.com");
+    public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody BitcoinPaymentDto requestDTO) {
+        Order order = new Order(requestDTO.getRequestDTO().getAmount(), "USD", "USD",
+                "https://localhost:4200/result/success", "https://localhost:4200/result/cancel");
         HttpHeaders headers = new HttpHeaders();
-        headers.add("Authorization", "Bearer " + requestDTO.getClientId());
+        headers.add("Authorization", "Bearer " + requestDTO.getRequestDTO().getClientId());
         HttpEntity<Order> entity = new HttpEntity<>(order, headers);
 
         ResponseEntity<ResponseOrderDTO> o = restTemplate.postForEntity("https://api-sandbox.coingate.com/v2/orders",
                 entity, ResponseOrderDTO.class);
-        System.out.println(o.getBody().getPayment_url());
-        check(o.getBody().getId(), requestDTO.getClientId());
+        Order newOrder = modelMapper.map(o.getBody(), Order.class);
+        orderRepository.save(newOrder);
+        o.getBody().setClientId(requestDTO.getRequestDTO().getClientId());
 
+        check(o.getBody().getId(), requestDTO.getRequestDTO().getClientId(), requestDTO.getPaymentRequest());
         return o;
     }
 
-//    @GetMapping("/test")
-//    public String test() {
-//        this.check("140351", requestDTO.getClientId());
-//        System.out.println("TEST");
-//        return "prosao";
-//    }
+    public void check(String orderId, String clientId, PaymentRequest p) {
+//        ScheduledFuture<?> d = scheduler.schedule(new GetOrderTask(restTemplate, orderId, clientId), new CronTrigger("*/5 * * * * *"));
+        final Timer timer = new Timer();
 
-    public void check(String orderId, String clientId) {
-        ScheduledFuture<?> d = scheduler.schedule(new GetOrderTask(restTemplate, orderId, clientId), new CronTrigger("*/5 * * * * *"));
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                HttpHeaders headers = new HttpHeaders();
+                headers.add("Authorization", "Bearer " + clientId);
+                HttpEntity<String> entity = new HttpEntity<>("", headers);
+                ResponseEntity<ResponseOrderDTO> o = restTemplate.exchange("https://api-sandbox.coingate.com/v2/orders/" + orderId, HttpMethod.GET,
+                        entity, ResponseOrderDTO.class);
+
+                System.out.println(o.getBody().getStatus());
+                if (o.getBody().getStatus().equals("paid")) {
+                    logger.info("Order successfully paid.");
+
+                    FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
+                            journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
+                    timer.cancel();
+                    timer.purge();
+                    restTemplate.postForEntity("https://localhost:8443/pc/successful-transaction", finishPaymentDTO, String.class);
+                }
+                if(o.getBody().getStatus().equals("invalid")){
+                    logger.info("Order is canceled.");
+
+                    timer.cancel();
+                    timer.purge();
+                }
+            }
+        };
+
+        timer.schedule(task, 1000, 5000);
 
     }
+
+
 }
 

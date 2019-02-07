@@ -1,7 +1,7 @@
 insert into app_user(id, username) values (1, 'Laguna');
-insert into app_user(id, username) values (2,  'National Geography');
-insert into app_user(id, username) values (3,  'Company 1');
-insert into app_user(id, username) values (4,  'Company 2');
+insert into app_user(id, username) values (2,  'NationalGeography');
+insert into app_user(id, username) values (3,  'Company1');
+insert into app_user(id, username) values (4,  'Company2');
 insert into app_user(id, username) values (5,  'Admin');
 
 

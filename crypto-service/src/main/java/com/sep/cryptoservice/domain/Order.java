@@ -1,28 +1,53 @@
 package com.sep.cryptoservice.domain;
 
+import javax.persistence.*;
+
+@Entity
+@Table(name = "order_table")
 public class Order {
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
+    @Column
     private String order_id;
+    @Column
     private double price_amount;
+    @Column
     private String price_currency;
-
-
+    @Column
     private String receive_currency;
+    @Column
     private String title;
-    private String  description;
+    @Column
+    private String description;
+    @Column
     private String callback_url;
+    @Column
     private String cancel_url;
+    @Column
     private String success_url;
+    @Column
     private String token;
 
     public Order() {
-    }
+ }
 
-    public Order(double price_amount, String price_currency, String receive_currency, String callback_url) {
+    public Order(double price_amount, String price_currency, String receive_currency, String success_url, String cancel_url) {
         this.price_amount = price_amount;
         this.price_currency = price_currency;
-        this.receive_currency = receive_currency;
-        this.callback_url = callback_url;
+       this.receive_currency = receive_currency;
+        this.success_url = success_url;
+        this.cancel_url = cancel_url;
+    }
+
+    public Long getId() {
+        return id;
+    }
+
+    public void setId(Long id) {
+        this.id = id;
     }
 
     public String getOrder_id() {

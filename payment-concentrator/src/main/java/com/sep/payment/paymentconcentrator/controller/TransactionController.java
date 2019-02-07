@@ -1,5 +1,6 @@
 package com.sep.payment.paymentconcentrator.controller;
 
+import com.sep.payment.paymentconcentrator.domain.dto.FinishResponseDto;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultUrlDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
@@ -15,6 +16,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.client.RestTemplate;
 
 @RestController
 @RequestMapping(value = "/pc")
@@ -28,12 +30,19 @@ public class TransactionController {
 
     private ModelMapper modelMapper = new ModelMapper();
 
+    @Autowired
+    private RestTemplate restTemplate;
+
     private Logger logger = LoggerFactory.getLogger(TransactionController.class);
 
     @PostMapping(value = "/finish-transaction")
     public ResponseEntity<TransactionResultUrlDTO> finishTransaction(@RequestBody TransactionResultDTO transactionDTO) {
         logger.info("Request - finish transaction. Transaction status: {}", transactionDTO.getStatus());
-        Transaction transaction = modelMapper.map(transactionDTO, Transaction.class);
+
+        Transaction transaction = new Transaction(transactionDTO.getMerchantOrderId(),
+                transactionDTO.getAcquirerOrderId(), transactionDTO.getAcquirerTimestamp(),
+                transactionDTO.getPaymentId(), transactionDTO.getStatus(), transactionDTO.getAmount());
+
         String resultUrl = transactionService.finishTransaction(transaction);
 
         logger.info("Result url is: {}", resultUrl);
@@ -46,7 +55,16 @@ public class TransactionController {
         System.out.println(transactionCustomer.getAcquirerOrderId());
         System.out.println(transactionCustomer.getAmount());
 
-        // todo: ovde treba na front da ide result
+        // todo: pozvati
         return ResponseEntity.ok().body(transactionCustomer);
+    }
+
+    @PostMapping(value = "/successful-transaction")
+    public String successfulTransaction(@RequestBody FinishResponseDto p) {
+        logger.info("Request - successful transaction.");
+
+        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+                p, String.class);
+        return "ok";
     }
 }

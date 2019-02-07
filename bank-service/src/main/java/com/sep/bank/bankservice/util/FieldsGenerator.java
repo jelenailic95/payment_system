@@ -12,6 +12,7 @@ public class FieldsGenerator {
         // add some salt
         String generatedField = hashedBase + RandomStringUtils.randomAlphabetic(fieldSize);
 
+        System.out.println(generatedField.length());
         if (generatedField.length() > fieldSize) {
             generatedField = generatedField.substring(0, fieldSize);
         }
