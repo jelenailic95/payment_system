@@ -61,14 +61,14 @@ public class PaypalController {
         String clientSecret = aes.decrypt(request.getRequestDTO().getClientSecret());
         cancelUrl = host + "/result/cancel";
         successUrl = host + "/result/success"
-                .concat("?id=").concat(request.getRequestDTO().getClientId())
-                .concat("&secret=").concat(request.getRequestDTO().getClientSecret()
-                .concat("&request=").concat(request.getPaymentRequest().getId().toString()));
+                .concat("?id=").concat(clientId)
+                .concat("&secret=").concat(clientSecret)
+                .concat("&request=").concat(request.getPaymentRequest().getId().toString());
 
 //        String nameOfJournal = this.paypalService.findJournalByIdAndSecret(request.getClientId(), request.getClientSecret());
         Payment payment = paypalService.createPayment(
-                request.getRequestDTO().getClientId(),
-                request.getRequestDTO().getClientSecret(),
+                clientId,
+                clientSecret,
                 request.getRequestDTO().getAmount(),
                 "USD",
                 PaymentMethod.PAYPAL,

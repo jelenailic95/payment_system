@@ -3,6 +3,7 @@ package com.sep.payment.paymentconcentrator.controller;
 import com.sep.payment.paymentconcentrator.domain.dto.FinishResponseDto;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultUrlDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultDTO;
+import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.domain.entity.Transaction;
 import com.sep.payment.paymentconcentrator.repository.PaymentRequestRepository;
 import com.sep.payment.paymentconcentrator.service.TransactionService;
