@@ -299,3 +299,4 @@ Using generated security password: 0e48cae3-3d0a-4ac1-9715-05aed4d215ed
 2019-02-07 13:16:48.439  WARN 3580 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
 2019-02-07 13:16:53.375  INFO 3580 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8444 (https) with context path ''
 2019-02-07 13:16:53.412  INFO 3580 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Started PaymentCardCentreApplication in 84.158 seconds (JVM running for 89.944)
+2019-02-07 17:20:53.329  WARN 3580 --- [HikariPool-1 housekeeper] com.zaxxer.hikari.pool.HikariPool        : HikariPool-1 - Thread starvation or clock leap detected (housekeeper delta=49m51s943ms265µs400ns).

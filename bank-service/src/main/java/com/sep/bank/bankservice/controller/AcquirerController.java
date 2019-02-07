@@ -5,6 +5,7 @@ import com.sep.bank.bankservice.entity.dto.CardAmountDTO;
 import com.sep.bank.bankservice.entity.dto.PaymentDataDTO;
 import com.sep.bank.bankservice.entity.dto.PaymentRequestDTO;
 import com.sep.bank.bankservice.entity.dto.TransactionDTO;
+import com.sep.bank.bankservice.repository.CardRepository;
 import com.sep.bank.bankservice.service.BankService;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
@@ -30,12 +31,7 @@ public class AcquirerController {
     @Autowired
     private BankService bankService;
 
-    @Autowired
-    private CardRepository cardRepository;
-    private final BankService bankService;
-
     private final ModelMapper modelMapper = new ModelMapper();
-
 
     @Autowired
     private RestTemplate restTemplate;
@@ -68,8 +64,8 @@ public class AcquirerController {
         // final step - send transaction information to the payment concentrator
         logger.info("Transaction object is forwarded to the payment concentrator.");
 
-        TransactionDTO finalUrl = restTemplate.postForObject(pConcentratorHost + "/pc/finish-transaction", transactionDTO,
-                TransactionDTO.class);
+        TransactionDTO finalUrl = restTemplate.postForObject(pConcentratorHost + "/pc/finish-transaction",
+                transactionDTO, TransactionDTO.class);
 
         return ResponseEntity.ok(finalUrl);
     }

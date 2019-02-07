@@ -22,8 +22,6 @@ import org.springframework.web.client.RestTemplate;
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
 import java.util.Objects;
-import java.util.Timer;
-import java.util.TimerTask;
 
 @RestController
 @RequestMapping(value = "/pc")
@@ -32,12 +30,8 @@ public class PaymentRequestController {
     @Value("${proxy.host}")
     private String proxyHost;
 
-    private PaymentRequestService paymentRequestService;
-
-    private ClientService clientService;
     private final PaymentRequestService paymentRequestService;
 
-    private RestTemplate restTemplate;
     private final ClientService clientService;
 
     private final RestTemplate restTemplate;
