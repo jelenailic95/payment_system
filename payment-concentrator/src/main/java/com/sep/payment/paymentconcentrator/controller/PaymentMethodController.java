@@ -82,13 +82,14 @@ public class PaymentMethodController {
     public ResponseEntity enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO)
             throws UnsupportedEncodingException {
 
-        System.out.println("PLAIN: " + newMethodDTO.getClientId());
-        System.out.println("PLAIN: " + newMethodDTO.getClientPassword());
-
         logger.info("Request - enable {} for the client {}", newMethodDTO.getMethod(), newMethodDTO.getClientName());
 
-        String token = Utility.readToken(newMethodDTO.getClientName());
-        String clientName = token.split("-")[2];
+        String token = Utility.readToken(newMethodDTO.getClientId());
+        String[] tokens = token.split("-");
+        String clientName = tokens[2];
+
+//        String token = Utility.readToken(clientDTO.getClientId());
+//        String clientName = token.split("-")[2];
 
         Client client = clientService.methodSubscribe(clientName, newMethodDTO.getClientId(),
                 newMethodDTO.getClientPassword(), newMethodDTO.getMethod(), newMethodDTO.getMethodName());

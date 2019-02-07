@@ -29,7 +29,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
 
     @Override
     public PaymentRequest createPaymentRequest(String client, double amount, String bankName, String[] tokens) {
-        Client foundClient = clientRepository.findByClientAndPaymentMethodMethodName(client, bankName);
+        Client foundClient = clientRepository.findByJournalAndPaymentMethodMethodName(client, bankName);
 
         PaymentRequest paymentRequest = new PaymentRequest();
         paymentRequest.setMerchantId(foundClient.getClientId());

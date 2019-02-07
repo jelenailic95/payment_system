@@ -10,9 +10,9 @@ INSERT INTO client (client,journal, client_id, client_password, payment_method_i
   'h6WtzIOpmJQa2lNvGkKAIw==b7iY26KDuDa6+t4do0x1bmZK3QXCdZW98xD8x6QB277CHQuZgUnZmvGK4TWZ0dqKVHFtGQinjPSTPXbZcjMrmcQlgqMVd00hHpir4exwdySWJNpGrnp2MlZxbaqd6cWD',
   1);
 
--- todo:  BANK1
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
- ('Company1', 'Laguna','', '', 2);
+ ('Company1', 'Laguna','lNz6XtZ55SHl8x/fdBbXGA==PNSjtZ1jeE2ITTd3qSaI8a9Db/e55esmL9HqmX9RI6Q=',
+ 'oRTJA+fA7lNpxwV51xPllA==+I0y5DS0nNupgKtpWM3+Mt4JDYyGo0jwSaUAszSREUQKVrD3s6WktyJglzzoTYPNH5Ob0V9lD09YlP33raBHTQ==', 2);
 
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
  ('Company1', 'Laguna','Y7jo2mqW3AU4PYit56NjKw==bzLFQWnDG5vdGqo2B5JqDxi3J9WbbD9bIY6/ID6u4uizWe6D5qBSheUDH76tTHUw', null, 4);
@@ -24,9 +24,9 @@ INSERT INTO client (client,journal, client_id, client_password, payment_method_i
   'S3Z9tXZj70Cgjs4DssEfUA==AZHnYqOsGAHpZdr58B9O8+Lifk6/F72uMu56jTigjIZfw6Prw/sNuIwFN5XWwk0mBPk/Qi9RE6G/DvopFRNt7aWB4QPQaLNEQO7L5xwCaaGealCsn2G2V1wMSvftqEnA',
   1);
 
--- todo: BANK 1
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
- ('Company1', 'National Geography', '', '', 2);
+ ('Company1', 'National Geography', 'lh+Ehc3xb6J5e619Rsg2Ng==MkutNFDGocA997Ug9WyXgpH42VThM1FT5Zqpz6+gUHU=',
+  'niFUIpOpLcBOUMLjo7yObA==6O0vjzQaoLVDw/uHmshGvFVfOMbzx2reroBukJ7hjGd34LslacrruCLMhhkoZ7XTTr+nQfrZ3w41rnEB0V4jtA==', 2);
 
 
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
@@ -40,9 +40,9 @@ INSERT INTO client (client,journal, client_id, client_password, payment_method_i
  '7FbXxeJ/VgSDfF3EulLRrQ==eD4v54plU/o3bzNj4GHnKg8ithFUyyZLJTP+b4oKZGaD6jsugRfJci/kFbPY5ZDt0r5ibfuO72n2T5ueDQ/SgwrDz4VEPBNwjcs/NXBhvkGyblqtEiCq2zBifraqZe2t',
  1);
 
--- todo: BANK 2
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
- ('Company2', 'Science Mag', '', '', 2);
+ ('Company2', 'Science Mag', 'BlITocLkykNyo/8PJPsSaw==/yrlXStGxmmxDbNu6ZpdX1jsuGL5j0lIRj5OoyCuim8=',
+ 'jAaPbkOT3vf13DigLzBuRg==2zeazVAaZKRFqiJxlpWnt86ojCeZ7+Z4Z9ZKQ3taCWuRCXBZA6YmTiTz8m2JZQP6Tga27921ZEAombY7y9IPOg==', 2);
 
  INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
  ('Company2', 'Science Mag','TcQG510Pdq6IEqwGIjiKvw==RNuYmdwFnOxxCd3z7Cw/UYzRrxWfJGi2N9AuJUC7gP+T4kCwYoqQddipoeYsqTeb', null, 4);

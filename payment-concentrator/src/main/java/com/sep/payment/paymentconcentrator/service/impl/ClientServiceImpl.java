@@ -43,14 +43,12 @@ public class ClientServiceImpl implements ClientService {
             return null;
         }
 
-        Client client = this.findByClientMethod(clientName, methodName);
+        Client client = clientRepository.findByJournalAndPaymentMethodMethod(clientName, method);
         String encryptedClientId = aes.encrypt(clientId);
         if (!clientPassword.equals("")) {
             clientPassword = aes.encrypt(clientPassword);
         }
 
-        System.out.println("KRIPTOVANO: " + encryptedClientId);
-        System.out.println("KRIPTOVANO: " + clientPassword);
 
         if (client == null) {
             Client newClient = new Client(clientName, clientName, encryptedClientId, clientPassword, paymentMethod);
@@ -63,8 +61,8 @@ public class ClientServiceImpl implements ClientService {
         client.setClientId(encryptedClientId);
         client.setClientPassword(clientPassword);
 
-        // todo: testirati
-        client.getPaymentMethod().setMethodName(methodName);
+        PaymentMethod paymentMethodDb = paymentMethodRepository.findByMethodNameAndMethod(methodName, method);
+        client.setPaymentMethod(paymentMethodDb);
 
         clientRepository.save(client);
         logger.info("Client {} has successfully changed credentials for the {}.", clientName, method);
