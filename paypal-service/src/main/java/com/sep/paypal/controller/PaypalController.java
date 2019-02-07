@@ -19,6 +19,7 @@ import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+import org.springframework.web.client.RestTemplate;
 
 import java.net.URL;
 import java.util.List;
@@ -41,35 +42,39 @@ public class PaypalController {
 
     private Logger log = LoggerFactory.getLogger(getClass());
 
+    private final RestTemplate restTemplate;
+
     private static final String PAYPAL_SUCCESS_URL = "pay/success";
 
     @Autowired
-    public PaypalController(PaypalService paypalService) {
+    public PaypalController(PaypalService paypalService, RestTemplate restTemplate) {
         this.paypalService = paypalService;
+        this.restTemplate = restTemplate;
     }
 
     @ApiOperation(value = "Pay for some journal ")
     @PostMapping(value = "pay")
-    public String pay(@RequestBody RequestPayment request) throws PayPalRESTException {
+    public String pay(@RequestBody PaymentDto request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
         String clientId = aes.decrypt(request.getClientId());
         String clientSecret = aes.decrypt(request.getClientSecret());
         cancelUrl = host + "/result/cancel";
         successUrl = host + "/result/success"
-                .concat("?id=").concat(clientId)
-                .concat("&secret=").concat(clientSecret);
+                .concat("?id=").concat(request.getRequestDTO().getClientId())
+                .concat("&secret=").concat(request.getRequestDTO().getClientSecret()
+                .concat("&request=").concat(request.getPaymentRequest().getId().toString()));
 
-        String nameOfJournal = this.paypalService.findJournalByIdAndSecret(clientId, clientSecret);
+//        String nameOfJournal = this.paypalService.findJournalByIdAndSecret(request.getClientId(), request.getClientSecret());
         Payment payment = paypalService.createPayment(
-                clientId,
-                clientSecret,
-                request.getAmount(),
+                request.getRequestDTO().getClientId(),
+                request.getRequestDTO().getClientSecret(),
+                request.getRequestDTO().getAmount(),
                 "USD",
                 PaymentMethod.PAYPAL,
                 PaymentIntent.SALE,
-                "Order for ".concat(nameOfJournal),
-                nameOfJournal,
+                    "Order for ".concat(request.getPaymentRequest().getJournalName()),
+                request.getPaymentRequest().getJournalName(),
                 cancelUrl,
                 successUrl);
         for (Links links : payment.getLinks()) {
@@ -84,11 +89,13 @@ public class PaypalController {
     @ApiOperation(value = "If Pay succeed, finish payment")
     @GetMapping(value = PAYPAL_SUCCESS_URL)
     public boolean successPay(@RequestParam("id") String id, @RequestParam("secret") String secret,
-                              @RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId) {
+                              @RequestParam("paymentId") String paymentId, @RequestParam("PayerID") String payerId
+                              ) {
         try {
 
             Payment payment = paypalService.executePayment(id, secret, paymentId, payerId);
             if (payment.getState().equals("approved")) {
+
                 return true;
             }
         } catch (PayPalRESTException e) {

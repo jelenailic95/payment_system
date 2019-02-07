@@ -18,31 +18,39 @@ import java.util.List;
 public class UserDetailsServiceImpl implements UserDetailsService {
 
 
-	private final UserRepository userRepository;
+    private final UserRepository userRepository;
 
-	public UserDetailsServiceImpl(UserRepository userRepository) {
-		this.userRepository = userRepository;
-	}
+    public UserDetailsServiceImpl(UserRepository userRepository) {
+        this.userRepository = userRepository;
+    }
 
-	@Override
-	public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-		try {
-				String token = Utility.readToken(username);
-				String clientUsername = token.split("-")[2];
-				AppUser result = userRepository.findByUsername(clientUsername);
-				if(result == null)
-					throw new UsernameNotFoundException("Client: " + clientUsername + " not found");
-				//ovde iscitati role i privilegije
-	//			List<GrantedAuthority> grantedAuthorities = AuthorityUtils
-	//					.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole());
-				List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
-				return new SecurityUser(result);
+    @Override
+    public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
+        try {
+            String token = Utility.readToken(username);
+            String clientUsername = "";
 
-		} catch (UnsupportedEncodingException e) {
-			e.printStackTrace();
-		}
-		return null;
-	}
-	
+            // check if company is logged
+            if (token.split("-")[1].equals("company")) {
+                clientUsername = token.split("-")[0];       // if company is logged, get first token param
+            } else {
+                clientUsername = token.split("-")[2];       // if payment process is started, get journal name
+            }
+
+            AppUser result = userRepository.findByUsername(clientUsername);
+            if (result == null)
+                throw new UsernameNotFoundException("Client: " + clientUsername + " not found");
+            //ovde iscitati role i privilegije
+            //			List<GrantedAuthority> grantedAuthorities = AuthorityUtils
+            //					.commaSeparatedStringToAuthorityList("ROLE_" + appUser.getRole());
+            List<GrantedAuthority> grantedAuthorities = new ArrayList<>();
+            return new SecurityUser(result);
+
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+        return null;
+    }
+
 
 }

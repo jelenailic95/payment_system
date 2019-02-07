@@ -1,5 +1,6 @@
 package com.sep.payment.paymentconcentrator.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
 import lombok.Builder;
 import org.hibernate.annotations.CreationTimestamp;
@@ -14,6 +15,7 @@ import java.util.Date;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PaymentRequest {
 
     @Id

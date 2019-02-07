@@ -1,6 +1,5 @@
 package com.sep.payment.paymentconcentrator.domain.dto;
 
-import com.sep.payment.paymentconcentrator.domain.entity.PaymentMethod;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;

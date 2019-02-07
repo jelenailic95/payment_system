@@ -10,4 +10,5 @@ public interface PaperService {
 
     Paper getOne(Long id);
     List<Paper> getAll();
+    List<Paper> getByJournalName(String name);
 }

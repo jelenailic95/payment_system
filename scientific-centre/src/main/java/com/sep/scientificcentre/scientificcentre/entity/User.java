@@ -6,6 +6,7 @@ import lombok.Data;
 import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 import java.util.Set;
 
 @Data
@@ -48,9 +49,13 @@ public class User {
     private String role;
 
     @OneToMany
-    private Set<PaidJournal> journals;
+    private List<PaidJournal> journals;
 
     @OneToMany
-    private Set<Paper> papers;
+    private List<Paper> papers;
+
+    @OneToMany
+    private Set<Journal> myJournals;
+
 
 }

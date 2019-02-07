@@ -8,7 +8,7 @@ import lombok.Data;
 @Data
 @Builder
 @AllArgsConstructor
-public class BitcoinPaymentDto {
+public class PaymentDto {
 
     RequestDTO requestDTO;
     PaymentRequest paymentRequest;
