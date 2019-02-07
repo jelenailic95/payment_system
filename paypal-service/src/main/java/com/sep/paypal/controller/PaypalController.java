@@ -8,6 +8,7 @@ import com.sep.paypal.model.dto.*;
 import com.sep.paypal.model.entity.Seller;
 import com.sep.paypal.model.enumeration.PaymentIntent;
 import com.sep.paypal.model.enumeration.PaymentMethod;
+import com.sep.paypal.security.AES;
 import com.sep.paypal.service.PaypalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,9 @@ import java.util.List;
 public class PaypalController {
 
     private final PaypalService paypalService;
+
+    @Autowired
+    private AES aes;
 
     @Value("${paypal.mode}")
     private String mode;
@@ -53,6 +57,8 @@ public class PaypalController {
     public String pay(@RequestBody PaymentDto request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
+        String clientId = aes.decrypt(request.getClientId());
+        String clientSecret = aes.decrypt(request.getClientSecret());
         cancelUrl = host + "/result/cancel";
         successUrl = host + "/result/success"
                 .concat("?id=").concat(request.getRequestDTO().getClientId())
