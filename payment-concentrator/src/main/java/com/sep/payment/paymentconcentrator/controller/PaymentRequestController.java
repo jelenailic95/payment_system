@@ -15,10 +15,7 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpHeaders;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.support.CronTrigger;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
 
@@ -27,31 +24,37 @@ import java.io.UnsupportedEncodingException;
 import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
-import java.util.concurrent.ScheduledFuture;
 
 @RestController
 @RequestMapping(value = "/pc")
 public class PaymentRequestController {
 
-    @Autowired
     private PaymentRequestService paymentRequestService;
 
-    @Autowired
     private ClientService clientService;
 
-    @Autowired
     private RestTemplate restTemplate;
 
     private ModelMapper modelMapper = new ModelMapper();
 
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
 
+    @Autowired
+    public PaymentRequestController(PaymentRequestService paymentRequestService, ClientService clientService,
+                                    RestTemplate restTemplate) {
+        this.paymentRequestService = paymentRequestService;
+        this.clientService = clientService;
+        this.restTemplate = restTemplate;
+    }
+
     @PostMapping(value = "/pay-by-bank-card")
-    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<PaymentDataDTO> createPaymentRequest(@RequestBody @Valid RequestDTO requestDTO) throws
+            UnsupportedEncodingException {
         logger.info("Request - pay by bank card.");
         String token = Utility.readToken(requestDTO.getClient());
         String client = token.split("-")[2];
-        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(), requestDTO.getClientId());
+        PaymentRequest paymentRequest = paymentRequestService.createPaymentRequest(client, requestDTO.getAmount(),
+                requestDTO.getClientId());
 
         logger.info("Request - call endpoint(from the bank): get payment url.");
 
@@ -63,7 +66,8 @@ public class PaymentRequestController {
 
 
     @PostMapping(value = "/pay-by-bitcoin")
-    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws UnsupportedEncodingException {
+    public ResponseEntity<ResponseOrderDTO> payWithBitcoin(@RequestBody @Valid RequestDTO requestDTO) throws
+            UnsupportedEncodingException {
         logger.info("Request - pay by bitcoin.");
         // localStorage.getItem('user') + '-journal' + '-' + journal.name + '-' + journal.price
         String token = Utility.readToken(requestDTO.getClient());

@@ -37,11 +37,10 @@ public class PccController {
 
         if (bank != null) {
             bankUrl = HOST + PORT + bank.getServiceName() + PATH;
+        }else{
+            return null;
         }
 
-        // todo: neki error baci ako ne postoji bank
-
-        // vraca banci prodavca acqOrderId acqTimestamp, issuerOrderId, issuerTimestamp i status transakcije
         return restTemplate.postForObject(bankUrl, acquirerDataDTO, PaymentResultDTO.class);
     }
 }

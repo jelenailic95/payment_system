@@ -13,18 +13,21 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.Date;
-import java.util.Random;
 
 
 @RestController
 public class IssuerController {
 
-    @Autowired
     private BankService bankService;
 
     private ModelMapper modelMapper = new ModelMapper();
 
     private Logger logger = LoggerFactory.getLogger(IssuerController.class);
+
+    @Autowired
+    public IssuerController(BankService bankService) {
+        this.bankService = bankService;
+    }
 
     @PostMapping("/pay-by-card-forwarded")
     public PaymentResultDTO payByCardForwarded(@RequestBody AcquirerDataDTO acquirerDataDTO) {

@@ -61,8 +61,6 @@ public class PaymentRequest {
     private String username;
 
 
-
-
     public PaymentRequest() {
     }
 

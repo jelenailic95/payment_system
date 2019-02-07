@@ -1,7 +1,5 @@
 package com.sep.bank.bankservice.service.serviceImpl;
 
-import com.auth0.jwt.JWT;
-import com.auth0.jwt.algorithms.Algorithm;
 import com.sep.bank.bankservice.entity.*;
 import com.sep.bank.bankservice.entity.dto.*;
 import com.sep.bank.bankservice.repository.BankRepository;
@@ -21,7 +19,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 
-import java.io.UnsupportedEncodingException;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
@@ -75,7 +72,10 @@ public class BankServiceImpl implements BankService {
 
     @Override
     public PaymentDataDTO getPaymentUrl(PaymentRequestDTO requestDTO) {
-        Account account = accountService.checkMerchantData(requestDTO.getMerchantId(), requestDTO.getMerchantPassword());
+        String merchantId = aes.decrypt(requestDTO.getMerchantId());
+        String merchantPassword = aes.decrypt(requestDTO.getMerchantPassword());
+
+        Account account = accountService.checkMerchantData(merchantId, merchantPassword);
         PaymentDataDTO paymentDataDTO = new PaymentDataDTO();
         if (account != null) {
             logger.info("This client exists in the system. Merchant id: {}", account.getMerchantId());
@@ -85,16 +85,7 @@ public class BankServiceImpl implements BankService {
             // remove '/' from generated url
             paymentUrl = paymentUrl.replaceAll("/", "");
 
-            // return generated payment url & payment id
-            String paymentId = "";
-            try {
-                Algorithm algoritham = Algorithm.HMAC256("s4T2zOIWHNM1sxq");
-                // todo> izbaciti ovo
-                paymentId = JWT.create().withClaim("id", requestDTO.getMerchantId())
-                        .withClaim("password", requestDTO.getMerchantPassword()).sign(algoritham);
-            } catch (UnsupportedEncodingException e) {
-                e.printStackTrace();
-            }
+            String paymentId = RandomStringUtils.randomAlphabetic(10);
 
             paymentDataDTO = new PaymentDataDTO(paymentUrl, paymentId, requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
@@ -116,9 +107,10 @@ public class BankServiceImpl implements BankService {
                 card.getExpirationDate(), true);
 
         if (foundCard != null) {
-            logger.info("This credit card exists in the bank system. Card holder name: {}", aes.decrypt(foundCard.getCardHolderName()));
+            logger.info("This credit card exists in the bank system. Card holder name: {}",
+                    aes.decrypt(foundCard.getCardHolderName()));
+
             if (checkAmountOnAccount(foundCard, acquirerDataDTO.getAmount())) {
-                // todo: ovde dodaj na racun
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
                 return createTransaction(acquirerDataDTO, TransactionStatus.PAID);
             } else {
@@ -138,7 +130,7 @@ public class BankServiceImpl implements BankService {
         transaction.setStatus(status);
         transaction.setMerchantOrderId(acquirerDataDTO.getMerchantOrderId());
         transaction.setPaymentId(acquirerDataDTO.getPaymentId());
-        transactionRepository.save(transaction);
+        transactionRepository.save(transaction);                // for bank2 db
         logger.info("New transaction is successfully created and saved.");
         return transaction;
     }
@@ -159,8 +151,7 @@ public class BankServiceImpl implements BankService {
                     aes.decrypt(foundCard.getCardHolderName()));
             if (checkAmountOnAccount(foundCard, card.getAmount())) {
                 logger.info("This client has enough money on the card. Transaction status: PAID.");
-
-                // todo: ovde dodaj na racun
+                transferMoneyToMerchantsAccount(transaction.getMerchantOrderId(), card.getAmount());
                 transaction.setStatus(TransactionStatus.PAID);
             } else {
                 logger.info("This client doesn't have enough money on the card. Status: REFUSED.");
@@ -203,8 +194,21 @@ public class BankServiceImpl implements BankService {
             logger.info("Transaction result is returned from the client's bank. Transaction status: {}",
                     transaction.getStatus());
             transaction.setStatus(paymentResultDTO.getStatus());
+        } else {
+            transaction.setStatus(TransactionStatus.FAILED);
+        }
+
+        if (transaction.getStatus().equals(TransactionStatus.PAID)) {
+            transferMoneyToMerchantsAccount(transaction.getMerchantOrderId(), cardAmountDTO.getAmount());
         }
         return transaction;
+    }
+
+    private void transferMoneyToMerchantsAccount(Long merchantOrderId, double amount) {
+        PaymentRequest paymentRequest = paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
+        Account account = accountService.getAccount(paymentRequest.getMerchantAccountId());
+        account.setAmount(account.getAmount() + amount);
+        accountService.saveAccount(account);
     }
 
     private boolean checkAmountOnAccount(Card foundCard, double amount) {
@@ -227,10 +231,10 @@ public class BankServiceImpl implements BankService {
         newAccount.setCardHolder(user);
 
         // generate merchant id
-        newAccount.setMerchantId(fieldsGenerator.generateField(email, 30));
+        newAccount.setMerchantId(generateMerchantField(30));
 
         // generate merchant password
-        newAccount.setMerchantPassword(fieldsGenerator.generateField(newAccount.getMerchantId(), 100));
+        newAccount.setMerchantPassword(generateMerchantField(100));
 
         newAccount.setAccountNumber(RandomStringUtils.randomAlphabetic(16));
 
@@ -249,6 +253,11 @@ public class BankServiceImpl implements BankService {
         bankRepository.save(bank);
 
         return createdAccount;
+    }
+
+    private String generateMerchantField(int length) {
+        String field = RandomStringUtils.randomAlphabetic(length);
+        return aes.encrypt(field);
     }
 
     @Override
