@@ -2697,3 +2697,5 @@ Using generated security password: 6d6f1f3b-b4b4-45fc-b248-334ecf6bc799
 2019-02-07 21:18:40.055  INFO 8216 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
 2019-02-07 21:23:40.059  INFO 8216 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
 2019-02-07 21:28:40.062  INFO 8216 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-07 21:33:40.064  INFO 8216 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-07 21:38:40.067  INFO 8216 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
