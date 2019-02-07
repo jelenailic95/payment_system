@@ -57,8 +57,8 @@ public class PaypalController {
     public String pay(@RequestBody PaymentDto request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
-        String clientId = aes.decrypt(request.getClientId());
-        String clientSecret = aes.decrypt(request.getClientSecret());
+        String clientId = aes.decrypt(request.getRequestDTO().getClientId());
+        String clientSecret = aes.decrypt(request.getRequestDTO().getClientSecret());
         cancelUrl = host + "/result/cancel";
         successUrl = host + "/result/success"
                 .concat("?id=").concat(request.getRequestDTO().getClientId())

@@ -11,6 +11,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -19,6 +20,8 @@ import org.springframework.web.client.RestTemplate;
 @RequestMapping(value = "/pc")
 public class TransactionController {
 
+    @Value("${scientific.host}")
+    private String scientificHost;
     @Autowired
     private TransactionService transactionService;
 
@@ -53,7 +56,7 @@ public class TransactionController {
         System.out.println(transactionCustomer.getAmount());
 
         PaymentRequest p = paymentRequestRepository.findByMerchantOrderId(transactionDTO.getMerchantOrderId());
-        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+        restTemplate.postForEntity(scientificHost+p.getScName() + "/successful-payment",
                 p, String.class);
         return ResponseEntity.ok().body(transactionCustomer);
     }
@@ -65,7 +68,7 @@ public class TransactionController {
 //        FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
 //                journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
 
-        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+        restTemplate.postForEntity(scientificHost + p.getScName() +"/successful-payment",
                 p, String.class);
         return "ok";
     }

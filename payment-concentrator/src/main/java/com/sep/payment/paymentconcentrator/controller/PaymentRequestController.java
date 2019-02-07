@@ -4,6 +4,7 @@ package com.sep.payment.paymentconcentrator.controller;
 import com.sep.payment.paymentconcentrator.domain.dto.*;
 import com.sep.payment.paymentconcentrator.domain.entity.Client;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
+import com.sep.payment.paymentconcentrator.security.AES;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
 import com.sep.payment.paymentconcentrator.utility.Utility;
@@ -28,7 +29,8 @@ public class PaymentRequestController {
     @Value("${proxy.host}")
     private String proxyHost;
 
-    private final AES aes;
+    @Value("${scientific.host}")
+    private String scientificHost;
 
     private final PaymentRequestService paymentRequestService;
 
@@ -46,7 +48,6 @@ public class PaymentRequestController {
         this.paymentRequestService = paymentRequestService;
         this.clientService = clientService;
         this.restTemplate = restTemplate;
-        this.aes = aes;
     }
 
     @PostMapping(value = "/pay-by-bank-card")
@@ -60,7 +61,7 @@ public class PaymentRequestController {
         logger.info("Request - call endpoint(from the bank): get payment url.");
 
         PaymentDataDTO paymentDataDTO = Objects.requireNonNull(restTemplate.postForObject(proxyHost + "/" +
-                        requestDTO.getClientId() + "-service/get-payment-url", paymentRequest, PaymentDataDTO.class));
+                requestDTO.getClientId() + "-service/get-payment-url", paymentRequest, PaymentDataDTO.class));
 
         return ResponseEntity.ok().body(paymentDataDTO);
     }
@@ -99,7 +100,7 @@ public class PaymentRequestController {
         RequestDTO dto = new RequestDTO(tokens[2], foundClient.getClientId(), requestDTO.getAmount());
         dto.setClientSecret(foundClient.getClientPassword());
 
-PaymentRequest paymentRequest;
+        PaymentRequest paymentRequest;
         if (tokens[1].equals("journal"))
             paymentRequest = paymentRequestService.createRequest(tokens[0], Double.parseDouble(tokens[3]),
                     tokens[2], null, tokens[1], tokens[4]);
@@ -117,7 +118,7 @@ PaymentRequest paymentRequest;
         logger.info("Finishing payment - pay paypal.");
         PaymentRequest p = paymentRequestService.getByIde(Long.parseLong(finishPaymentDTO.getRequest()));
 
-        restTemplate.postForEntity("https://localhost:8000/".concat(p.getScName()).concat("/successful-payment"),
+        restTemplate.postForEntity(scientificHost + p.getScName() + "/successful-payment",
                 p, String.class);
         boolean success = restTemplate.getForEntity((proxyHost + "/paypal-service/" +
                 "pay/success?id=").concat(finishPaymentDTO.getId())
