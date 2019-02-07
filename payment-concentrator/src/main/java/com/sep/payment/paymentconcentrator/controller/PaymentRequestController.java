@@ -7,6 +7,7 @@ import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
 import com.sep.payment.paymentconcentrator.service.ClientService;
 import com.sep.payment.paymentconcentrator.service.PaymentRequestService;
 import com.sep.payment.paymentconcentrator.utility.Utility;
+import org.bouncycastle.jcajce.provider.symmetric.AES;
 import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -29,6 +30,7 @@ public class PaymentRequestController {
     @Value("${proxy.host}")
     private String proxyHost;
 
+    private final AES aes;
 
     private final PaymentRequestService paymentRequestService;
 
@@ -41,10 +43,11 @@ public class PaymentRequestController {
     private Logger logger = LoggerFactory.getLogger(PaymentRequestController.class);
 
     @Autowired
-    public PaymentRequestController(PaymentRequestService paymentRequestService, ClientService clientService, RestTemplate restTemplate) {
+    public PaymentRequestController(PaymentRequestService paymentRequestService, ClientService clientService, RestTemplate restTemplate, AES aes) {
         this.paymentRequestService = paymentRequestService;
         this.clientService = clientService;
         this.restTemplate = restTemplate;
+        this.aes = aes;
     }
 
     @PostMapping(value = "/pay-by-bank-card")
@@ -96,6 +99,7 @@ public class PaymentRequestController {
         Client foundClient = clientService.findByClientMethod(tokens[2], "paypal");
         RequestDTO dto = new RequestDTO(tokens[2], foundClient.getClientId(), requestDTO.getAmount());
         dto.setClientSecret(foundClient.getClientPassword());
+
         String url = restTemplate.postForEntity(proxyHost + "/paypal-service/pay", dto, String.class).getBody();
         return new ResponseEntity<>(url, HttpStatus.OK);
     }

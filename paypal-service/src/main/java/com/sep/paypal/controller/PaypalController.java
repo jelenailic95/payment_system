@@ -8,6 +8,7 @@ import com.sep.paypal.model.dto.*;
 import com.sep.paypal.model.entity.Seller;
 import com.sep.paypal.model.enumeration.PaymentIntent;
 import com.sep.paypal.model.enumeration.PaymentMethod;
+import com.sep.paypal.security.AES;
 import com.sep.paypal.service.PaypalService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -29,6 +30,9 @@ public class PaypalController {
 
     private final PaypalService paypalService;
 
+    @Autowired
+    private AES aes;
+
     @Value("${paypal.mode}")
     private String mode;
 
@@ -49,15 +53,17 @@ public class PaypalController {
     public String pay(@RequestBody RequestPayment request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
+        String clientId = aes.decrypt(request.getClientId());
+        String clientSecret = aes.decrypt(request.getClientSecret());
         cancelUrl = host + "/result/cancel";
         successUrl = host + "/result/success"
-                .concat("?id=").concat(request.getClientId())
-                .concat("&secret=").concat(request.getClientSecret());
+                .concat("?id=").concat(clientId)
+                .concat("&secret=").concat(clientSecret);
 
-        String nameOfJournal = this.paypalService.findJournalByIdAndSecret(request.getClientId(), request.getClientSecret());
+        String nameOfJournal = this.paypalService.findJournalByIdAndSecret(clientId, clientSecret);
         Payment payment = paypalService.createPayment(
-                request.getClientId(),
-                request.getClientSecret(),
+                clientId,
+                clientSecret,
                 request.getAmount(),
                 "USD",
                 PaymentMethod.PAYPAL,
