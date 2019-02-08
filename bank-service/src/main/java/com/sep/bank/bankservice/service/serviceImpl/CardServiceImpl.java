@@ -23,6 +23,14 @@ public class CardServiceImpl implements CardService {
         return cardRepository.findAll();
     }
 
+    /**
+     * @param pan pan number
+     * @param code security code
+     * @param name card holder name
+     * @param date expiration card date
+     * @param encrypted if true data is transferred from the pcc, if false data is inserted into the card form
+     * @return card, if found
+     */
     @Override
     public Card findCard(String pan, String code, String name, String date, Boolean encrypted) {
         // if data is encrypted decrypt it

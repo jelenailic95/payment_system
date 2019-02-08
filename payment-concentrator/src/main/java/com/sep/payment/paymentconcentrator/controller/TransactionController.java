@@ -1,6 +1,5 @@
 package com.sep.payment.paymentconcentrator.controller;
 
-import com.sep.payment.paymentconcentrator.domain.dto.FinishResponseDto;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultUrlDTO;
 import com.sep.payment.paymentconcentrator.domain.dto.TransactionResultDTO;
 import com.sep.payment.paymentconcentrator.domain.entity.PaymentRequest;
@@ -54,6 +53,7 @@ public class TransactionController {
         PaymentRequest p = paymentRequestRepository.findByMerchantOrderId(transactionDTO.getMerchantOrderId());
         restTemplate.postForEntity(scientificHost+p.getScName() + "/successful-payment",
                 p, String.class);
+
         return ResponseEntity.ok().body(transactionCustomer);
     }
 

@@ -25,6 +25,12 @@ public class BankController {
         this.bankService = bankService;
     }
 
+    /**
+     * POST: create new account in the bank.
+     *
+     * @param request user data
+     * @return created account
+     */
     @PostMapping("/create-account")
     public ResponseEntity<Account> registerNewAccount(@RequestBody RegisterNewAccountDTO request) {
         logger.info("Request - register new account for the bank card payment system. New client: {}",
@@ -35,6 +41,12 @@ public class BankController {
         return ok(account);
     }
 
+    /**
+     * Get payment request for the given payment url.
+     *
+     * @param paymentUrl payment url
+     * @return payment request from the db
+     */
     @PostMapping("/payment")
     private ResponseEntity getPaymentRequest(@RequestBody String paymentUrl) {
         logger.info("Request - get payment request for the payment url: {}", paymentUrl);

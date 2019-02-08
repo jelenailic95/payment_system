@@ -25,6 +25,12 @@ public class JournalController {
         this.modelMapper = new ModelMapper();
     }
 
+    /**
+     * Get all journals
+     *
+     * @return list of the journals
+     * @throws IOException exception
+     */
     @GetMapping
     public ResponseEntity<JournalsDto> getJournals() throws IOException {
         List<JournalDto> journalDtos = new ArrayList<>();
@@ -33,6 +39,12 @@ public class JournalController {
         return new ResponseEntity<>(journalsDto, HttpStatus.OK);
     }
 
+    /**
+     * Get all company's journals.
+     *
+     * @param company username of company
+     * @return list of company's journals
+     */
     @GetMapping("/for-company/{company}")
     public ResponseEntity<JournalsDto> getJournalsForCompany(@PathVariable String company) throws IOException {
         journalService.findAllCompanyJournals();

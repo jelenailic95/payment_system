@@ -63,8 +63,11 @@ public class SubscriptionController {
     }
 
     @PostMapping("plan")
-    public ResponseEntity createNewPlan(@RequestBody PlanInfoDTO planInfoDTO) {
-        Client client = this.clientService.findByClientMethod(planInfoDTO.getName(), "paypal");
+    public ResponseEntity createNewPlan(@RequestBody PlanInfoDTO planInfoDTO) throws UnsupportedEncodingException {
+        String token = Utility.readToken(planInfoDTO.getName());
+        String[] tokens = token.split("-");
+        String clientName = tokens[2];
+        Client client = this.clientService.findByClientMethod(clientName, "paypal");
         RequestCreatePlan plan = RequestCreatePlan.builder()
                 .clientId(client.getClientId())
                 .clientSecret(client.getClientPassword())
@@ -75,9 +78,9 @@ public class SubscriptionController {
                 .cycles(Integer.parseInt(planInfoDTO.getCycles()))
                 .frequencyInterval(Integer.parseInt(planInfoDTO.getFrequencyInterval()))
                 .frequencyPayment(planInfoDTO.getFrequency())
-                .nameOfJournal(planInfoDTO.getName())
+                .nameOfJournal(clientName)
                 .build();
-        return this.restTemplate.postForEntity(proxyHost + "/paypal-service/plan/create-plan", plan, String.class);
+        return this.restTemplate.postForEntity(proxyHost + "/paypal-service/plan/ -plan", plan, String.class);
 
     }
 

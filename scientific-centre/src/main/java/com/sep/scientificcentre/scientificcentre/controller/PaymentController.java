@@ -40,6 +40,12 @@ public class PaymentController {
         this.userService = userService;
     }
 
+    /**
+     * Transfers payment information from the services.
+     *
+     * @param finishPaymentDto journal id, papar id, type of payment
+     * @return response status
+     */
     @PostMapping(value = "/successful-payment")
     public String paymentSuccessful(@RequestBody FinishPaymentDto finishPaymentDto) {
         logger.info("Request - successful payment.");
