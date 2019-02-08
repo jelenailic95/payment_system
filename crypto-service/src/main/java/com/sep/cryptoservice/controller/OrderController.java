@@ -8,6 +8,7 @@ import org.modelmapper.ModelMapper;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpMethod;
@@ -31,6 +32,14 @@ public class OrderController {
     private final OrderRepository orderRepository;
     private Logger logger = LoggerFactory.getLogger(OrderController.class);
     private final AES aes;
+
+    @Value("${pc.host}")
+    private String pcHost;
+
+    @Value("${pc-client.host}")
+    private String pcClientHost;
+
+
     @Autowired
     public OrderController(RestTemplate restTemplate, OrderRepository orderRepository, AES aes) {
         this.restTemplate = restTemplate;
@@ -42,7 +51,7 @@ public class OrderController {
     @PostMapping("/bitcoin-payment")
     public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody BitcoinPaymentDto requestDTO) {
         Order order = new Order(requestDTO.getRequestDTO().getAmount(), "USD", "USD",
-                "https://localhost:4200/result/success", "https://localhost:4200/result/cancel");
+                pcClientHost + "result/success", pcClientHost + "result/cancel");
         HttpHeaders headers = new HttpHeaders();
         String decrToken = aes.decrypt(requestDTO.getRequestDTO().getClientId());
         headers.add("Authorization", "Bearer " + decrToken);
@@ -79,10 +88,10 @@ public class OrderController {
 //                            journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
 //                    timer.cancel();
                     timer.purge();
-                    restTemplate.postForEntity("https://localhost:8443/pc/successful-transaction/".concat(p.getId().toString()),
+                    restTemplate.postForEntity(pcHost + "pc/successful-transaction/" + p.getId().toString(),
                             null, String.class);
                 }
-                if(o.getBody().getStatus().equals("invalid")){
+                if (o.getBody().getStatus().equals("invalid")) {
                     logger.info("Order is canceled.");
 
                     timer.cancel();
