@@ -1,6 +1,6 @@
 INSERT INTO payment_method (method_name, method) VALUES ('paypal', 'paypal');
-INSERT INTO payment_method (method_name, method) VALUES ('bank1', 'bank');
-INSERT INTO payment_method (method_name, method) VALUES ('bank2', 'bank');
+INSERT INTO payment_method (method_name, method) VALUES ('erste', 'bank');
+INSERT INTO payment_method (method_name, method) VALUES ('unicredit', 'bank');
 INSERT INTO payment_method (method_name, method) VALUES ('crypto', 'crypto');
 
 -- company 1

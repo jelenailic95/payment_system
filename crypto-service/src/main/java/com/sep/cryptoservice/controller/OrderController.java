@@ -86,7 +86,7 @@ public class OrderController {
 
 //                    FinishResponseDto finishPaymentDTO = FinishResponseDto.builder().typeOfPayment(p.getTypeOfPayment()).
 //                            journalName(p.getJournalName()).paperId(p.getPaperId()).username(p.getUsername()).scName(p.getScName()).build();
-//                    timer.cancel();
+                    timer.cancel();
                     timer.purge();
                     restTemplate.postForEntity(pcHost + "pc/successful-transaction/" + p.getId().toString(),
                             null, String.class);
