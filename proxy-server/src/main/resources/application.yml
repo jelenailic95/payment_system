@@ -6,9 +6,9 @@ server:
   ssl:
     enabled: true
     key-store: classpath:server-keystore.jks
-    key-store-password: mdj1646MDJ
+    key-store-password: ENC(BQJspabavYC36Ej6k+06rFi81C2HrXi4)
     trust-store: classpath:server-truststore.jks
-    trust-store-password: mdj1646MDJ
+    trust-store-password: ENC(8g2ZFR1AWTSQ4SBsdtFfFTiNtM7Pl0qN)
     key-password: mdj1646MDJ
     key-alias: secure-server
 

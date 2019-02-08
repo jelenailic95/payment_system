@@ -1,6 +1,7 @@
 package com.sep.paypal;
 
 import com.paypal.base.rest.APIContext;
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -9,6 +10,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -20,9 +22,13 @@ import java.security.cert.X509Certificate;
 
 @EnableEurekaClient
 @SpringBootApplication
+@Configuration
+@EncryptablePropertySource("application.properties")
 public class PayPalServiceApplication {
 
     public static void main(String[] args) {
+
+        System.setProperty("jasypt.encryptor.password", "supersecretz");
         SpringApplication.run(PayPalServiceApplication.class, args);
     }
     @Bean

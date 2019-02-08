@@ -1,5 +1,6 @@
 package com.sep.cryptoservice;
 
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -8,6 +9,7 @@ import org.bitcoinj.store.BlockStoreException;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.web.client.RestTemplate;
 
@@ -22,10 +24,12 @@ import java.security.cert.X509Certificate;
 @SpringBootApplication
 //@EnableAutoConfiguration(exclude={DataSourceAutoConfiguration.class})
 //@ComponentScan
+@Configuration
+@EncryptablePropertySource("application.properties")
 public class CryptoServiceApplication {
 
 	public static void main(String[] args) throws BlockStoreException, UnknownHostException {
-
+		System.setProperty("jasypt.encryptor.password", "supersecretz");
 		SpringApplication.run(CryptoServiceApplication.class, args);
 //		ECKey key = new ECKey();
 //		// ... and look at the key pair

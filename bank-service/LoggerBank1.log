@@ -1776,3 +1776,160 @@ com.netflix.discovery.shared.transport.TransportException: Cannot execute reques
 	at java.base/java.util.concurrent.ThreadPoolExecutor$Worker.run(ThreadPoolExecutor.java:635) [na:na]
 	at java.base/java.lang.Thread.run(Thread.java:844) [na:na]
 
+2019-02-08 20:38:43.916  INFO 8016 --- [restartedMain] EnableEncryptablePropertiesConfiguration : Bootstraping jasypt-string-boot auto configuration in context: application-1
+2019-02-08 20:38:43.917  INFO 8016 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank1
+2019-02-08 20:38:47.019  INFO 8016 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 20:38:47.338  INFO 8016 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 305ms. Found 7 repository interfaces.
+2019-02-08 20:38:48.251  INFO 8016 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=5a1d7284-ddb6-38da-8021-e5c6098ffccc
+2019-02-08 20:38:48.492  WARN 8016 --- [restartedMain] ConfigServletWebServerApplicationContext : Exception encountered during context initialization - cancelling refresh attempt: org.springframework.context.ApplicationContextException: Exception Creating PropertySource; nested exception is java.lang.IllegalStateException: Encryptable Property Source 'EncryptedPropertySource#1549654728491' from location: application.properties Not Found
+2019-02-08 20:38:48.521  INFO 8016 --- [restartedMain] ConditionEvaluationReportLoggingListener : 
+
+Error starting ApplicationContext. To display the conditions report re-run your application with 'debug' enabled.
+2019-02-08 20:38:48.537 ERROR 8016 --- [restartedMain] o.s.boot.SpringApplication               : Application run failed
+
+org.springframework.context.ApplicationContextException: Exception Creating PropertySource; nested exception is java.lang.IllegalStateException: Encryptable Property Source 'EncryptedPropertySource#1549654728491' from location: application.properties Not Found
+	at com.ulisesbocchio.jasyptspringboot.configuration.EncryptablePropertySourceBeanFactoryPostProcessor.loadEncryptablePropertySource(EncryptablePropertySourceBeanFactoryPostProcessor.java:68) ~[jasypt-spring-boot-2.0.0.jar:na]
+	at com.ulisesbocchio.jasyptspringboot.configuration.EncryptablePropertySourceBeanFactoryPostProcessor.lambda$postProcessBeanFactory$0(EncryptablePropertySourceBeanFactoryPostProcessor.java:55) ~[jasypt-spring-boot-2.0.0.jar:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$2$1.accept(ReferencePipeline.java:177) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$3$1.accept(ReferencePipeline.java:195) ~[na:na]
+	at java.base/java.util.Spliterators$ArraySpliterator.forEachRemaining(Spliterators.java:948) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.copyInto(AbstractPipeline.java:484) ~[na:na]
+	at java.base/java.util.stream.AbstractPipeline.wrapAndCopyInto(AbstractPipeline.java:474) ~[na:na]
+	at java.base/java.util.stream.StreamSpliterators$WrappingSpliterator.forEachRemaining(StreamSpliterators.java:312) ~[na:na]
+	at java.base/java.util.stream.Streams$ConcatSpliterator.forEachRemaining(Streams.java:734) ~[na:na]
+	at java.base/java.util.stream.ReferencePipeline$Head.forEach(ReferencePipeline.java:658) ~[na:na]
+	at com.ulisesbocchio.jasyptspringboot.configuration.EncryptablePropertySourceBeanFactoryPostProcessor.postProcessBeanFactory(EncryptablePropertySourceBeanFactoryPostProcessor.java:55) ~[jasypt-spring-boot-2.0.0.jar:na]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:286) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.context.support.PostProcessorRegistrationDelegate.invokeBeanFactoryPostProcessors(PostProcessorRegistrationDelegate.java:174) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.invokeBeanFactoryPostProcessors(AbstractApplicationContext.java:691) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.context.support.AbstractApplicationContext.refresh(AbstractApplicationContext.java:528) ~[spring-context-5.1.2.RELEASE.jar:5.1.2.RELEASE]
+	at org.springframework.boot.web.servlet.context.ServletWebServerApplicationContext.refresh(ServletWebServerApplicationContext.java:140) ~[spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refresh(SpringApplication.java:775) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.refreshContext(SpringApplication.java:397) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:316) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1260) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at org.springframework.boot.SpringApplication.run(SpringApplication.java:1248) [spring-boot-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+	at com.sep.bank.bankservice.BankServiceApplication.main(BankServiceApplication.java:37) [classes/:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke0(Native Method) ~[na:na]
+	at java.base/jdk.internal.reflect.NativeMethodAccessorImpl.invoke(NativeMethodAccessorImpl.java:62) ~[na:na]
+	at java.base/jdk.internal.reflect.DelegatingMethodAccessorImpl.invoke(DelegatingMethodAccessorImpl.java:43) ~[na:na]
+	at java.base/java.lang.reflect.Method.invoke(Method.java:564) ~[na:na]
+	at org.springframework.boot.devtools.restart.RestartLauncher.run(RestartLauncher.java:49) [spring-boot-devtools-2.1.0.RELEASE.jar:2.1.0.RELEASE]
+Caused by: java.lang.IllegalStateException: Encryptable Property Source 'EncryptedPropertySource#1549654728491' from location: application.properties Not Found
+	at com.ulisesbocchio.jasyptspringboot.configuration.EncryptablePropertySourceBeanFactoryPostProcessor.createPropertySource(EncryptablePropertySourceBeanFactoryPostProcessor.java:83) ~[jasypt-spring-boot-2.0.0.jar:na]
+	at com.ulisesbocchio.jasyptspringboot.configuration.EncryptablePropertySourceBeanFactoryPostProcessor.loadEncryptablePropertySource(EncryptablePropertySourceBeanFactoryPostProcessor.java:64) ~[jasypt-spring-boot-2.0.0.jar:na]
+	... 30 common frames omitted
+
+2019-02-08 20:39:56.083  INFO 16480 --- [restartedMain] EnableEncryptablePropertiesConfiguration : Bootstraping jasypt-string-boot auto configuration in context: application-1
+2019-02-08 20:39:56.089  INFO 16480 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank1
+2019-02-08 20:40:01.218  INFO 16480 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 20:40:01.781  INFO 16480 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 547ms. Found 7 repository interfaces.
+2019-02-08 20:40:04.146  INFO 16480 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=5a1d7284-ddb6-38da-8021-e5c6098ffccc
+2019-02-08 20:40:04.664  INFO 16480 --- [restartedMain] lePropertySourceBeanFactoryPostProcessor : Created Encryptable Property Source 'EncryptedPropertySource#1549654804652' from locations: [application-bank1.properties]
+2019-02-08 20:40:04.670  INFO 16480 --- [restartedMain] lePropertySourceBeanFactoryPostProcessor : Created Encryptable Property Source 'EncryptedPropertySource#1549654804667' from locations: [application-bank2.properties]
+2019-02-08 20:40:04.670  INFO 16480 --- [restartedMain] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
+2019-02-08 20:40:04.672  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
+2019-02-08 20:40:04.673  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletConfigInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+2019-02-08 20:40:04.673  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
+2019-02-08 20:40:04.674  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2019-02-08 20:40:04.674  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableMapPropertySourceWrapper
+2019-02-08 20:40:04.674  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
+2019-02-08 20:40:04.674  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationConfig: [classpath:/application-bank1.properties] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
+2019-02-08 20:40:04.675  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource springCloudClientHostInfo [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2019-02-08 20:40:04.678  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource devtools [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2019-02-08 20:40:04.679  INFO 16480 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource defaultProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
+2019-02-08 20:40:05.112  INFO 16480 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$844584b6] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 20:40:05.237  INFO 16480 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$3c5d1e8] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 20:40:05.283  INFO 16480 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$a05f87b3] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 20:40:05.619  INFO 16480 --- [restartedMain] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
+2019-02-08 20:40:05.655  INFO 16480 --- [restartedMain] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
+2019-02-08 20:40:05.714  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
+2019-02-08 20:40:05.798  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.algorithm, using default value: PBEWithMD5AndDES
+2019-02-08 20:40:05.808  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.keyObtentionIterations, using default value: 1000
+2019-02-08 20:40:05.808  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.poolSize, using default value: 1
+2019-02-08 20:40:05.808  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.providerName, using default value: null
+2019-02-08 20:40:05.808  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.providerClassName, using default value: null
+2019-02-08 20:40:05.809  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.saltGeneratorClassname, using default value: org.jasypt.salt.RandomSaltGenerator
+2019-02-08 20:40:05.815  INFO 16480 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.stringOutputType, using default value: base64
+2019-02-08 20:40:09.556  INFO 16480 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8210 (https)
+2019-02-08 20:40:09.631  INFO 16480 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-08 20:40:09.632  INFO 16480 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-08 20:40:09.658  INFO 16480 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programi\;D:\Programi\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;D:\Programi\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Programi\nodejs;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\;C:\Users\Jelena PC\AppData\Local\Microsoft\WindowsApps;C:\Users\Jelena PC\AppData\Roaming\npm;D:\Programi\PyCharm Community Edition 2018.3.1\bin;;.]
+2019-02-08 20:40:10.371  INFO 16480 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-08 20:40:10.371  INFO 16480 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 14210 ms
+2019-02-08 20:40:11.164  INFO 16480 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-08 20:40:11.165  INFO 16480 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-08 20:40:11.166  INFO 16480 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-08 20:40:11.166  INFO 16480 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-08 20:40:11.167  INFO 16480 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-08 20:40:11.167  INFO 16480 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-08 20:40:11.171  INFO 16480 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-02-08 20:40:11.969  INFO 16480 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-08 20:40:12.854  INFO 16480 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-08 20:40:13.301  INFO 16480 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-08 20:40:13.676  INFO 16480 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-08 20:40:13.680  INFO 16480 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-08 20:40:14.214  INFO 16480 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-08 20:40:15.060  INFO 16480 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-02-08 20:40:24.311  INFO 16480 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@3285fc0d'
+2019-02-08 20:40:24.316  INFO 16480 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 20:40:24.602  WARN 16480 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-08 20:40:31.756  INFO 16480 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 00e41a07-75ac-42af-b5e8-fe5837a05228
+
+2019-02-08 20:40:32.341  INFO 16480 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@5a98d1a6, org.springframework.security.web.context.SecurityContextPersistenceFilter@704f7fa6, org.springframework.security.web.header.HeaderWriterFilter@27ff4c5c, org.springframework.security.web.authentication.logout.LogoutFilter@42e45d07, com.sep.bank.bankservice.security.JwtTokenAuthenticationFilter@4fb0efb3, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4b023034, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@fd2d8a1, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@253cdb6, org.springframework.security.web.session.SessionManagementFilter@31df432a, org.springframework.security.web.access.ExceptionTranslationFilter@2f23ebe4, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@25ee3556]
+2019-02-08 20:40:32.578  WARN 16480 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 20:40:32.578  INFO 16480 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 20:40:32.603  WARN 16480 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 20:40:32.603  INFO 16480 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 20:40:33.671  INFO 16480 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-08 20:40:34.218  WARN 16480 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-08 20:40:41.872  INFO 16480 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2019-02-08 20:40:41.997  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2019-02-08 20:40:42.205  INFO 16480 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2019-02-08 20:40:42.207  INFO 16480 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2019-02-08 20:40:43.698  INFO 16480 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2019-02-08 20:40:43.698  INFO 16480 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2019-02-08 20:40:45.127  INFO 16480 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 20:40:46.139  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2019-02-08 20:40:46.140  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2019-02-08 20:40:46.140  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2019-02-08 20:40:46.140  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2019-02-08 20:40:46.141  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2019-02-08 20:40:46.141  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2019-02-08 20:40:46.141  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2019-02-08 20:40:46.860  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2019-02-08 20:40:46.905  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 1
+2019-02-08 20:40:46.945  INFO 16480 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2019-02-08 20:40:47.007  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1549654847000 with initial instances count: 0
+2019-02-08 20:40:48.419  INFO 16480 --- [DiscoveryClient-HeartbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ERSTE-SERVICE/DESKTOP-AP0M1JA.home:erste-service:8210 - Re-registering apps/ERSTE-SERVICE
+2019-02-08 20:40:48.423  INFO 16480 --- [DiscoveryClient-HeartbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ERSTE-SERVICE/DESKTOP-AP0M1JA.home:erste-service:8210: registering service...
+2019-02-08 20:40:48.840  INFO 16480 --- [DiscoveryClient-HeartbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ERSTE-SERVICE/DESKTOP-AP0M1JA.home:erste-service:8210 - registration status: 204
+2019-02-08 20:40:48.912  INFO 16480 --- [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application erste-service with eureka with status UP
+2019-02-08 20:40:48.918  INFO 16480 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1549654848918, current=UP, previous=STARTING]
+2019-02-08 20:40:48.927  INFO 16480 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ERSTE-SERVICE/DESKTOP-AP0M1JA.home:erste-service:8210: registering service...
+2019-02-08 20:40:48.938  INFO 16480 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_ERSTE-SERVICE/DESKTOP-AP0M1JA.home:erste-service:8210 - registration status: 204
+2019-02-08 20:40:49.563  INFO 16480 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8210 (https) with context path ''
+2019-02-08 20:40:49.566  INFO 16480 --- [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8210
+2019-02-08 20:40:49.581  INFO 16480 --- [restartedMain] c.s.b.b.BankServiceApplication           : Started BankServiceApplication in 60.913 seconds (JVM running for 65.58)
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Application version is -1: false
+2019-02-08 20:41:16.905  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2019-02-08 20:41:17.012  INFO 16480 --- [DiscoveryClient-CacheRefreshExecutor-0] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2019-02-08 20:45:46.258  INFO 16480 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 20:50:46.336  INFO 16480 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 20:55:46.342  INFO 16480 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 21:00:46.345  INFO 16480 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 21:05:46.347  INFO 16480 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 21:10:46.347  INFO 16480 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
