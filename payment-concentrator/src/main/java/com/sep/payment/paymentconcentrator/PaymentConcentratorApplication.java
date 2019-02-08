@@ -1,6 +1,7 @@
 package com.sep.payment.paymentconcentrator;
 
 import com.sep.payment.paymentconcentrator.security.RestTemplateHeaderModifierInterceptor;
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
@@ -11,6 +12,7 @@ import org.springframework.boot.autoconfigure.EnableAutoConfiguration;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.CollectionUtils;
@@ -27,9 +29,12 @@ import java.util.List;
 
 @ComponentScan
 @SpringBootApplication
+@Configuration
+@EncryptablePropertySource("application.properties")
 public class PaymentConcentratorApplication {
 
     public static void main(String[] args) {
+        System.setProperty("jasypt.encryptor.password", "supersecretz");
         SpringApplication.run(PaymentConcentratorApplication.class, args);
     }
 

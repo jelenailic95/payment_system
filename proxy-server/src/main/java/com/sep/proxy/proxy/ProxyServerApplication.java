@@ -1,6 +1,7 @@
 package com.sep.proxy.proxy;
 
 import com.sep.proxy.proxy.security.ZuulSSL;
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 import org.apache.http.conn.HttpClientConnectionManager;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
@@ -10,13 +11,18 @@ import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy;
 import org.springframework.cloud.netflix.zuul.filters.ZuulProperties;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 
 @SpringBootApplication
 @EnableEurekaClient
 @EnableZuulProxy
+@Configuration
+@EncryptablePropertySource("application.yml")
 public class ProxyServerApplication {
 
     public static void main(String[] args) {
+
+        System.setProperty("jasypt.encryptor.password", "supersecretz");
         SpringApplication.run(ProxyServerApplication.class, args);
     }
 

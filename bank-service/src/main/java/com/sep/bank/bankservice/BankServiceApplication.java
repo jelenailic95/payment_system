@@ -1,6 +1,7 @@
 package com.sep.bank.bankservice;
 
 import com.sep.bank.bankservice.security.RestTemplateHeaderModifierInterceptor;
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.impl.client.CloseableHttpClient;
 import org.apache.http.impl.client.HttpClients;
@@ -8,6 +9,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.cloud.netflix.eureka.EnableEurekaClient;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.CollectionUtils;
@@ -25,9 +27,13 @@ import java.util.List;
 
 @SpringBootApplication
 @EnableEurekaClient
+@Configuration
+@EncryptablePropertySource("application-bank1.properties")
 public class BankServiceApplication {
 
     public static void main(String[] args) {
+
+        System.setProperty("jasypt.encryptor.password", "supersecretz");
         SpringApplication.run(BankServiceApplication.class, args);
     }
 

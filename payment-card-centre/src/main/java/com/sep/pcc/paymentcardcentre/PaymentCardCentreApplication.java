@@ -1,6 +1,7 @@
 package com.sep.pcc.paymentcardcentre;
 
 import com.sep.pcc.paymentcardcentre.security.RestTemplateHeaderModifierInterceptor;
+import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -8,6 +9,7 @@ import org.apache.http.impl.client.HttpClients;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
 import org.springframework.http.client.ClientHttpRequestInterceptor;
 import org.springframework.http.client.HttpComponentsClientHttpRequestFactory;
 import org.springframework.util.CollectionUtils;
@@ -22,9 +24,13 @@ import java.util.ArrayList;
 import java.util.List;
 
 @SpringBootApplication
+@Configuration
+@EncryptablePropertySource("application.properties")
 public class PaymentCardCentreApplication {
 
     public static void main(String[] args) {
+
+        System.setProperty("jasypt.encryptor.password", "supersecretz");
         SpringApplication.run(PaymentCardCentreApplication.class, args);
     }
 
