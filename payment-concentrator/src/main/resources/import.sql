@@ -6,8 +6,8 @@ INSERT INTO payment_method (method_name, method) VALUES ('crypto', 'crypto');
 -- company 1
 
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
- ('Company1', 'Laguna','o86NEznTFvhD8Cg8HHtE7g==VAw0URM7zALP1ELZDkayJQFaNfTOxFkOpnW2xs67moPh329qoOBp3Dh35PEUONN5rWkuYT3je2FQxWab9xeen2vpnjws/MMgtVrpeVSHVbSGsmXeUM4aeedJujPFt/1C',
-  'h6WtzIOpmJQa2lNvGkKAIw==b7iY26KDuDa6+t4do0x1bmZK3QXCdZW98xD8x6QB277CHQuZgUnZmvGK4TWZ0dqKVHFtGQinjPSTPXbZcjMrmcQlgqMVd00hHpir4exwdySWJNpGrnp2MlZxbaqd6cWD',
+ ('Company1', 'Laguna','AXoO1kivoRi6_dU06wjmz2OJGGCQu9WSUfVVweds4st1lgbxFSCKe4Qpj6p_8JCxYbI4RWmykpTmXj0N',
+  'ENZPc9EBuTTXM2jGIXoaNUxykTMu6iJNItY-1gn6K6bZqUuk9TRtg_uhxR0bGnNs5CBRXvLmE6BnNVh7',
   1);
 
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
@@ -19,8 +19,11 @@ INSERT INTO client (client,journal, client_id, client_password, payment_method_i
 
 -- company 2
 
+
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
- ('Company1', 'eLife','//WLGPSFzLiri983ZFgACg==foANj9Zfce7N2aSz7DSI5OnRXubr/mEt6NLHBn1PlrTFDLfyEIKiE2gusVwooTzkMiCqqcwaKfZqz/7Gz3y3vbtowfja3gsO9gzUR6tVrCAKkuP7R5mF3z9GImfq04js','AJpfdPpF8Z63QKGCwt3NfQ==wZHDHPK/pZweqCJzLVXdJv6nwukaNfTiA6dp92+GkBWKzhMVkAA+5BS+g6CQSqrqkLSviUVjHUPBNUEKeqMYzNCHwteDPOyT5uvjTwzzAjjQfXEhCVIsZy9R4k9+Gf2n', 1);
+ ('Company1', 'eLife','AbDBRgpt51kWyAJRRqcIbr-2_LtkRM-1UkReJVr_4ZmCIrQ-lVDUTNLGwM4QiR_hep_cB280EGjub1TJ',
+  'EFBL8TXuELjUwRSyveeTfnuOOrVkWGuJiwSmarEF9SO2l5bJSULX2cD7bqM-Y5sSUEfE2GTMtLsKzegP',
+  1);
 
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
  ('Company1', 'eLife', 'lh+Ehc3xb6J5e619Rsg2Ng==MkutNFDGocA997Ug9WyXgpH42VThM1FT5Zqpz6+gUHU=',
@@ -34,9 +37,8 @@ INSERT INTO client (client,journal, client_id, client_password, payment_method_i
 -- company 3
 
  INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
- ('Company2', 'Science','YIlk8UChsXk3ynI7RCks9A==l/9KZTCwkr6L9ZQnFK+qLX1/6Z/j8TARAhTLzH1xz9oH0PBPMF8z8aH8ZQ8bikqxifQY7y7aGNB80xBQ+Ue3odYP6CJq/eqQSqKoN+SJQmxErRpAeFmM7yYmwWqlF4Rl',
- '7FbXxeJ/VgSDfF3EulLRrQ==eD4v54plU/o3bzNj4GHnKg8ithFUyyZLJTP+b4oKZGaD6jsugRfJci/kFbPY5ZDt0r5ibfuO72n2T5ueDQ/SgwrDz4VEPBNwjcs/NXBhvkGyblqtEiCq2zBifraqZe2t',
- 1);
+ ('Company2', 'Science','AchqbciXvEdfMdyOIfhOLHyiFn2YYyfciAiXmrz5eHjgdNmSFUkEHYnSV13BIsHwvaseRRiPc9VQFfWv',
+ 'ECieBEm8xwYN5xYViwYv1CARX9zbqENGYNmAj2vrnclJP5IRn0dw1_Mmu93m1OoST5nKcZYdNPqB1nuY', 1);
 
 INSERT INTO client (client,journal, client_id, client_password, payment_method_id) VALUES
  ('Company2', 'Science', 'BlITocLkykNyo/8PJPsSaw==/yrlXStGxmmxDbNu6ZpdX1jsuGL5j0lIRj5OoyCuim8=',

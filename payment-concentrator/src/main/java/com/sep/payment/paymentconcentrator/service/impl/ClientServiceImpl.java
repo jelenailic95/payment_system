@@ -37,11 +37,11 @@ public class ClientServiceImpl implements ClientService {
     /**
      * Subscribe for the payment method.
      *
-     * @param clientName journal name
-     * @param clientId client username for the payment method
+     * @param clientName     journal name
+     * @param clientId       client username for the payment method
      * @param clientPassword client password for the payment method
-     * @param method method
-     * @param methodName method name
+     * @param method         method
+     * @param methodName     method name
      * @return client
      */
     @Override
@@ -53,22 +53,36 @@ public class ClientServiceImpl implements ClientService {
             return null;
         }
 
+        String encryptedClientId = "";
+
         Client client = clientRepository.findByJournalAndPaymentMethodMethod(clientName, method);
-        String encryptedClientId = aes.encrypt(clientId);
-        if (!clientPassword.equals("")) {
-            clientPassword = aes.encrypt(clientPassword);
+
+        if (!method.equals("payPal")) {
+            encryptedClientId = aes.encrypt(clientId);
+            if (!clientPassword.equals("")) {
+                clientPassword = aes.encrypt(clientPassword);
+            }
         }
 
-
         if (client == null) {
-            Client newClient = new Client(clientName, clientName, encryptedClientId, clientPassword, paymentMethod);
+            Client newClient;
+            if (method.equals("payPal")) {
+                newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
+            } else {
+                newClient = new Client(clientName, clientName, encryptedClientId, clientPassword, paymentMethod);
+            }
             clientRepository.save(newClient);
 
             logger.info("Client {} has successfully enabled {}.", clientName, method);
             return clientRepository.save(newClient);
         }
 
-        client.setClientId(encryptedClientId);
+        if (method.equals("payPal")) {
+            client.setClientId(clientId);
+        }else{
+            client.setClientId(encryptedClientId);
+        }
+
         client.setClientPassword(clientPassword);
 
         PaymentMethod paymentMethodDb = paymentMethodRepository.findByMethodNameAndMethod(methodName, method);
@@ -82,8 +96,8 @@ public class ClientServiceImpl implements ClientService {
     /**
      * Unsubscribe from the payment method.
      *
-     * @param client client
-     * @param method method
+     * @param client     client
+     * @param method     method
      * @param methodName method name
      */
     @Override
