@@ -57,7 +57,7 @@ public class ClientServiceImpl implements ClientService {
 
         Client client = clientRepository.findByJournalAndPaymentMethodMethod(clientName, method);
 
-        if (!method.equals("payPal")) {
+        if (!method.equals("paypal")) {
             encryptedClientId = aes.encrypt(clientId);
             if (!clientPassword.equals("")) {
                 clientPassword = aes.encrypt(clientPassword);
@@ -66,7 +66,7 @@ public class ClientServiceImpl implements ClientService {
 
         if (client == null) {
             Client newClient;
-            if (method.equals("payPal")) {
+            if (method.equals("paypal")) {
                 newClient = new Client(clientName, clientName, clientId, clientPassword, paymentMethod);
             } else {
                 newClient = new Client(clientName, clientName, encryptedClientId, clientPassword, paymentMethod);
@@ -77,7 +77,7 @@ public class ClientServiceImpl implements ClientService {
             return clientRepository.save(newClient);
         }
 
-        if (method.equals("payPal")) {
+        if (method.equals("paypal")) {
             client.setClientId(clientId);
         }else{
             client.setClientId(encryptedClientId);

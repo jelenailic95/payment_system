@@ -128,6 +128,6 @@ public class PaymentRequestController {
                 .concat("&paymentId=").concat(finishPaymentDTO.getPaymentId())
                 .concat("&PayerID=").concat(finishPaymentDTO.getPayerId()), Boolean.class).getBody();
 
-        return new ResponseEntity<>(SuccessDto.builder().success(success).user(p.getUsername()), HttpStatus.OK);
+        return new ResponseEntity<>(SuccessDto.builder().success(success).user(p.getUsername()).build(), HttpStatus.OK);
     }
 }

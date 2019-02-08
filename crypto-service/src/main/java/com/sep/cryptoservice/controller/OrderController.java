@@ -51,7 +51,8 @@ public class OrderController {
     @PostMapping("/bitcoin-payment")
     public ResponseEntity<ResponseOrderDTO> createOrder(@RequestBody BitcoinPaymentDto requestDTO) {
         Order order = new Order(requestDTO.getRequestDTO().getAmount(), "USD", "USD",
-                pcClientHost + "result/success", pcClientHost + "result/cancel");
+                pcClientHost + "result/success?username=" + requestDTO.getPaymentRequest().getUsername(),
+                pcClientHost + "result/cancel?username=");
         HttpHeaders headers = new HttpHeaders();
         String decrToken = aes.decrypt(requestDTO.getRequestDTO().getClientId());
         headers.add("Authorization", "Bearer " + decrToken);

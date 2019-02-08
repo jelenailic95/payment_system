@@ -164,7 +164,10 @@ public class PaymentMethodController {
 
         // client with given payment method doesnt exist
         if (foundClient != null) {
-            String clientId = aes.decrypt(foundClient.getClientId());
+            String clientId = foundClient.getClientId();
+            if (!requestDTO.getMethod().equals("paypal")) {
+                 clientId = aes.decrypt(foundClient.getClientId());
+            }
             ClientPaymentMethodDTO clientDTO = new ClientPaymentMethodDTO(clientId,
                     modelMapper.map(foundClient.getPaymentMethod(), PaymentMethodDTO.class));
 

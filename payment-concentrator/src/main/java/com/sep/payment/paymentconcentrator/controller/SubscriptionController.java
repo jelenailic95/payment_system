@@ -80,7 +80,7 @@ public class SubscriptionController {
                 .frequencyPayment(planInfoDTO.getFrequency())
                 .nameOfJournal(clientName)
                 .build();
-        return this.restTemplate.postForEntity(proxyHost + "/paypal-service/plan/ -plan", plan, String.class);
+        return this.restTemplate.postForEntity(proxyHost + "/paypal-service/plan/create-plan", plan, String.class);
 
     }
 

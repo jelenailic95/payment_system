@@ -30,10 +30,10 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     /**
      * Method creates payment request and stores its in the db.
      *
-     * @param client journal name
-     * @param amount paper or journal amount
+     * @param client   journal name
+     * @param amount   paper or journal amount
      * @param bankName name of the bank
-     * @param tokens array with the information of the paper/journal that is being bought
+     * @param tokens   array with the information of the paper/journal that is being bought
      * @return created payment request
      */
     @Override
@@ -52,7 +52,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         paymentRequest.setScName(tokens[4]);
 
         // if client is buying paper, set paper id
-        if(paymentRequest.getTypeOfPayment().equals("paper"))
+        if (paymentRequest.getTypeOfPayment().equals("paper"))
             paymentRequest.setPaperId(Long.parseLong(tokens[5]));
 
         // get last payment request from the db
@@ -64,9 +64,9 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         paymentRequest.setMerchantOrderId(merchantOrderId);
 
         // generate URLs
-        String errorUrl = "error?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
-        String successUrl = "success?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
-        String failUrl = "fail?order=" + merchantOrderId + "?" + RandomStringUtils.randomAlphabetic(16);
+        String errorUrl = "error?order=" + merchantOrderId + "&username=" + paymentRequest.getUsername() + "&ran=" + RandomStringUtils.randomAlphabetic(16);
+        String successUrl = "success?order=" + merchantOrderId + "&username=" + paymentRequest.getUsername() + "&ran=" + RandomStringUtils.randomAlphabetic(16);
+        String failUrl = "fail?order=" + merchantOrderId + "&username=" + paymentRequest.getUsername() + "&ran=" + RandomStringUtils.randomAlphabetic(16);
 
         paymentRequest.setErrorUrl(errorUrl);
         paymentRequest.setSuccessUrl(successUrl);
@@ -83,12 +83,12 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
     /**
      * Method creates payment request and stores its in the db.
      *
-     * @param username username
-     * @param amount amount
-     * @param journalName journal name
-     * @param paperId paper id
+     * @param username      username
+     * @param amount        amount
+     * @param journalName   journal name
+     * @param paperId       paper id
      * @param typeOfPayment type of payment
-     * @param scName clients name
+     * @param scName        clients name
      * @return created payment request
      */
     @Override
@@ -127,7 +127,7 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
      * Save payment request into db.
      *
      * @param paymentRequest payment request
-     * @return  payment request
+     * @return payment request
      */
     @Override
     public PaymentRequest save(PaymentRequest paymentRequest) {
