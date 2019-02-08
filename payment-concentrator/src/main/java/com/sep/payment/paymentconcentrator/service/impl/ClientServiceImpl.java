@@ -34,6 +34,16 @@ public class ClientServiceImpl implements ClientService {
         return clientRepository.findByJournal(client);
     }
 
+    /**
+     * Subscribe for the payment method.
+     *
+     * @param clientName journal name
+     * @param clientId client username for the payment method
+     * @param clientPassword client password for the payment method
+     * @param method method
+     * @param methodName method name
+     * @return client
+     */
     @Override
     public Client methodSubscribe(String clientName, String clientId, String clientPassword, String method,
                                   String methodName) {
@@ -69,6 +79,13 @@ public class ClientServiceImpl implements ClientService {
         return client;
     }
 
+    /**
+     * Unsubscribe from the payment method.
+     *
+     * @param client client
+     * @param method method
+     * @param methodName method name
+     */
     @Override
     public void methodUnsubscribe(String client, String method, String methodName) {
         Client clientDb = clientRepository.findByJournalAndPaymentMethodMethodAndPaymentMethodMethodName(client, method,
@@ -78,11 +95,24 @@ public class ClientServiceImpl implements ClientService {
     }
 
 
+    /**
+     * Find client with the given journal and payment method name.
+     *
+     * @param client journal
+     * @param method method
+     * @return client
+     */
     @Override
     public Client findByClientMethod(String client, String method) {
         return clientRepository.findByJournalAndPaymentMethodMethodName(client, method);
     }
 
+    /**
+     * Find payment method that has given method.
+     *
+     * @param method method
+     * @return list of payment methods
+     */
     @Override
     public List<PaymentMethod> findPaymentMethodByMethod(String method) {
         return paymentMethodRepository.findByMethod(method);

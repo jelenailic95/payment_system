@@ -25,11 +25,21 @@ public class PaperController {
         this.userService = userService;
     }
 
+    /**
+     * Get all papers from the db.
+     *
+     * @return list of papers
+     */
     @GetMapping
     public ResponseEntity<List<Paper>> getPapers()  {
         return new ResponseEntity<>(paperService.getAll(), HttpStatus.OK);
     }
 
+    /**
+     * Add new paper.
+     *
+     * @param finishPaymentDto journal name, paper id, client's username and type of payment
+     */
     @PostMapping(value = "/add")
     public void addPaper(@RequestBody FinishPaymentDto finishPaymentDto) {
             User user = userService.getByUsername(finishPaymentDto.getUsername());
@@ -38,6 +48,12 @@ public class PaperController {
             userService.create(user);
     }
 
+    /**
+     * Get user's bought papers.
+     *
+     * @param username username
+     * @return list of the user's papers
+     */
     @GetMapping(value = "/my-papers/{username}")
     public ResponseEntity<List<Paper>> getMyPapers(@PathVariable String username) {
         User user = userService.getByUsername(username);

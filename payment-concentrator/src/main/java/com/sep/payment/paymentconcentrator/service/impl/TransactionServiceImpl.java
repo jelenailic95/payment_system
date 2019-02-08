@@ -18,6 +18,12 @@ public class TransactionServiceImpl implements TransactionService {
     @Autowired
     private PaymentRequestService paymentRequestService;
 
+    /**
+     * Method returns url based on the transaction status.
+     *
+     * @param transaction transaction that is being created
+     * @return success, fail or error url
+     */
     @Override
     public String finishTransaction(Transaction transaction) {
         transactionRepository.save(transaction);

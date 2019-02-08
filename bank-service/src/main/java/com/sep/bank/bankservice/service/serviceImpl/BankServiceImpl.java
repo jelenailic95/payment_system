@@ -74,6 +74,12 @@ public class BankServiceImpl implements BankService {
         return bankRepository.findAll();
     }
 
+    /**
+     * Create payment url and save payment request into db.
+     *
+     * @param requestDTO payment request
+     * @return payment request data with the created url.
+     */
     @Override
     public PaymentDataDTO getPaymentUrl(PaymentRequestDTO requestDTO) {
         String merchantId = aes.decrypt(requestDTO.getMerchantId());
@@ -89,20 +95,27 @@ public class BankServiceImpl implements BankService {
             // remove '/' from generated url
             paymentUrl = paymentUrl.replaceAll("/", "");
 
-            String paymentId = RandomStringUtils.randomAlphabetic(10);
+            String paymentId = RandomStringUtils.randomAlphabetic(10);   // generate payment id
 
             paymentDataDTO = new PaymentDataDTO(paymentUrl, paymentId, requestDTO.getAmount(),
                     requestDTO.getMerchantOrderId());
 
+            // save payment request into db
             PaymentRequest paymentRequest = new PaymentRequest(requestDTO.getAmount(), account.getId(),
                     requestDTO.getMerchantOrderId(), paymentUrl, paymentId);
-
             paymentRequestRepository.save(paymentRequest);
+
             logger.info("Payment request saved into db.");
         }
         return paymentDataDTO;
     }
 
+    /**
+     * Check if card exists in the bank2 and process transaction.
+     *
+     * @param acquirerDataDTO acquirer data, card data and amount
+     * @return transaction
+     */
     @Override
     public Transaction checkCard(AcquirerDataDTO acquirerDataDTO) {
         CardDTO card = acquirerDataDTO.getCard();
@@ -122,10 +135,18 @@ public class BankServiceImpl implements BankService {
                 return createTransaction(acquirerDataDTO, TransactionStatus.REFUSED);
             }
         }
+        // card is not found in the system, status is failed.
         logger.info("This credit card doesn't exist in the bank system. Transaction status: FAILED");
-        return createTransaction(acquirerDataDTO, TransactionStatus.FAILED);  // ne pronalazi karticu u banci, neki error baciti
+        return createTransaction(acquirerDataDTO, TransactionStatus.FAILED);
     }
 
+    /**
+     * Create transaction and save it into bank's 2 db.
+     *
+     * @param acquirerDataDTO acquirer data, card data and amount
+     * @param status transaction status
+     * @return create transaction
+     */
     private Transaction createTransaction(AcquirerDataDTO acquirerDataDTO, TransactionStatus status) {
         Transaction transaction = new Transaction();
         transaction.setAcquirerOrderId(acquirerDataDTO.getAcquirerOrderId());
@@ -134,11 +155,20 @@ public class BankServiceImpl implements BankService {
         transaction.setStatus(status);
         transaction.setMerchantOrderId(acquirerDataDTO.getMerchantOrderId());
         transaction.setPaymentId(acquirerDataDTO.getPaymentId());
-        transactionRepository.save(transaction);                // for bank2 db
+
+        // if transaction is forwarded to the bank2, save it there as well
+        transactionRepository.save(transaction);
         logger.info("New transaction is successfully created and saved.");
         return transaction;
     }
 
+    /**
+     * Pay buy card: check if card exists in the db, if not forward it to the PCC,
+     * otherwise check if there is enough money on the card and process transaction.
+     *
+     * @param card credit card data with the amount
+     * @return final transaction
+     */
     @Override
     public Transaction checkBankForCard(CardAmountDTO card) {
         Card foundCard = cardService.findCard(card.getPan(), card.getSecurityCode(), card.getCardHolderName(),
@@ -150,6 +180,7 @@ public class BankServiceImpl implements BankService {
         transaction.setPaymentId(card.getPaymentId());
         transaction.setAmount(card.getAmount());
 
+        // if credit card exist in this bank, check account balance
         if (foundCard != null) {
             logger.info("This credit card exists in the bank system. Card holder name: {}",
                     aes.decrypt(foundCard.getCardHolderName()));
@@ -161,8 +192,9 @@ public class BankServiceImpl implements BankService {
                 logger.info("This client doesn't have enough money on the card. Status: REFUSED.");
                 transaction.setStatus(TransactionStatus.REFUSED);
             }
+
+        // banks are different, forward data to the PCC
         } else {
-            // banks are different
             logger.info("This credit card doesn't exist in the bank system. Transaction request is forwarded to the PCC.");
             transaction = forwardToPcc(card, transaction);
             return transaction;
@@ -172,11 +204,19 @@ public class BankServiceImpl implements BankService {
         return transaction;
     }
 
+    /**
+     * Forward transaction request to the PCC.
+     *
+     * @param cardAmountDTO card data with the amount
+     * @param transaction create transaction
+     * @return transaction
+     */
     private Transaction forwardToPcc(CardAmountDTO cardAmountDTO, Transaction transaction) {
         CardDTO cardDTO = new CardDTO(aes.encrypt(cardAmountDTO.getPan()),
                 aes.encrypt(cardAmountDTO.getSecurityCode()),
                 aes.encrypt(cardAmountDTO.getCardHolderName()), aes.encrypt(cardAmountDTO.getExpirationDate()));
 
+        // generate acquirer order id
         GeneralSequenceNumber gsn = gsr.getOne(1L);           // get acquirer counter
         gsn.setAcquirerCounter(gsn.getAcquirerCounter() + 1L);    // increment acquirer counter
         gsr.save(gsn);
@@ -202,12 +242,19 @@ public class BankServiceImpl implements BankService {
             transaction.setStatus(TransactionStatus.FAILED);
         }
 
+        // if transaction status is paid, transfer money to the merchant's account
         if (transaction.getStatus().equals(TransactionStatus.PAID)) {
             transferMoneyToMerchantsAccount(transaction.getMerchantOrderId(), cardAmountDTO.getAmount());
         }
         return transaction;
     }
 
+    /**
+     * Transfer money to the merchant's account.
+     *
+     * @param merchantOrderId merchant order id
+     * @param amount amoutn
+     */
     private void transferMoneyToMerchantsAccount(Long merchantOrderId, double amount) {
         PaymentRequest paymentRequest = paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
         Account account = accountService.getAccount(paymentRequest.getMerchantAccountId());
@@ -215,6 +262,14 @@ public class BankServiceImpl implements BankService {
         accountService.saveAccount(account);
     }
 
+    /**
+     * Check if there is enough money on the credit card.
+     * If there is enough money on the credit card, reduce the amount.
+     *
+     * @param foundCard found card object.
+     * @param amount amount
+     * @return true if there is enough money on the card, false otherwise
+     */
     private boolean checkAmountOnAccount(Card foundCard, double amount) {
         if (amount <= foundCard.getAccount().getAmount()) {
             logger.info("There is enough money on the credit card.");
@@ -226,6 +281,14 @@ public class BankServiceImpl implements BankService {
         return false;
     }
 
+    /**
+     * Register new bank account.
+     *
+     * @param clientFullName client's full name
+     * @param email client's email
+     * @param bankName client's bank name
+     * @return new account
+     */
     @Override
     public Account registerNewAccount(String clientFullName, String email, String bankName) {
         Bank bank = bankRepository.findByName(bankName);
@@ -259,11 +322,22 @@ public class BankServiceImpl implements BankService {
         return createdAccount;
     }
 
+    /**
+     * Generate merchant field
+     *
+     * @param length field length
+     * @return string-merchant field
+     */
     private String generateMerchantField(int length) {
         String field = RandomStringUtils.randomAlphabetic(length);
         return aes.encrypt(field);
     }
 
+    /**
+     * Get issuer order id.
+     *
+     * @return issuer order id
+     */
     @Override
     public Long getIssuerOrderId() {
         GeneralSequenceNumber gsn = gsr.getOne(1L);         // get issuer counter
@@ -272,6 +346,12 @@ public class BankServiceImpl implements BankService {
         return gsn.getIssuerCounter();
     }
 
+    /**
+     * Get payment request for the given payment url.
+     *
+     * @param paymentUrl payment url
+     * @return payment request
+     */
     @Override
     public PaymentRequest getPaymentRequest(String paymentUrl) {
         PaymentRequest paymentRequest = paymentRequestRepository.findByPaymentUrl(paymentUrl);

@@ -44,6 +44,12 @@ public class AcquirerController {
         this.restTemplate = restTemplate;
     }
 
+    /**
+     * Get payment url.
+     *
+     * @param request payment request data.
+     * @return payment request object with the created payment url.
+     */
     @PostMapping("/get-payment-url")
     public ResponseEntity<PaymentDataDTO> getPaymentUrl(@RequestBody PaymentRequestDTO request) {
         logger.info("Request - get payment url. Merchant: {}", request.getMerchantId());
@@ -53,6 +59,12 @@ public class AcquirerController {
         return ResponseEntity.ok(paymentData);
     }
 
+    /**
+     * POST: Pay buy bank card.
+     *
+     * @param cardAmountDTO amount and card data.
+     * @return transaction result
+     */
     @PostMapping("/pay-by-card")
     public ResponseEntity<TransactionDTO> payByCard(@RequestBody CardAmountDTO cardAmountDTO) {
         logger.info("Request - pay by bank card. Amount: {}", cardAmountDTO.getAmount());
