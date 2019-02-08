@@ -21,10 +21,7 @@ import org.slf4j.LoggerFactory;
 
 import javax.validation.Valid;
 import java.io.UnsupportedEncodingException;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Objects;
-import java.util.Set;
+import java.util.*;
 
 @RestController
 @RequestMapping(value = "/pc")
@@ -49,6 +46,13 @@ public class PaymentMethodController {
         this.aes = aes;
     }
 
+    /**
+     * POST: Get all payment method for the given journal.
+     *
+     * @param clientDTO tokenized journal name
+     * @return all payment methods for the given journal
+     * @throws UnsupportedEncodingException encoding problem
+     */
     @PostMapping(value = "/payment-methods")
     public ResponseEntity checkPaymentMethods(@RequestBody @Valid ClientDTO clientDTO)
             throws UnsupportedEncodingException {
@@ -62,6 +66,8 @@ public class PaymentMethodController {
         if (clients.size() == 0) {
             logger.info("This client doesn't have any registered payment methods.");
             return ResponseEntity.ok(clients);
+        } else {
+            Collections.sort(clients, Comparator.comparing(Client::getClient));
         }
 
         Set<PaymentMethodDTO> paymentMethodDTOS = new HashSet<>();
@@ -78,18 +84,21 @@ public class PaymentMethodController {
         return ResponseEntity.ok(response);
     }
 
+    /**
+     * POST: Subscribe for the new payment method.
+     *
+     * @param newMethodDTO payment method object
+     * @return company with the new payment method subscribed
+     * @throws UnsupportedEncodingException encoding problems
+     */
     @PostMapping(value = "/method-subscribe")
     public ResponseEntity enableNewPaymentMethod(@RequestBody @Valid NewMethodDTO newMethodDTO)
             throws UnsupportedEncodingException {
 
         logger.info("Request - enable {} for the client {}", newMethodDTO.getMethod(), newMethodDTO.getClientName());
 
-        String token = Utility.readToken(newMethodDTO.getClientId());
-        String[] tokens = token.split("-");
-        String clientName = tokens[2];
-
-//        String token = Utility.readToken(clientDTO.getClientId());
-//        String clientName = token.split("-")[2];
+        String token = Utility.readToken(newMethodDTO.getClientName());
+        String clientName = token.split("-")[2];
 
         Client client = clientService.methodSubscribe(clientName, newMethodDTO.getClientId(),
                 newMethodDTO.getClientPassword(), newMethodDTO.getMethod(), newMethodDTO.getMethodName());
@@ -102,6 +111,13 @@ public class PaymentMethodController {
         return ResponseEntity.ok().body(client);
     }
 
+    /**
+     * POST: Unsubscribe from the payment method.
+     *
+     * @param requestDTO payment method
+     * @return response status
+     * @throws UnsupportedEncodingException encoding problems
+     */
     @PostMapping(value = "/method-unsubscribe")
     public ResponseEntity methodUnsubscribe(@RequestBody @Valid PaymentMethodDetailsRequestDTO requestDTO)
             throws UnsupportedEncodingException {
@@ -125,18 +141,28 @@ public class PaymentMethodController {
         return ResponseEntity.ok(token);
     }
 
+    /**
+     * POST: Get details for the given payment method.
+     *
+     * @param requestDTO payment method and payment method name
+     * @return details of the payment method
+     * @throws UnsupportedEncodingException encoding problems
+     */
     @PostMapping(value = "/payment-method-details")
     public ResponseEntity getPaymentMethodDetails(@RequestBody PaymentMethodDetailsRequestDTO requestDTO)
             throws UnsupportedEncodingException {
         logger.info("Request- get payment method details.");
         String token = Utility.readToken(requestDTO.getClientId());
         String clientName = token.split("-")[2];
+
+        // get client with its registered payment method
         Client foundClient = clientService.findByClientMethod(clientName, requestDTO.getMethodName());
         logger.info("Get payment method details for the {}, for the client: {}",
                 requestDTO.getMethod(), clientName);
 
         PaymentMethodDetailsDTO paymentMethodDetailsDTO = new PaymentMethodDetailsDTO();
 
+        // client with given payment method doesnt exist
         if (foundClient != null) {
             String clientId = aes.decrypt(foundClient.getClientId());
             ClientPaymentMethodDTO clientDTO = new ClientPaymentMethodDTO(clientId,
@@ -145,6 +171,7 @@ public class PaymentMethodController {
             paymentMethodDetailsDTO.setClientPaymentMethodDTO(clientDTO);
         }
 
+        // if payment method is bank, return all banks from the system as well
         if (requestDTO.getMethod().equals("bank")) {
             List<PaymentMethod> banks = clientService.findPaymentMethodByMethod(requestDTO.getMethod());
             paymentMethodDetailsDTO.setPaymentMethods(banks);

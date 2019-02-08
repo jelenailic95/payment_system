@@ -1,0 +1,186 @@
+2019-02-08 12:35:51.920  INFO 22396 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank2
+2019-02-08 12:35:55.810  INFO 22396 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 12:35:56.361  INFO 22396 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 529ms. Found 7 repository interfaces.
+2019-02-08 12:35:58.168  INFO 22396 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=33cf800c-87eb-308f-b346-068663edac45
+2019-02-08 12:35:58.883  INFO 22396 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$b4d3ef62] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:35:58.972  INFO 22396 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$34543c94] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:35:59.026  INFO 22396 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$d0edf25f] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:36:04.930  INFO 22396 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8202 (https)
+2019-02-08 12:36:05.071  INFO 22396 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-08 12:36:05.072  INFO 22396 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-08 12:36:05.110  INFO 22396 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programi\;D:\Programi\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;D:\Programi\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Programi\nodejs;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\;C:\Users\Jelena PC\AppData\Local\Microsoft\WindowsApps;C:\Users\Jelena PC\AppData\Roaming\npm;D:\Programi\PyCharm Community Edition 2018.3.1\bin;;.]
+2019-02-08 12:36:06.271  INFO 22396 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-08 12:36:06.272  INFO 22396 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 14278 ms
+2019-02-08 12:36:06.854  INFO 22396 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-08 12:36:06.854  INFO 22396 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-08 12:36:06.855  INFO 22396 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-08 12:36:06.856  INFO 22396 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-08 12:36:06.856  INFO 22396 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-08 12:36:06.857  INFO 22396 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-08 12:36:06.870  INFO 22396 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-02-08 12:36:07.271  INFO 4924 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank2
+2019-02-08 12:36:07.835  INFO 22396 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-08 12:36:08.425  INFO 22396 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-08 12:36:08.891  INFO 22396 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-08 12:36:09.261  INFO 22396 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-08 12:36:09.267  INFO 22396 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-08 12:36:09.758  INFO 22396 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-08 12:36:10.251  INFO 22396 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-02-08 12:36:10.531  INFO 4924 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 12:36:10.928  INFO 4924 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 378ms. Found 7 repository interfaces.
+2019-02-08 12:36:12.120  INFO 4924 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=33cf800c-87eb-308f-b346-068663edac45
+2019-02-08 12:36:12.683  INFO 4924 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$cd7bd4a5] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:36:12.739  INFO 4924 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$4cfc21d7] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:36:12.774  INFO 4924 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$e995d7a2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:36:15.608  INFO 4924 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8202 (https)
+2019-02-08 12:36:15.661  INFO 4924 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-08 12:36:15.662  INFO 4924 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-08 12:36:15.693  INFO 4924 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programi\;D:\Programi\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;D:\Programi\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Programi\nodejs;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\;C:\Users\Jelena PC\AppData\Local\Microsoft\WindowsApps;C:\Users\Jelena PC\AppData\Roaming\npm;D:\Programi\PyCharm Community Edition 2018.3.1\bin;;.]
+2019-02-08 12:36:16.352  INFO 4924 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-08 12:36:16.353  INFO 4924 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 9010 ms
+2019-02-08 12:36:16.775  INFO 4924 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-08 12:36:16.777  INFO 4924 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-08 12:36:16.778  INFO 4924 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-08 12:36:16.778  INFO 4924 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-08 12:36:16.780  INFO 4924 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-08 12:36:16.781  INFO 4924 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-08 12:36:16.788  INFO 4924 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-02-08 12:36:17.523  INFO 4924 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-08 12:36:17.856  INFO 22396 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@59728af7'
+2019-02-08 12:36:17.860  INFO 22396 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 12:36:17.970  INFO 4924 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-08 12:36:18.041  WARN 22396 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-08 12:36:18.340  INFO 4924 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-08 12:36:18.573  INFO 4924 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-08 12:36:18.579  INFO 4924 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-08 12:36:19.315  INFO 4924 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-08 12:36:20.506  INFO 4924 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-02-08 12:36:24.022  INFO 22396 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: 095a0257-ff84-49d8-9a72-f7bfbb8cc487
+
+2019-02-08 12:36:24.533  INFO 22396 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@2cc33afc, org.springframework.security.web.context.SecurityContextPersistenceFilter@2c0c05cb, org.springframework.security.web.header.HeaderWriterFilter@1d1170ad, org.springframework.security.web.authentication.logout.LogoutFilter@56e53718, com.sep.bank.bankservice.security.JwtTokenAuthenticationFilter@24dc991, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@dd7d198, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@7199edc6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@692fb10b, org.springframework.security.web.session.SessionManagementFilter@557043cb, org.springframework.security.web.access.ExceptionTranslationFilter@5cbc6063, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@11d5dd92]
+2019-02-08 12:36:24.694  WARN 22396 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 12:36:24.695  INFO 22396 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 12:36:24.709  WARN 22396 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 12:36:24.710  INFO 22396 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 12:36:25.516  INFO 22396 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-08 12:36:25.729  WARN 22396 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-08 12:36:31.015  INFO 22396 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2019-02-08 12:36:31.313  INFO 4924 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@2e214f31'
+2019-02-08 12:36:31.320  INFO 4924 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 12:36:31.499  WARN 4924 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-08 12:36:36.929  INFO 4924 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: a5f6e311-854f-4ce8-ba80-de596f214f3f
+
+2019-02-08 12:36:37.341  INFO 4924 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@b110248, org.springframework.security.web.context.SecurityContextPersistenceFilter@30fff714, org.springframework.security.web.header.HeaderWriterFilter@38865213, org.springframework.security.web.authentication.logout.LogoutFilter@26bd4cbd, com.sep.bank.bankservice.security.JwtTokenAuthenticationFilter@1b78b0a4, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@4774d865, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@45a03025, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@52332735, org.springframework.security.web.session.SessionManagementFilter@2736539f, org.springframework.security.web.access.ExceptionTranslationFilter@8b891cb, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@1f1cd709]
+2019-02-08 12:36:37.433  WARN 4924 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 12:36:37.433  INFO 4924 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 12:36:37.446  WARN 4924 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 12:36:37.447  INFO 4924 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 12:36:37.977  INFO 4924 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-08 12:36:38.145  WARN 4924 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-08 12:36:40.657  INFO 4924 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2019-02-08 12:36:40.771  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2019-02-08 12:36:41.057  INFO 4924 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2019-02-08 12:36:41.058  INFO 4924 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2019-02-08 12:36:41.550  INFO 4924 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2019-02-08 12:36:41.550  INFO 4924 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2019-02-08 12:36:42.116  INFO 4924 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 12:36:42.555  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2019-02-08 12:36:42.556  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2019-02-08 12:36:42.556  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2019-02-08 12:36:42.556  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2019-02-08 12:36:42.556  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2019-02-08 12:36:42.556  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2019-02-08 12:36:42.556  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2019-02-08 12:36:43.153  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2019-02-08 12:36:43.167  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 1
+2019-02-08 12:36:43.176  INFO 4924 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2019-02-08 12:36:43.188  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1549625803183 with initial instances count: 3
+2019-02-08 12:36:43.958  INFO 4924 --- [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application unicredit-service with eureka with status UP
+2019-02-08 12:36:43.960  INFO 4924 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1549625803960, current=UP, previous=STARTING]
+2019-02-08 12:36:43.964  INFO 4924 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202: registering service...
+2019-02-08 12:36:44.037  INFO 4924 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202 - registration status: 204
+2019-02-08 12:36:44.203  INFO 4924 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8202 (https) with context path ''
+2019-02-08 12:36:44.205  INFO 4924 --- [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8202
+2019-02-08 12:36:44.215  INFO 4924 --- [restartedMain] c.s.b.b.BankServiceApplication           : Started BankServiceApplication in 45.034 seconds (JVM running for 49.902)
+2019-02-08 12:37:39.266  INFO 19920 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank2
+2019-02-08 12:37:49.889  INFO 7768 --- [restartedMain] c.s.b.b.BankServiceApplication           : The following profiles are active: bank2
+2019-02-08 12:37:54.142  INFO 7768 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 12:37:54.982  INFO 7768 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 802ms. Found 7 repository interfaces.
+2019-02-08 12:37:57.357  INFO 7768 --- [restartedMain] o.s.cloud.context.scope.GenericScope     : BeanFactory id=33cf800c-87eb-308f-b346-068663edac45
+2019-02-08 12:37:58.071  INFO 7768 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$a08d21c2] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:37:58.141  INFO 7768 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$200d6ef4] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:37:58.210  INFO 7768 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration' of type [org.springframework.cloud.autoconfigure.ConfigurationPropertiesRebinderAutoConfiguration$$EnhancerBySpringCGLIB$$bca724bf] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 12:38:07.746  INFO 7768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8202 (https)
+2019-02-08 12:38:07.892  INFO 7768 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-08 12:38:07.894  INFO 7768 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-08 12:38:07.945  INFO 7768 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programi\;D:\Programi\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;D:\Programi\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Programi\nodejs;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\;C:\Users\Jelena PC\AppData\Local\Microsoft\WindowsApps;C:\Users\Jelena PC\AppData\Roaming\npm;D:\Programi\PyCharm Community Edition 2018.3.1\bin;;.]
+2019-02-08 12:38:09.166  INFO 7768 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-08 12:38:09.167  INFO 7768 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 19201 ms
+2019-02-08 12:38:10.514  INFO 7768 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-08 12:38:10.516  INFO 7768 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-08 12:38:10.516  INFO 7768 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-08 12:38:10.517  INFO 7768 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-08 12:38:10.518  INFO 7768 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-08 12:38:10.518  INFO 7768 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-08 12:38:10.523  INFO 7768 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet webServlet mapped to [/h2-console/*]
+2019-02-08 12:38:12.846  INFO 7768 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-08 12:38:14.703  INFO 7768 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-08 12:38:15.844  INFO 7768 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-08 12:38:17.335  INFO 7768 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-08 12:38:17.340  INFO 7768 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-08 12:38:19.222  INFO 7768 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-08 12:38:20.951  INFO 7768 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-02-08 12:38:34.278  INFO 7768 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'org.hibernate.tool.schema.internal.exec.ScriptSourceInputNonExistentImpl@3705e9d3'
+2019-02-08 12:38:34.283  INFO 7768 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 12:38:34.405  WARN 7768 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-08 12:38:39.847  INFO 7768 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: e7ea20a4-1c71-4605-bfc7-b5eb8c40960a
+
+2019-02-08 12:38:40.452  INFO 7768 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@17334ca6, org.springframework.security.web.context.SecurityContextPersistenceFilter@20f5aaab, org.springframework.security.web.header.HeaderWriterFilter@395090b, org.springframework.security.web.authentication.logout.LogoutFilter@54a0b318, com.sep.bank.bankservice.security.JwtTokenAuthenticationFilter@1312ac2b, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@3371acb6, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@b40bb3, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3d7f5cd1, org.springframework.security.web.session.SessionManagementFilter@7978de6f, org.springframework.security.web.access.ExceptionTranslationFilter@3b0d365, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@666bf667]
+2019-02-08 12:38:40.591  WARN 7768 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 12:38:40.592  INFO 7768 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 12:38:40.610  WARN 7768 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : No URLs will be polled as dynamic configuration sources.
+2019-02-08 12:38:40.610  INFO 7768 --- [restartedMain] c.n.c.sources.URLConfigurationSource     : To enable URLs as dynamic configuration sources, define System property archaius.configurationSource.additionalUrls or make config.properties available on classpath.
+2019-02-08 12:38:41.322  INFO 7768 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-08 12:38:41.557  WARN 7768 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-08 12:38:48.821  INFO 7768 --- [restartedMain] o.s.c.n.eureka.InstanceInfoFactory       : Setting initial instance status as: STARTING
+2019-02-08 12:38:50.623  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Initializing Eureka in region us-east-1
+2019-02-08 12:38:51.432  INFO 7768 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON encoding codec LegacyJacksonJson
+2019-02-08 12:38:51.433  INFO 7768 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using JSON decoding codec LegacyJacksonJson
+2019-02-08 12:38:52.806  INFO 7768 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML encoding codec XStreamXml
+2019-02-08 12:38:52.807  INFO 7768 --- [restartedMain] c.n.d.provider.DiscoveryJerseyProvider   : Using XML decoding codec XStreamXml
+2019-02-08 12:38:53.911  INFO 7768 --- [restartedMain] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 12:38:54.454  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Disable delta property : false
+2019-02-08 12:38:54.454  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Single vip registry refresh property : null
+2019-02-08 12:38:54.454  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Force full registry fetch : false
+2019-02-08 12:38:54.455  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application is null : false
+2019-02-08 12:38:54.455  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Registered Applications size is zero : true
+2019-02-08 12:38:54.455  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Application version is -1: true
+2019-02-08 12:38:54.455  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Getting all instance registry info from the eureka server
+2019-02-08 12:38:55.900  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : The response status is 200
+2019-02-08 12:38:55.910  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Starting heartbeat executor: renew interval is: 1
+2019-02-08 12:38:55.934  INFO 7768 --- [restartedMain] c.n.discovery.InstanceInfoReplicator     : InstanceInfoReplicator onDemand update allowed rate per min is 4
+2019-02-08 12:38:55.952  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Discovery Client initialized at timestamp 1549625935949 with initial instances count: 3
+2019-02-08 12:38:57.462  INFO 7768 --- [DiscoveryClient-HeartbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202 - Re-registering apps/UNICREDIT-SERVICE
+2019-02-08 12:38:57.467  INFO 7768 --- [DiscoveryClient-HeartbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202: registering service...
+2019-02-08 12:38:57.677  INFO 7768 --- [DiscoveryClient-HeartbeatExecutor-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202 - registration status: 204
+2019-02-08 12:38:57.739  INFO 7768 --- [restartedMain] o.s.c.n.e.s.EurekaServiceRegistry        : Registering application unicredit-service with eureka with status UP
+2019-02-08 12:38:57.740  INFO 7768 --- [restartedMain] com.netflix.discovery.DiscoveryClient    : Saw local status change event StatusChangeEvent [timestamp=1549625937740, current=UP, previous=STARTING]
+2019-02-08 12:38:57.758  INFO 7768 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202: registering service...
+2019-02-08 12:38:57.769  INFO 7768 --- [DiscoveryClient-InstanceInfoReplicator-0] com.netflix.discovery.DiscoveryClient    : DiscoveryClient_UNICREDIT-SERVICE/DESKTOP-AP0M1JA.home:unicredit-service:8202 - registration status: 204
+2019-02-08 12:38:59.222  INFO 7768 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8202 (https) with context path ''
+2019-02-08 12:38:59.224  INFO 7768 --- [restartedMain] .s.c.n.e.s.EurekaAutoServiceRegistration : Updating port to 8202
+2019-02-08 12:38:59.238  INFO 7768 --- [restartedMain] c.s.b.b.BankServiceApplication           : Started BankServiceApplication in 76.62 seconds (JVM running for 81.041)
+2019-02-08 12:43:54.460  INFO 7768 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration
+2019-02-08 12:48:54.464  INFO 7768 --- [AsyncResolver-bootstrap-executor-0] c.n.d.s.r.aws.ConfigClusterResolver      : Resolving eureka endpoints via configuration

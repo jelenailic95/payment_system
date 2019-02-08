@@ -29,6 +29,13 @@ public class IssuerController {
         this.bankService = bankService;
     }
 
+    /**
+     * Request came from the PCC. Card is forwarded to this, second bank. Checking if card exists and trying to
+     * process transaction.
+     *
+     * @param acquirerDataDTO card information, acquirer order id, acquirer timestamp and amount
+     * @return acquirer order id, issuer order id, issuer timestamp, payment status
+     */
     @PostMapping("/pay-by-card-forwarded")
     public PaymentResultDTO payByCardForwarded(@RequestBody AcquirerDataDTO acquirerDataDTO) {
         logger.info("Request - forwarded payment details from the seller's bank. Acquirer order: {}",

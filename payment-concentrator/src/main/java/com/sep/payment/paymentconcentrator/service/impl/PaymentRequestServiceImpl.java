@@ -27,8 +27,18 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         this.clientRepository = clientRepository;
     }
 
+    /**
+     * Method creates payment request and stores its in the db.
+     *
+     * @param client journal name
+     * @param amount paper or journal amount
+     * @param bankName name of the bank
+     * @param tokens array with the information of the paper/journal that is being bought
+     * @return created payment request
+     */
     @Override
     public PaymentRequest createPaymentRequest(String client, double amount, String bankName, String[] tokens) {
+        // get client for the given bank name and the journal name
         Client foundClient = clientRepository.findByJournalAndPaymentMethodMethodName(client, bankName);
 
         PaymentRequest paymentRequest = new PaymentRequest();
@@ -40,8 +50,10 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         paymentRequest.setJournalName(tokens[2]);
         paymentRequest.setTypeOfPayment(tokens[1]);
         paymentRequest.setScName(tokens[4]);
+
+        // if client is buying paper, set paper id
         if(paymentRequest.getTypeOfPayment().equals("paper"))
-            paymentRequest.setPaperId( Long.parseLong(tokens[5]));
+            paymentRequest.setPaperId(Long.parseLong(tokens[5]));
 
         // get last payment request from the db
         PaymentRequest lastPayment = paymentRequestRepository.findTopByOrderByMerchantOrderIdDesc();
@@ -68,6 +80,17 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         return paymentRequest;
     }
 
+    /**
+     * Method creates payment request and stores its in the db.
+     *
+     * @param username username
+     * @param amount amount
+     * @param journalName journal name
+     * @param paperId paper id
+     * @param typeOfPayment type of payment
+     * @param scName clients name
+     * @return created payment request
+     */
     @Override
     public PaymentRequest createRequest(String username, double amount, String journalName, Long paperId, String typeOfPayment, String scName) {
 
@@ -89,16 +112,34 @@ public class PaymentRequestServiceImpl implements PaymentRequestService {
         return paymentRequest;
     }
 
+    /**
+     * Get payment request.
+     *
+     * @param merchantOrderId merchant order id
+     * @return payment request
+     */
     @Override
     public PaymentRequest getPaymentRequest(Long merchantOrderId) {
         return paymentRequestRepository.findByMerchantOrderId(merchantOrderId);
     }
 
+    /**
+     * Save payment request into db.
+     *
+     * @param paymentRequest payment request
+     * @return  payment request
+     */
     @Override
     public PaymentRequest save(PaymentRequest paymentRequest) {
         return paymentRequestRepository.save(paymentRequest);
     }
 
+    /**
+     * Get payment request from the db.
+     *
+     * @param id id
+     * @return payment request
+     */
     @Override
     public PaymentRequest getByIde(Long id) {
         return paymentRequestRepository.getOne(id);

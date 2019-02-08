@@ -13,6 +13,12 @@ public class UserServiceImpl implements UserService {
     private UserRepository userRepository;
 
 
+    /**
+     * Save new user into db.
+     *
+     * @param user user
+     * @return save user
+     */
     @Override
     public User create(User user) {
         return userRepository.save(user);
