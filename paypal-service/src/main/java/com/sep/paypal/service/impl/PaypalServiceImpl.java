@@ -142,11 +142,6 @@ public class PaypalServiceImpl implements PaypalService {
     @Override
     public void createPlanForSubscription(RequestCreatePlan request) {
         Plan plan = new Plan();
-        Seller seller = this.sellerRepository.findSellerByClientIdAndSecret(
-                request.getClientId(), request.getClientSecret());
-        if (seller == null) {
-            throw new NotFoundException("name and email", request.getNameOfJournal());
-        }
         plan.setName(request.getNameOfJournal());
         plan.setDescription(request.getDescription());
         plan.setType("FIXED");
@@ -181,7 +176,7 @@ public class PaypalServiceImpl implements PaypalService {
         merchantPreferences.setAutoBillAmount("YES");
         merchantPreferences.setInitialFailAmountAction("CONTINUE");
         plan.setMerchantPreferences(merchantPreferences);
-        activatePlan(plan, request.getNameOfJournal(), request.getClientId(), request.getClientSecret());
+        activatePlan(plan, request.getNameOfJournal(),request.getClientId(), request.getClientSecret());
     }
 
     private void activatePlan(Plan plan, String nameOfJournal, String clientId, String secret) {

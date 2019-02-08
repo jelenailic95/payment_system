@@ -14,7 +14,6 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.beans.factory.annotation.Value;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.client.RestTemplate;
@@ -128,6 +127,7 @@ public class PaymentRequestController {
                 .concat("&secret=").concat(finishPaymentDTO.getSecret())
                 .concat("&paymentId=").concat(finishPaymentDTO.getPaymentId())
                 .concat("&PayerID=").concat(finishPaymentDTO.getPayerId()), Boolean.class).getBody();
-        return new ResponseEntity<>(success, HttpStatus.OK);
+
+        return new ResponseEntity<>(SuccessDto.builder().success(success).user(p.getUsername()), HttpStatus.OK);
     }
 }

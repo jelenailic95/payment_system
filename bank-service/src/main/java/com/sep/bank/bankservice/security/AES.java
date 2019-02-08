@@ -1,6 +1,7 @@
 package com.sep.bank.bankservice.security;
 
 import org.apache.tomcat.util.codec.binary.Base64;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 
 import javax.crypto.Cipher;
@@ -10,11 +11,12 @@ import javax.crypto.spec.SecretKeySpec;
 
 @Service
 public class AES {
-    private static final String key = "#5780#(OBBVcda*1";
+    @Value("${encryption.key}")
+    private String encryptionKey;
 
     public String encrypt(String strToEncrypt) {
         try {
-            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+            SecretKeySpec secretKey = new SecretKeySpec(encryptionKey.getBytes("UTF-8"), "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
             cipher.init(Cipher.ENCRYPT_MODE, secretKey);
@@ -35,7 +37,7 @@ public class AES {
 
     public String decrypt(String ivAndStringToDecrypt) {
         try {
-            SecretKeySpec secretKey = new SecretKeySpec(key.getBytes("UTF-8"), "AES");
+            SecretKeySpec secretKey = new SecretKeySpec(encryptionKey.getBytes("UTF-8"), "AES");
             Cipher cipher = Cipher.getInstance("AES/CBC/PKCS5PADDING");
 
             String ivString = ivAndStringToDecrypt.substring(0, 24);

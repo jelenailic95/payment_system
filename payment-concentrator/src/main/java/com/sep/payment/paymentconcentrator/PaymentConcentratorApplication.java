@@ -2,6 +2,7 @@ package com.sep.payment.paymentconcentrator;
 
 import com.sep.payment.paymentconcentrator.security.RestTemplateHeaderModifierInterceptor;
 import com.ulisesbocchio.jasyptspringboot.annotation.EncryptablePropertySource;
+import org.apache.http.conn.ssl.NoopHostnameVerifier;
 import org.apache.http.conn.ssl.SSLConnectionSocketFactory;
 import org.apache.http.conn.ssl.TrustStrategy;
 import org.apache.http.impl.client.CloseableHttpClient;
@@ -49,6 +50,7 @@ public class PaymentConcentratorApplication {
 
         CloseableHttpClient httpClient = HttpClients.custom()
                 .setSSLSocketFactory(csf)
+                .setSSLHostnameVerifier(NoopHostnameVerifier.INSTANCE)
                 .build();
 
         HttpComponentsClientHttpRequestFactory requestFactory =

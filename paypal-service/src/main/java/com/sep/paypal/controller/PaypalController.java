@@ -31,9 +31,6 @@ public class PaypalController {
 
     private final PaypalService paypalService;
 
-    @Autowired
-    private AES aes;
-
     @Value("${paypal.mode}")
     private String mode;
 
@@ -57,8 +54,8 @@ public class PaypalController {
     public String pay(@RequestBody PaymentDto request) throws PayPalRESTException {
         String cancelUrl;
         String successUrl;
-        String clientId = aes.decrypt(request.getRequestDTO().getClientId());
-        String clientSecret = aes.decrypt(request.getRequestDTO().getClientSecret());
+        String clientId = request.getRequestDTO().getClientId();
+        String clientSecret = request.getRequestDTO().getClientSecret();
         cancelUrl = host + "/result/cancel";
         successUrl = host + "/result/success"
                 .concat("?id=").concat(clientId)

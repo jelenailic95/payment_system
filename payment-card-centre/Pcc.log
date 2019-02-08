@@ -710,64 +710,96 @@ Using generated security password: 3af693bc-afb2-415d-882b-615874966b7a
 2019-02-08 13:39:29.253  INFO 20992 --- [https-jsse-nio-8444-exec-5] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
 2019-02-08 13:39:29.374  INFO 20992 --- [https-jsse-nio-8444-exec-5] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: UniCredit
 2019-02-08 13:39:29.441  INFO 20992 --- [https-jsse-nio-8444-exec-5] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.
-2019-02-08 20:43:46.768  INFO 15044 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Starting PaymentCardCentreApplication on DESKTOP-AP0M1JA with PID 15044 (started by Jelena PC in D:\SIIT\Master\Sistemi elektronskog placanja\projekat\scientific_centre\payment-card-centre)
-2019-02-08 20:43:46.776  INFO 15044 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : No active profile set, falling back to default profiles: default
-2019-02-08 20:43:46.942  INFO 15044 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
-2019-02-08 20:43:46.943  INFO 15044 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
-2019-02-08 20:43:50.565  INFO 15044 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
-2019-02-08 20:43:50.839  INFO 15044 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 236ms. Found 2 repository interfaces.
-2019-02-08 20:43:53.118  INFO 15044 --- [restartedMain] lePropertySourceBeanFactoryPostProcessor : Created Encryptable Property Source 'EncryptedPropertySource#1549655033091' from locations: [application.properties]
-2019-02-08 20:43:53.118  INFO 15044 --- [restartedMain] ptablePropertiesBeanFactoryPostProcessor : Post-processing PropertySource instances
-2019-02-08 20:43:53.201  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource configurationProperties [org.springframework.boot.context.properties.source.ConfigurationPropertySourcesPropertySource] to AOP Proxy
-2019-02-08 20:43:53.203  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletConfigInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
-2019-02-08 20:43:53.204  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource servletContextInitParams [org.springframework.core.env.PropertySource$StubPropertySource] to EncryptablePropertySourceWrapper
-2019-02-08 20:43:53.206  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemProperties [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
-2019-02-08 20:43:53.207  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource systemEnvironment [org.springframework.boot.env.SystemEnvironmentPropertySourceEnvironmentPostProcessor$OriginAwareSystemEnvironmentPropertySource] to EncryptableMapPropertySourceWrapper
-2019-02-08 20:43:53.207  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource random [org.springframework.boot.env.RandomValuePropertySource] to EncryptablePropertySourceWrapper
-2019-02-08 20:43:53.208  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource applicationConfig: [classpath:/application.properties] [org.springframework.boot.env.OriginTrackedMapPropertySource] to EncryptableMapPropertySourceWrapper
-2019-02-08 20:43:53.208  INFO 15044 --- [restartedMain] c.u.j.EncryptablePropertySourceConverter : Converting PropertySource devtools [org.springframework.core.env.MapPropertySource] to EncryptableMapPropertySourceWrapper
-2019-02-08 20:43:53.837  INFO 15044 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$ac9a1713] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-02-08 20:43:53.981  INFO 15044 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$2c1a6445] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
-2019-02-08 20:43:54.549  INFO 15044 --- [restartedMain] c.u.j.r.DefaultLazyPropertyResolver      : Property Resolver custom Bean not found with name 'encryptablePropertyResolver'. Initializing Default Property Resolver
-2019-02-08 20:43:54.554  INFO 15044 --- [restartedMain] c.u.j.d.DefaultLazyPropertyDetector      : Property Detector custom Bean not found with name 'encryptablePropertyDetector'. Initializing Default Property Detector
-2019-02-08 20:43:54.900  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : String Encryptor custom Bean not found with name 'jasyptStringEncryptor'. Initializing Default String Encryptor
-2019-02-08 20:43:54.913  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.algorithm, using default value: PBEWithMD5AndDES
-2019-02-08 20:43:54.914  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.keyObtentionIterations, using default value: 1000
-2019-02-08 20:43:54.915  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.poolSize, using default value: 1
-2019-02-08 20:43:54.915  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.providerName, using default value: null
-2019-02-08 20:43:54.916  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.providerClassName, using default value: null
-2019-02-08 20:43:54.916  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.saltGeneratorClassname, using default value: org.jasypt.salt.RandomSaltGenerator
-2019-02-08 20:43:54.919  INFO 15044 --- [restartedMain] c.u.j.encryptor.DefaultLazyEncryptor     : Encryptor config not found for property jasypt.encryptor.stringOutputType, using default value: base64
-2019-02-08 20:43:58.931  INFO 15044 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8444 (https)
-2019-02-08 20:43:59.325  INFO 15044 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
-2019-02-08 20:43:59.326  INFO 15044 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
-2019-02-08 20:43:59.349  INFO 15044 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [C:\Program Files\Java\jdk-10.0.2\bin;C:\Windows\Sun\Java\bin;C:\Windows\system32;C:\Windows;C:\Program Files (x86)\Common Files\Oracle\Java\javapath;C:\Windows\system32;C:\Windows;C:\Windows\System32\Wbem;C:\Windows\System32\WindowsPowerShell\v1.0\;C:\Windows\System32\OpenSSH\;D:\Programi\;D:\Programi\apache-maven-3.6.0-bin\apache-maven-3.6.0\bin;D:\Programi\Git\cmd;C:\Program Files\Java\jdk-11.0.1\bin;C:\Program Files\NVIDIA Corporation\NVIDIA NvDLISR;D:\Programi\nodejs;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\Scripts\;C:\Users\Jelena PC\AppData\Local\Programs\Python\Python37-32\;C:\Users\Jelena PC\AppData\Local\Microsoft\WindowsApps;C:\Users\Jelena PC\AppData\Roaming\npm;D:\Programi\PyCharm Community Edition 2018.3.1\bin;;.]
-2019-02-08 20:44:00.051  INFO 15044 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
-2019-02-08 20:44:00.051  INFO 15044 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 13108 ms
-2019-02-08 20:44:00.690  INFO 15044 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
-2019-02-08 20:44:00.691  INFO 15044 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
-2019-02-08 20:44:00.692  INFO 15044 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
-2019-02-08 20:44:00.694  INFO 15044 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
-2019-02-08 20:44:00.696  INFO 15044 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
-2019-02-08 20:44:00.697  INFO 15044 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
-2019-02-08 20:44:01.340  INFO 15044 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
-2019-02-08 20:44:01.719  INFO 15044 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
-2019-02-08 20:44:02.129  INFO 15044 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+2019-02-08 16:35:13.448  INFO 53665 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Starting PaymentCardCentreApplication on davids-mbp with PID 53665 (/Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-card-centre/target/classes started by davidvuletas in /Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-card-centre)
+2019-02-08 16:35:13.450  INFO 53665 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : No active profile set, falling back to default profiles: default
+2019-02-08 16:35:13.498  INFO 53665 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-02-08 16:35:13.498  INFO 53665 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-02-08 16:35:14.488  INFO 53665 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 16:35:14.581  INFO 53665 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 85ms. Found 2 repository interfaces.
+2019-02-08 16:35:14.932  INFO 53665 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$c709efec] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 16:35:14.949  INFO 53665 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$468a3d1e] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 16:35:15.330  INFO 53665 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8444 (https)
+2019-02-08 16:35:15.347  INFO 53665 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-08 16:35:15.347  INFO 53665 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-08 16:35:15.354  INFO 53665 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/davidvuletas/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-02-08 16:35:15.444  INFO 53665 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-08 16:35:15.444  INFO 53665 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1946 ms
+2019-02-08 16:35:15.532  INFO 53665 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-08 16:35:15.532  INFO 53665 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-08 16:35:15.532  INFO 53665 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-08 16:35:15.532  INFO 53665 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-08 16:35:15.533  INFO 53665 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-08 16:35:15.533  INFO 53665 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-08 16:35:15.675  INFO 53665 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-08 16:35:15.770  INFO 53665 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-08 16:35:15.827  INFO 53665 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
 	name: default
 	...]
-2019-02-08 20:44:02.608  INFO 15044 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
-2019-02-08 20:44:02.612  INFO 15044 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
-2019-02-08 20:44:03.393  INFO 15044 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
-2019-02-08 20:44:04.244  INFO 15044 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
-2019-02-08 20:44:07.054  INFO 15044 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/D:/SIIT/Master/Sistemi%20elektronskog%20placanja/projekat/scientific_centre/payment-card-centre/target/classes/import.sql)'
-2019-02-08 20:44:07.100  INFO 15044 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
-2019-02-08 20:44:07.389  WARN 15044 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
-2019-02-08 20:44:10.793  INFO 15044 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+2019-02-08 16:35:15.887  INFO 53665 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-08 16:35:15.888  INFO 53665 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-08 16:35:16.002  INFO 53665 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-08 16:35:16.107  INFO 53665 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-02-08 16:35:16.845  INFO 53665 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-card-centre/target/classes/import.sql)'
+2019-02-08 16:35:16.867  INFO 53665 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 16:35:16.937  WARN 53665 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-08 16:35:18.055  INFO 53665 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
 
-Using generated security password: 4fe69450-bfc1-4661-ad28-e3af8f547191
+Using generated security password: 558c8929-c065-4d3c-944c-9fbe2517a9ad
 
-2019-02-08 20:44:11.279  INFO 15044 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1df6d8b4, org.springframework.security.web.context.SecurityContextPersistenceFilter@40c10c8c, org.springframework.security.web.header.HeaderWriterFilter@7f70fe54, org.springframework.security.web.authentication.logout.LogoutFilter@310f5a28, com.sep.pcc.paymentcardcentre.security.JwtTokenAuthenticationFilter@ed87eca, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@43a681d8, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@685873c6, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@3022ffe0, org.springframework.security.web.session.SessionManagementFilter@dae51fd, org.springframework.security.web.access.ExceptionTranslationFilter@615293, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@4bc1ce17]
-2019-02-08 20:44:12.553  INFO 15044 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
-2019-02-08 20:44:12.753  WARN 15044 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
-2019-02-08 20:44:14.552  INFO 15044 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8444 (https) with context path ''
-2019-02-08 20:44:14.567  INFO 15044 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Started PaymentCardCentreApplication in 29.482 seconds (JVM running for 38.851)
+2019-02-08 16:35:18.192  INFO 53665 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@1524ca3b, org.springframework.security.web.context.SecurityContextPersistenceFilter@2020e2b5, org.springframework.security.web.header.HeaderWriterFilter@39969cdf, org.springframework.security.web.authentication.logout.LogoutFilter@4013b6d5, com.sep.pcc.paymentcardcentre.security.JwtTokenAuthenticationFilter@573eeb42, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@6f42953a, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@4235c357, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@758e0cbd, org.springframework.security.web.session.SessionManagementFilter@39b2cc0, org.springframework.security.web.access.ExceptionTranslationFilter@799c2e80, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@247d613f]
+2019-02-08 16:35:18.356  INFO 53665 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-08 16:35:18.399  WARN 53665 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-08 16:35:18.811  INFO 53665 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8444 (https) with context path ''
+2019-02-08 16:35:18.815  INFO 53665 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Started PaymentCardCentreApplication in 5.678 seconds (JVM running for 6.436)
+2019-02-08 17:32:04.043  INFO 53665 --- [Thread-6] o.s.s.concurrent.ThreadPoolTaskExecutor  : Shutting down ExecutorService 'applicationTaskExecutor'
+2019-02-08 17:32:04.109  INFO 53665 --- [Thread-6] j.LocalContainerEntityManagerFactoryBean : Closing JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 17:32:04.243  INFO 53665 --- [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown initiated...
+2019-02-08 17:32:04.290  INFO 53665 --- [Thread-6] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Shutdown completed.
+2019-02-08 17:32:08.809  INFO 65104 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Starting PaymentCardCentreApplication on davids-mbp with PID 65104 (/Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-card-centre/target/classes started by davidvuletas in /Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-card-centre)
+2019-02-08 17:32:08.812  INFO 65104 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : No active profile set, falling back to default profiles: default
+2019-02-08 17:32:08.878  INFO 65104 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : Devtools property defaults active! Set 'spring.devtools.add-properties' to 'false' to disable
+2019-02-08 17:32:08.879  INFO 65104 --- [restartedMain] .e.DevToolsPropertyDefaultsPostProcessor : For additional web related logging consider setting the 'logging.level.web' property to 'DEBUG'
+2019-02-08 17:32:09.619  INFO 65104 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Bootstrapping Spring Data repositories in DEFAULT mode.
+2019-02-08 17:32:09.673  INFO 65104 --- [restartedMain] .s.d.r.c.RepositoryConfigurationDelegate : Finished Spring Data repository scanning in 49ms. Found 2 repository interfaces.
+2019-02-08 17:32:09.970  INFO 65104 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration' of type [org.springframework.transaction.annotation.ProxyTransactionManagementConfiguration$$EnhancerBySpringCGLIB$$2368a109] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 17:32:09.982  INFO 65104 --- [restartedMain] trationDelegate$BeanPostProcessorChecker : Bean 'org.springframework.hateoas.config.HateoasConfiguration' of type [org.springframework.hateoas.config.HateoasConfiguration$$EnhancerBySpringCGLIB$$a2e8ee3b] is not eligible for getting processed by all BeanPostProcessors (for example: not eligible for auto-proxying)
+2019-02-08 17:32:10.304  INFO 65104 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat initialized with port(s): 8444 (https)
+2019-02-08 17:32:10.317  INFO 65104 --- [restartedMain] o.apache.catalina.core.StandardService   : Starting service [Tomcat]
+2019-02-08 17:32:10.318  INFO 65104 --- [restartedMain] org.apache.catalina.core.StandardEngine  : Starting Servlet Engine: Apache Tomcat/9.0.12
+2019-02-08 17:32:10.322  INFO 65104 --- [restartedMain] o.a.catalina.core.AprLifecycleListener   : The APR based Apache Tomcat Native library which allows optimal performance in production environments was not found on the java.library.path: [/Users/davidvuletas/Library/Java/Extensions:/Library/Java/Extensions:/Network/Library/Java/Extensions:/System/Library/Java/Extensions:/usr/lib/java:.]
+2019-02-08 17:32:10.385  INFO 65104 --- [restartedMain] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring embedded WebApplicationContext
+2019-02-08 17:32:10.386  INFO 65104 --- [restartedMain] o.s.web.context.ContextLoader            : Root WebApplicationContext: initialization completed in 1507 ms
+2019-02-08 17:32:10.459  INFO 65104 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'characterEncodingFilter' to: [/*]
+2019-02-08 17:32:10.459  INFO 65104 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'hiddenHttpMethodFilter' to: [/*]
+2019-02-08 17:32:10.460  INFO 65104 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'formContentFilter' to: [/*]
+2019-02-08 17:32:10.460  INFO 65104 --- [restartedMain] o.s.b.w.servlet.FilterRegistrationBean   : Mapping filter: 'requestContextFilter' to: [/*]
+2019-02-08 17:32:10.460  INFO 65104 --- [restartedMain] .s.DelegatingFilterProxyRegistrationBean : Mapping filter: 'springSecurityFilterChain' to: [/*]
+2019-02-08 17:32:10.460  INFO 65104 --- [restartedMain] o.s.b.w.servlet.ServletRegistrationBean  : Servlet dispatcherServlet mapped to [/]
+2019-02-08 17:32:10.571  INFO 65104 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Starting...
+2019-02-08 17:32:10.648  INFO 65104 --- [restartedMain] com.zaxxer.hikari.HikariDataSource       : HikariPool-1 - Start completed.
+2019-02-08 17:32:10.684  INFO 65104 --- [restartedMain] o.hibernate.jpa.internal.util.LogHelper  : HHH000204: Processing PersistenceUnitInfo [
+	name: default
+	...]
+2019-02-08 17:32:10.722  INFO 65104 --- [restartedMain] org.hibernate.Version                    : HHH000412: Hibernate Core {5.3.7.Final}
+2019-02-08 17:32:10.723  INFO 65104 --- [restartedMain] org.hibernate.cfg.Environment            : HHH000206: hibernate.properties not found
+2019-02-08 17:32:10.816  INFO 65104 --- [restartedMain] o.hibernate.annotations.common.Version   : HCANN000001: Hibernate Commons Annotations {5.0.4.Final}
+2019-02-08 17:32:10.916  INFO 65104 --- [restartedMain] org.hibernate.dialect.Dialect            : HHH000400: Using dialect: org.hibernate.dialect.MySQL5InnoDBDialect
+2019-02-08 17:32:11.514  INFO 65104 --- [restartedMain] o.h.t.schema.internal.SchemaCreatorImpl  : HHH000476: Executing import script 'ScriptSourceInputFromUrl(file:/Users/davidvuletas/Workspace/InteliJ/Master/SEP/server/payment-card-centre/target/classes/import.sql)'
+2019-02-08 17:32:11.532  INFO 65104 --- [restartedMain] j.LocalContainerEntityManagerFactoryBean : Initialized JPA EntityManagerFactory for persistence unit 'default'
+2019-02-08 17:32:11.602  WARN 65104 --- [restartedMain] o.s.b.d.a.OptionalLiveReloadServer       : Unable to start LiveReload server
+2019-02-08 17:32:12.446  INFO 65104 --- [restartedMain] .s.s.UserDetailsServiceAutoConfiguration : 
+
+Using generated security password: f91876f4-bbaa-46af-bd6b-4112375d1e20
+
+2019-02-08 17:32:12.591  INFO 65104 --- [restartedMain] o.s.s.web.DefaultSecurityFilterChain     : Creating filter chain: any request, [org.springframework.security.web.context.request.async.WebAsyncManagerIntegrationFilter@23179bcb, org.springframework.security.web.context.SecurityContextPersistenceFilter@266b2974, org.springframework.security.web.header.HeaderWriterFilter@11523923, org.springframework.security.web.authentication.logout.LogoutFilter@13149fd4, com.sep.pcc.paymentcardcentre.security.JwtTokenAuthenticationFilter@20b9fff0, org.springframework.security.web.savedrequest.RequestCacheAwareFilter@23f4f563, org.springframework.security.web.servletapi.SecurityContextHolderAwareRequestFilter@1087978c, org.springframework.security.web.authentication.AnonymousAuthenticationFilter@5f0ae0c4, org.springframework.security.web.session.SessionManagementFilter@5d6f9e7, org.springframework.security.web.access.ExceptionTranslationFilter@61385544, org.springframework.security.web.access.intercept.FilterSecurityInterceptor@6c0bdc72]
+2019-02-08 17:32:12.741  INFO 65104 --- [restartedMain] o.s.s.concurrent.ThreadPoolTaskExecutor  : Initializing ExecutorService 'applicationTaskExecutor'
+2019-02-08 17:32:12.777  WARN 65104 --- [restartedMain] aWebConfiguration$JpaWebMvcConfiguration : spring.jpa.open-in-view is enabled by default. Therefore, database queries may be performed during view rendering. Explicitly configure spring.jpa.open-in-view to disable this warning
+2019-02-08 17:32:13.137  INFO 65104 --- [restartedMain] o.s.b.w.embedded.tomcat.TomcatWebServer  : Tomcat started on port(s): 8444 (https) with context path ''
+2019-02-08 17:32:13.141  INFO 65104 --- [restartedMain] c.s.p.p.PaymentCardCentreApplication     : Started PaymentCardCentreApplication in 4.605 seconds (JVM running for 5.449)
+2019-02-08 18:25:15.160  INFO 65104 --- [https-jsse-nio-8444-exec-5] o.a.c.c.C.[Tomcat].[localhost].[/]       : Initializing Spring DispatcherServlet 'dispatcherServlet'
+2019-02-08 18:25:15.180  INFO 65104 --- [https-jsse-nio-8444-exec-5] o.s.web.servlet.DispatcherServlet        : Initializing Servlet 'dispatcherServlet'
+2019-02-08 18:25:15.396  INFO 65104 --- [https-jsse-nio-8444-exec-5] o.s.web.servlet.DispatcherServlet        : Completed initialization in 215 ms
+2019-02-08 18:25:16.021  INFO 65104 --- [https-jsse-nio-8444-exec-5] c.s.p.p.controller.PccController         : Request - forward to the customer's bank. Acquirer order id: 1000000001
+2019-02-08 18:25:16.201  INFO 65104 --- [https-jsse-nio-8444-exec-5] o.h.h.i.QueryTranslatorFactoryInitiator  : HHH000397: Using ASTQueryTranslatorFactory
+2019-02-08 18:25:16.651  INFO 65104 --- [https-jsse-nio-8444-exec-5] c.s.p.p.service.impl.PccServiceImpl      : Forward to the bank: UniCredit
+2019-02-08 18:25:16.810  INFO 65104 --- [https-jsse-nio-8444-exec-5] c.s.p.p.service.impl.PccServiceImpl      : PCC request is successfully created and saved.
