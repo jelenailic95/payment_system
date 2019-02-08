@@ -7,6 +7,7 @@ import lombok.RequiredArgsConstructor;
 
 import javax.persistence.*;
 import java.util.Date;
+import java.util.Objects;
 
 @Data
 @RequiredArgsConstructor
@@ -24,4 +25,14 @@ public class PaidJournal {
 
     @Column
     private Date activityDate;
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        PaidJournal that = (PaidJournal) o;
+        return Objects.equals(journal.getId(), that.journal.getId());
+    }
+
+
 }

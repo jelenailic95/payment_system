@@ -25,9 +25,9 @@ public class PaperController {
         this.userService = userService;
     }
 
-    @GetMapping
-    public ResponseEntity<List<Paper>> getPapers()  {
-        return new ResponseEntity<>(paperService.getAll(), HttpStatus.OK);
+    @GetMapping(value = "{username}")
+    public ResponseEntity<Set<Paper>> getPapers(@PathVariable String username)  {
+        return new ResponseEntity<>(paperService.getAll(username), HttpStatus.OK);
     }
 
     @PostMapping(value = "/add")
@@ -39,9 +39,9 @@ public class PaperController {
     }
 
     @GetMapping(value = "/my-papers/{username}")
-    public ResponseEntity<List<Paper>> getMyPapers(@PathVariable String username) {
+    public ResponseEntity<Set<Paper>> getMyPapers(@PathVariable String username) {
         User user = userService.getByUsername(username);
-        List<Paper> myPapers = new ArrayList<>();
+        Set<Paper> myPapers = new HashSet<>();
         myPapers.addAll(user.getPapers());
         List<PaidJournal> journals = user.getJournals();
         for(PaidJournal j: journals){
