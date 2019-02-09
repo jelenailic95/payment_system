@@ -12,7 +12,7 @@ public class Account {
     private Long id;
 
     @Column
-    private String accountNumber;  // prva tri broja govore koja je banka u pitanjua
+    private String accountNumber;
 
     @Column
     private double amount;
@@ -21,11 +21,11 @@ public class Account {
     private User cardHolder;
 
     @Column
-    @Size(max = 100)
+//    @Size(max = 30, min = 30)
     private String merchantId;
 
     @Column
-    @Size(max = 30)
+//    @Size(max = 100, min = 100)
     private String merchantPassword;
 
     public Account() {

@@ -1,12 +1,14 @@
 package com.sep.pcc.paymentcardcentre.entity.dto;
 
+import com.sep.pcc.paymentcardcentre.entity.TransactionStatus;
+
 import java.util.Date;
 
 public class TransactionDTO {
 
     private Long merchantOrderId;
     private String paymentId;
-    private String status;
+    private TransactionStatus status;
     private Long acquierOrderId;
     private Date acquirerTimestamp;
 
@@ -44,11 +46,11 @@ public class TransactionDTO {
         this.paymentId = paymentId;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 

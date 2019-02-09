@@ -1,19 +1,44 @@
+host:
+  eureka: "http://localhost:8761"
+
 server:
   port: 8762
+  ssl:
+    enabled: true
+    key-store: classpath:server-keystore.jks
+    key-store-password: ENC(BQJspabavYC36Ej6k+06rFi81C2HrXi4)
+    trust-store: classpath:server-truststore.jks
+    trust-store-password: ENC(8g2ZFR1AWTSQ4SBsdtFfFTiNtM7Pl0qN)
+    key-password: mdj1646MDJ
+    key-alias: secure-server
+
+
 spring:
   application:
     name: "proxy-server"
 
 eureka:
+  instance:
+    leaseRenewalIntervalInSeconds: 1
+    leaseExpirationDurationInSeconds: 2
+    non-secure-port-enabled: false
+    secure-port-enabled: true
+    secure-port: ${server.port}
+    statusPageUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/info
+    healthCheckUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/health
+    homePageUrl: https://${eureka.hostname}:${eureka.instance.secure-port}/
   client:
     service-url:
-      default-zone: "http://localhost:8761/eureka/"
+      defaultZone: ${host.eureka}/eureka/
 
 zuul:
   host:
-    connect-timeout-millis: 10000
-    socket-timeout-millis: 60000
+    connect-timeout-millis: 100000
+    socket-timeout-millis: 600000
   retryable: true
+  ignore-security-headers: false
+  sensitiveHeaders: Cookie,Set-Cookie
+  ssl-hostname-validation-enabled: false
 
 hystrix:
   command:
@@ -22,5 +47,5 @@ hystrix:
         timeout:
           enabled: false
 ribbon:
-  ReadTimeout: 100000
-  ConnectTimeout: 100000
+  ReadTimeout: 600000
+  ConnectTimeout: 600000

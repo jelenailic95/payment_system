@@ -12,11 +12,13 @@ public class Bank {
     private Long id;
 
     @Column
-    private int bankNumber;
+    private int bankIdentifier;
+
+    @Column
+    private String serviceName;
 
     @Column
     private String bankName;
-
 
     public Bank() {
     }
@@ -29,12 +31,20 @@ public class Bank {
         this.id = id;
     }
 
-    public int getBankNumber() {
-        return bankNumber;
+    public int getBankIdentifier() {
+        return bankIdentifier;
     }
 
-    public void setBankNumber(int bankNumber) {
-        this.bankNumber = bankNumber;
+    public void setBankIdentifier(int bankIdentifier) {
+        this.bankIdentifier = bankIdentifier;
+    }
+
+    public String getServiceName() {
+        return serviceName;
+    }
+
+    public void setServiceName(String serviceName) {
+        this.serviceName = serviceName;
     }
 
     public String getBankName() {

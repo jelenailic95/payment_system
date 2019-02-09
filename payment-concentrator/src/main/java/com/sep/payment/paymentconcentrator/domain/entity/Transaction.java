@@ -1,6 +1,8 @@
 package com.sep.payment.paymentconcentrator.domain.entity;
 
 
+import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
+
 import javax.persistence.*;
 import java.util.Date;
 
@@ -20,10 +22,11 @@ public class Transaction {
     private Date acquirerTimestamp;
 
     @Column
-    private Long paymentId;
+    private String paymentId;
 
     @Column
-    private String status;
+    @Enumerated(EnumType.STRING)
+    private TransactionStatus status;
 
     @Column
     private double amount;
@@ -36,13 +39,14 @@ public class Transaction {
         return id;
     }
 
-    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, Long paymentId, String status, double ammount) {
+    public Transaction(Long merchantOrderId, Long acquirerOrderId, Date acquirerTimestamp, String paymentId,
+                       TransactionStatus status, double amount) {
         this.merchantOrderId = merchantOrderId;
         this.acquirerOrderId = acquirerOrderId;
         this.acquirerTimestamp = acquirerTimestamp;
         this.paymentId = paymentId;
         this.status = status;
-        this.amount = ammount;
+        this.amount = amount;
     }
 
     public void setId(Long id) {
@@ -74,19 +78,19 @@ public class Transaction {
         this.acquirerOrderId = acquirerOrderId;
     }
 
-    public Long getPaymentId() {
+    public String getPaymentId() {
         return paymentId;
     }
 
-    public void setPaymentId(Long paymentId) {
+    public void setPaymentId(String paymentId) {
         this.paymentId = paymentId;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
 

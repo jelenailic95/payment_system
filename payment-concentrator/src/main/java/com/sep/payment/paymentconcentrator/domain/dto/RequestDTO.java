@@ -1,11 +1,25 @@
 package com.sep.payment.paymentconcentrator.domain.dto;
 
+import javax.persistence.Column;
+
 public class RequestDTO {
+    //kome se placa (njegovi podaci se traze u bazi
     private String client;
-    private String bankName;
+    // kod bitcoina token, kod banke bank1
+    private String clientId;
+
+    // kod paypal-a secret
+    private String clientSecret;
+    @Column(precision=10, scale=2)
     private double amount;
 
     public RequestDTO() {
+    }
+
+    public RequestDTO(String client, String clientId, double amount) {
+        this.client = client;
+        this.clientId = clientId;
+        this.amount = amount;
     }
 
     public String getClient() {
@@ -16,12 +30,12 @@ public class RequestDTO {
         this.client = client;
     }
 
-    public String getBankName() {
-        return bankName;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setBankName(String bankName) {
-        this.bankName = bankName;
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 
     public double getAmount() {
@@ -30,5 +44,13 @@ public class RequestDTO {
 
     public void setAmount(double amount) {
         this.amount = amount;
+    }
+
+    public String getClientSecret() {
+        return clientSecret;
+    }
+
+    public void setClientSecret(String clientSecret) {
+        this.clientSecret = clientSecret;
     }
 }

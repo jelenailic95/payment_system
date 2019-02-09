@@ -9,6 +9,9 @@ import java.util.List;
 @Repository
 public interface ClientRepository extends JpaRepository<Client, Long> {
 
-    List<Client> findByClient(String client);
-    Client findByClientAndPaymentMethodName(String client, String paymentMethod);
+    List<Client> findByJournal(String client);
+    Client findByJournalAndPaymentMethodMethodName(String client, String paymentMethod);
+    Client findByJournalAndPaymentMethodMethodAndPaymentMethodMethodName(String client, String method, String methodName);
+    Client findByJournalAndPaymentMethodMethod(String client, String method);
+
 }

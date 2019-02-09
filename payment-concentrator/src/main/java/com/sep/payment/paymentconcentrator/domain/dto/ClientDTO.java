@@ -1,13 +1,18 @@
 package com.sep.payment.paymentconcentrator.domain.dto;
 
-public class ClientDTO {
-    private String id;
 
-    public String getId() {
-        return id;
+public class ClientDTO {
+    private String clientId;
+
+
+    public ClientDTO() {
     }
 
-    public void setId(String id) {
-        this.id = id;
+    public String getClientId() {
+        return clientId;
+    }
+
+    public void setClientId(String clientId) {
+        this.clientId = clientId;
     }
 }

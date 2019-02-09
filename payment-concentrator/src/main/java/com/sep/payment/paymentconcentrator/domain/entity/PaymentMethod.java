@@ -12,7 +12,10 @@ public class PaymentMethod implements Serializable {
     private Long id;
 
     @Column
-    private String name;
+    private String methodName;   // bank1, Unicredit
+
+    @Column
+    private String method;  // bank,crypto
 
 
     public PaymentMethod() {
@@ -26,11 +29,19 @@ public class PaymentMethod implements Serializable {
         this.id = id;
     }
 
-    public String getName() {
-        return name;
+    public String getMethodName() {
+        return methodName;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setMethodName(String methodName) {
+        this.methodName = methodName;
+    }
+
+    public String getMethod() {
+        return method;
+    }
+
+    public void setMethod(String method) {
+        this.method = method;
     }
 }

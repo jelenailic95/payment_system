@@ -1,5 +1,7 @@
 package com.sep.bank.bankservice.entity.dto;
 
+import com.sep.bank.bankservice.entity.TransactionStatus;
+
 import java.util.Date;
 
 public class PaymentResultDTO {
@@ -7,9 +9,17 @@ public class PaymentResultDTO {
     private Date acquirerTimestamp;
     private Long issuerOrderId;
     private Date issuerTimestamp;
-    private String status;
+    private TransactionStatus status;
 
     public PaymentResultDTO() {
+    }
+
+    public PaymentResultDTO(Long acquirerOrderId, Date acquirerTimestamp, Long issuerOrderId, Date issuerTimestamp, TransactionStatus status) {
+        this.acquirerOrderId = acquirerOrderId;
+        this.acquirerTimestamp = acquirerTimestamp;
+        this.issuerOrderId = issuerOrderId;
+        this.issuerTimestamp = issuerTimestamp;
+        this.status = status;
     }
 
     public Long getAcquirerOrderId() {
@@ -44,11 +54,12 @@ public class PaymentResultDTO {
         this.issuerTimestamp = issuerTimestamp;
     }
 
-    public String getStatus() {
+    public TransactionStatus getStatus() {
         return status;
     }
 
-    public void setStatus(String status) {
+    public void setStatus(TransactionStatus status) {
         this.status = status;
     }
+
 }

@@ -1,13 +1,11 @@
 package com.sep.pcc.paymentcardcentre.entity.dto;
 
-import java.util.Date;
-
 public class CardDTO {
 
     private String pan;
-    private int securityCode;
+    private String securityCode;
     private String cardHolderName;
-    private Date expirationDate;
+    private String expirationDate;
 
     public CardDTO() {
     }
@@ -20,11 +18,11 @@ public class CardDTO {
         this.pan = pan;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
@@ -32,15 +30,15 @@ public class CardDTO {
         return cardHolderName;
     }
 
-    public void setCardHolderName(String hardHolderName) {
-        this.cardHolderName = hardHolderName;
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = cardHolderName;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 }

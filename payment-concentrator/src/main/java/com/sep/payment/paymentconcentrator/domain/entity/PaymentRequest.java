@@ -1,5 +1,12 @@
 package com.sep.payment.paymentconcentrator.domain.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.sep.payment.paymentconcentrator.domain.TransactionStatus;
+import lombok.Builder;
+import org.hibernate.annotations.CreationTimestamp;
+import org.hibernate.annotations.Generated;
+import org.hibernate.annotations.GenerationTime;
+
 import javax.persistence.*;
 import javax.validation.constraints.Max;
 import javax.validation.constraints.Min;
@@ -8,29 +15,27 @@ import java.util.Date;
 
 
 @Entity
+@JsonIgnoreProperties({"hibernateLazyInitializer", "handler"})
 public class PaymentRequest {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Column//10,2
+    @Column
     private double amount;
 
-//    @Size(max = 30, min = 30)
     @Column
     private String merchantId;
 
-//    @Size(max = 100, min = 100)
     @Column
     private String merchantPassword;
 
-//    @Max(10)
-//    @Min(10)
     @Column
     private Long merchantOrderId;
 
     @Column
+    @CreationTimestamp
     private Date merchantTimestamp;
 
     @Column
@@ -41,6 +46,23 @@ public class PaymentRequest {
 
     @Column
     private String errorUrl;
+
+    @Column
+    private TransactionStatus status;
+
+    @Column
+    private Long paperId;
+
+    @Column
+    private String journalName;
+
+    @Column
+    private String typeOfPayment;
+
+    @Column
+    private String username;
+
+    @Column String scName;
 
 
     public PaymentRequest() {
@@ -102,14 +124,6 @@ public class PaymentRequest {
         this.failedUrl = failedUrl;
     }
 
-    public Date getMerchandTimestamp() {
-        return merchantTimestamp;
-    }
-
-    public void setMerchandTimestamp(Date merchandTimestamp) {
-        this.merchantTimestamp = merchandTimestamp;
-    }
-
     public String getSuccessUrl() {
         return successUrl;
     }
@@ -132,5 +146,53 @@ public class PaymentRequest {
 
     public void setErrorUrl(String errorUrl) {
         this.errorUrl = errorUrl;
+    }
+
+    public TransactionStatus getStatus() {
+        return status;
+    }
+
+    public void setStatus(TransactionStatus status) {
+        this.status = status;
+    }
+
+    public Long getPaperId() {
+        return paperId;
+    }
+
+    public void setPaperId(Long paperId) {
+        this.paperId = paperId;
+    }
+
+    public String getJournalName() {
+        return journalName;
+    }
+
+    public void setJournalName(String journalName) {
+        this.journalName = journalName;
+    }
+
+    public String getTypeOfPayment() {
+        return typeOfPayment;
+    }
+
+    public void setTypeOfPayment(String typeOfPayment) {
+        this.typeOfPayment = typeOfPayment;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getScName() {
+        return scName;
+    }
+
+    public void setScName(String scName) {
+        this.scName = scName;
     }
 }

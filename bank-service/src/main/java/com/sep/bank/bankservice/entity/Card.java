@@ -1,11 +1,13 @@
 package com.sep.bank.bankservice.entity;
 
+
+import com.sep.bank.bankservice.security.CardListener;
+
 import javax.persistence.*;
-import java.util.Date;
 
 @Entity
+@EntityListeners(CardListener.class)
 public class Card {
-
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
@@ -14,18 +16,25 @@ public class Card {
     private String pan;
 
     @Column
-    private int securityCode;
+    private String securityCode;
 
     @Column
     private String cardHolderName;
 
     @Column
-    private Date expirationDate;
+    private String expirationDate;
 
     @ManyToOne
     private Account account;
 
     public Card() {
+    }
+
+    public Card(String pan, String securityCode, String cardHolderName, String expirationDate) {
+        this.pan = pan;
+        this.securityCode = securityCode;
+        this.cardHolderName = cardHolderName;
+        this.expirationDate = expirationDate;
     }
 
     public Long getId() {
@@ -44,11 +53,11 @@ public class Card {
         this.pan = pan;
     }
 
-    public int getSecurityCode() {
+    public String getSecurityCode() {
         return securityCode;
     }
 
-    public void setSecurityCode(int securityCode) {
+    public void setSecurityCode(String securityCode) {
         this.securityCode = securityCode;
     }
 
@@ -60,11 +69,11 @@ public class Card {
         this.cardHolderName = cardHolderName;
     }
 
-    public Date getExpirationDate() {
+    public String getExpirationDate() {
         return expirationDate;
     }
 
-    public void setExpirationDate(Date expirationDate) {
+    public void setExpirationDate(String expirationDate) {
         this.expirationDate = expirationDate;
     }
 
